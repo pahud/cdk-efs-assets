@@ -17,6 +17,7 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/aws-efs',
     '@aws-cdk/aws-iam',
     '@aws-cdk/aws-lambda',
+    '@aws-cdk/aws-s3',
     '@aws-cdk/aws-secretsmanager',
     '@aws-cdk/custom-resources',
   ],
