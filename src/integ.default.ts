@@ -1,7 +1,9 @@
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as efs from '@aws-cdk/aws-efs';
+import { Bucket } from '@aws-cdk/aws-s3';
 import { App, Stack, RemovalPolicy } from '@aws-cdk/core';
-import { GithubSourceSync } from './';
+import { GithubSourceSync } from './github-source-sync';
+import { S3ArchiveSync } from './s3-archive-sync';
 
 const AWS_DEFAULT_REGION = 'us-east-1';
 
@@ -25,6 +27,10 @@ export class IntegTesting {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
+    const bucket = new Bucket(stack, 'Bucket', {
+      bucketName: 'a-bucket',
+    });
+
     const efsAccessPoint = fs.addAccessPoint('EfsAccessPoint', {
       path: '/demo',
       createAcl: {
@@ -46,8 +52,18 @@ export class IntegTesting {
       vpc,
     });
 
+    // create the recurring sync from S3 Archive to Amazon EFS
+    new S3ArchiveSync(stack, 'S3ArchiveSync', {
+      bucket: bucket,
+      zipFilePath: 'folder/foo.zip',
+      efsAccessPoint,
+      runsAfter: [fs.mountTargetsAvailable],
+      vpc,
+      shouldMonitorS3Path: true,
+    });
+
     this.stack = [stack];
-  };
+  }
 }
 
 // run the integ testing
