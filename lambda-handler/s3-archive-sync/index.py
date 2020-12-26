@@ -53,11 +53,9 @@ def on_delete(event):
   pass
 
 def sync():
-  _, _, zip_filename = zipped_key.rpartition('/')
-  zip_filename_no_ext = zip_filename.split('.')[0]
-  subprocess.check_call([ 'rm', '-rf', '{}/{}'.format(mount_target, zip_filename_no_ext) ])
-  os.mkdir('{}/{}'.format(mount_target, zip_filename_no_ext))
+  # Empty out mount target directory before extracting
+  subprocess.check_call([ 'rm', '-rf', '{}/*'.format(mount_target) ])
 
   s3_buffer = BytesIO(s3.get_object(Bucket=bucket, Key=zipped_key)['Body'].read())
   with zipfile.ZipFile(s3_buffer) as z:
-    z.extractall('{}/{}'.format(mount_target, zip_filename_no_ext))
+    z.extractall('{}'.format(mount_target))
