@@ -59,7 +59,7 @@ export class IntegTesting {
       efsAccessPoint,
       runsAfter: [fs.mountTargetsAvailable],
       vpc,
-      shouldMonitorS3Path: true,
+      syncOnUpdate: true,
     });
 
     this.stack = [stack];

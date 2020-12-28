@@ -21,12 +21,12 @@ export interface S3ArchiveFeederProps extends CommonEfsAssetsProps {
 
   /**
    * If this is set to true, then whenever a new object is uploaded to the specified path, an EFS sync will be triggered.
-   * Currently, this functionality depends on at least on CloudTrail Trail existing in your account that captures the S3
+   * Currently, this functionality depends on at least one CloudTrail Trail existing in your account that captures the S3
    * event.
    *
    * (optional, default: true)
    */
-  readonly shouldMonitorS3Path?: boolean;
+  readonly syncOnUpdate?: boolean;
 }
 
 export class S3ArchiveSync extends cdk.Construct {
@@ -34,7 +34,7 @@ export class S3ArchiveSync extends cdk.Construct {
     super(scope, id);
 
     const vpcSubnets = props.vpcSubnets ?? { subnetType: ec2.SubnetType.PRIVATE };
-    const shouldMonitorS3Path = props.shouldMonitorS3Path ?? true;
+    const syncOnUpdate = props.syncOnUpdate ?? true;
 
     const handler = new lambda.Function(this, 'Handler', {
       runtime: lambda.Runtime.PYTHON_3_8,
@@ -61,7 +61,7 @@ export class S3ArchiveSync extends cdk.Construct {
       ],
     });
 
-    if (shouldMonitorS3Path) {
+    if (syncOnUpdate) {
       // In order to support bucket notifications for imported IBucket objects, onCloudTrailWriteObject is used.
       // TODO: When https://github.com/aws/aws-cdk/issues/2004 is closed, can use handler.addEventSource instead.
       /*

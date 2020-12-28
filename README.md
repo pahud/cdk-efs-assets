@@ -54,7 +54,7 @@ new GithubSourceSync(stack, 'GithubSourceSync', {
 
 The `S3ArchiveSync` deploys your Amazon EFS assets from a specified zip archive file stored in S3. The extracted contents will be placed into the root directory of the access point.
 
-If the `shouldMonitorS3Path` property is set to `true` (defaults to `true`), then the specified zip file path will be monitored, and if a new object is uploaded to the path, then it will resync the data to EFS. Note that to use this functionality, you must have a CloudTrail Trail in your account that captures the desired S3 write data event.
+If the `syncOnUpdate` property is set to `true` (defaults to `true`), then the specified zip file path will be monitored, and if a new object is uploaded to the path, then it will resync the data to EFS. Note that to use this functionality, you must have a CloudTrail Trail in your account that captures the desired S3 write data event.
 
 *WARNING*: The contents of the access point will be removed before extracting the zip file.
 

@@ -71,7 +71,7 @@ new S3ArchiveSync(scope: Construct, id: string, props: S3ArchiveFeederProps)
   * **vpcSubnets** (<code>[SubnetSelection](#aws-cdk-aws-ec2-subnetselection)</code>)  Where to place the network interfaces within the VPC. __*Optional*__
   * **bucket** (<code>[IBucket](#aws-cdk-aws-s3-ibucket)</code>)  The S3 bucket containing the archive file. 
   * **zipFilePath** (<code>string</code>)  The path of the zip file to extract in the S3 bucket. 
-  * **shouldMonitorS3Path** (<code>boolean</code>)  If this is set to true, then whenever a new object is uploaded to the specified path, an EFS sync will be triggered. __*Optional*__
+  * **syncOnUpdate** (<code>boolean</code>)  If this is set to true, then whenever a new object is uploaded to the specified path, an EFS sync will be triggered. __*Optional*__
 
 
 
@@ -123,7 +123,7 @@ Name | Type | Description
 **vpc** | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | The VPC of the Amazon EFS Filesystem.
 **zipFilePath** | <code>string</code> | The path of the zip file to extract in the S3 bucket.
 **runsAfter**? | <code>Array<[IDependable](#aws-cdk-core-idependable)></code> | The dependent resources before triggering the sync.<br/>__*Optional*__
-**shouldMonitorS3Path**? | <code>boolean</code> | If this is set to true, then whenever a new object is uploaded to the specified path, an EFS sync will be triggered.<br/>__*Optional*__
+**syncOnUpdate**? | <code>boolean</code> | If this is set to true, then whenever a new object is uploaded to the specified path, an EFS sync will be triggered.<br/>__*Optional*__
 **vpcSubnets**? | <code>[SubnetSelection](#aws-cdk-aws-ec2-subnetselection)</code> | Where to place the network interfaces within the VPC.<br/>__*Optional*__
 
 
