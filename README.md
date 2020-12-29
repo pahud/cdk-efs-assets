@@ -96,10 +96,10 @@ const bucket = Bucket.fromBucketName(this, 'Bucket', 'demo-bucket');
 
 // Will sync initial data from compressed S3 archive to EFS, and resync if the zip file in S3 changes
 new S3ArchiveSync(this, 'S3ArchiveSync', {
-  bucket: bucket,
+  bucket,
   zipFilePath: 'folder/foo.zip',
-  vpc: vpc,
-  efsAccessPoint: efsAccessPoint,
+  vpc,
+  efsAccessPoint,
   runsAfter: [fs.mountTargetsAvailable],
 });
 ```
@@ -107,6 +107,5 @@ new S3ArchiveSync(this, 'S3ArchiveSync', {
 # `S3SourceSync`
 
 TBD
-
 
 
