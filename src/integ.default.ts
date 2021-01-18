@@ -2,8 +2,7 @@ import * as ec2 from '@aws-cdk/aws-ec2';
 import * as efs from '@aws-cdk/aws-efs';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { App, Stack, RemovalPolicy } from '@aws-cdk/core';
-import { GithubSourceSync } from './github-source-sync';
-import { S3ArchiveSync } from './s3-archive-sync';
+import { SyncedAccessPoint, SyncSource } from './synced-access-point';
 
 const AWS_DEFAULT_REGION = 'us-east-1';
 
@@ -31,8 +30,9 @@ export class IntegTesting {
       bucketName: 'a-bucket',
     });
 
-    const efsAccessPoint = fs.addAccessPoint('EfsAccessPoint', {
-      path: '/demo',
+    new SyncedAccessPoint(stack, 'GithubSyncedAccessPoint', {
+      fileSystem: fs,
+      path: '/demo-github',
       createAcl: {
         ownerGid: '1001',
         ownerUid: '1001',
@@ -42,24 +42,29 @@ export class IntegTesting {
         uid: '1001',
         gid: '1001',
       },
+      syncSource: SyncSource.github({
+        vpc: vpc,
+        repository: 'https://github.com/pahud/cdk-efs-assets.git',
+      }),
     });
 
-    // create the one-time sync from Github repository to Amaozn EFS
-    new GithubSourceSync(stack, 'GithubSourceSync', {
-      repository: 'https://github.com/pahud/cdk-efs-assets.git',
-      efsAccessPoint,
-      runsAfter: [fs.mountTargetsAvailable],
-      vpc,
-    });
-
-    // create the recurring sync from S3 Archive to Amazon EFS
-    new S3ArchiveSync(stack, 'S3ArchiveSync', {
-      bucket: bucket,
-      zipFilePath: 'folder/foo.zip',
-      efsAccessPoint,
-      runsAfter: [fs.mountTargetsAvailable],
-      vpc,
-      syncOnUpdate: true,
+    new SyncedAccessPoint(stack, 'S3SyncedAccessPoint', {
+      fileSystem: fs,
+      path: '/demo-s3-archive',
+      createAcl: {
+        ownerGid: '1001',
+        ownerUid: '1001',
+        permissions: '0755',
+      },
+      posixUser: {
+        uid: '1001',
+        gid: '1001',
+      },
+      syncSource: SyncSource.s3Archive({
+        vpc: vpc,
+        bucket: bucket,
+        zipFilePath: 'folder/foo.zip',
+      }),
     });
 
     this.stack = [stack];

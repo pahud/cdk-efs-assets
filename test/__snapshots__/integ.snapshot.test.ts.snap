@@ -3,16 +3,28 @@
 exports[`integ snapshot validation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters2657f0b13846999aa09b4b32a97551d227bbddbb93f6bc1d714d6558ef64e00bArtifactHash6199E2E2": Object {
-      "Description": "Artifact hash for asset \\"2657f0b13846999aa09b4b32a97551d227bbddbb93f6bc1d714d6558ef64e00b\\"",
+    "AssetParameters02b0568b89e58d86f90069ce65d4494bb7aeb3fc0ff689a8e217e08312b57a0dArtifactHash8162C105": Object {
+      "Description": "Artifact hash for asset \\"02b0568b89e58d86f90069ce65d4494bb7aeb3fc0ff689a8e217e08312b57a0d\\"",
       "Type": "String",
     },
-    "AssetParameters2657f0b13846999aa09b4b32a97551d227bbddbb93f6bc1d714d6558ef64e00bS3Bucket6ECA475E": Object {
-      "Description": "S3 bucket for asset \\"2657f0b13846999aa09b4b32a97551d227bbddbb93f6bc1d714d6558ef64e00b\\"",
+    "AssetParameters02b0568b89e58d86f90069ce65d4494bb7aeb3fc0ff689a8e217e08312b57a0dS3Bucket1ABD42F0": Object {
+      "Description": "S3 bucket for asset \\"02b0568b89e58d86f90069ce65d4494bb7aeb3fc0ff689a8e217e08312b57a0d\\"",
       "Type": "String",
     },
-    "AssetParameters2657f0b13846999aa09b4b32a97551d227bbddbb93f6bc1d714d6558ef64e00bS3VersionKeyE9341449": Object {
-      "Description": "S3 key for asset version \\"2657f0b13846999aa09b4b32a97551d227bbddbb93f6bc1d714d6558ef64e00b\\"",
+    "AssetParameters02b0568b89e58d86f90069ce65d4494bb7aeb3fc0ff689a8e217e08312b57a0dS3VersionKeyD0BD9E40": Object {
+      "Description": "S3 key for asset version \\"02b0568b89e58d86f90069ce65d4494bb7aeb3fc0ff689a8e217e08312b57a0d\\"",
+      "Type": "String",
+    },
+    "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaArtifactHashACDC927C": Object {
+      "Description": "Artifact hash for asset \\"9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0eca\\"",
+      "Type": "String",
+    },
+    "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaS3Bucket4AFEBB71": Object {
+      "Description": "S3 bucket for asset \\"9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0eca\\"",
+      "Type": "String",
+    },
+    "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaS3VersionKey0205EC90": Object {
+      "Description": "S3 key for asset version \\"9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0eca\\"",
       "Type": "String",
     },
     "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cArtifactHash627DAAA7": Object {
@@ -27,18 +39,6 @@ Object {
       "Description": "S3 key for asset version \\"c691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49c\\"",
       "Type": "String",
     },
-    "AssetParametersd1cf057bcb7366084553003eddea9367322d0dca23a8a71032810e2b84b8882aArtifactHashDB9884B6": Object {
-      "Description": "Artifact hash for asset \\"d1cf057bcb7366084553003eddea9367322d0dca23a8a71032810e2b84b8882a\\"",
-      "Type": "String",
-    },
-    "AssetParametersd1cf057bcb7366084553003eddea9367322d0dca23a8a71032810e2b84b8882aS3Bucket84C7183C": Object {
-      "Description": "S3 bucket for asset \\"d1cf057bcb7366084553003eddea9367322d0dca23a8a71032810e2b84b8882a\\"",
-      "Type": "String",
-    },
-    "AssetParametersd1cf057bcb7366084553003eddea9367322d0dca23a8a71032810e2b84b8882aS3VersionKeyF976BFFD": Object {
-      "Description": "S3 key for asset version \\"d1cf057bcb7366084553003eddea9367322d0dca23a8a71032810e2b84b8882a\\"",
-      "Type": "String",
-    },
   },
   "Resources": Object {
     "Bucket83908E77": Object {
@@ -49,7 +49,7 @@ Object {
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
-    "BucketWriteObjectListener245DB826": Object {
+    "BucketS3FileListenerfoo5F5E31EE": Object {
       "Properties": Object {
         "EventPattern": Object {
           "detail": Object {
@@ -99,7 +99,7 @@ Object {
           Object {
             "Arn": Object {
               "Fn::GetAtt": Array [
-                "S3ArchiveSyncHandlerF3A54A13",
+                "S3SyncedAccessPointSyncHandlerE3E29B2F",
                 "Arn",
               ],
             },
@@ -109,19 +109,19 @@ Object {
       },
       "Type": "AWS::Events::Rule",
     },
-    "BucketWriteObjectListenerAllowEventRuletestingstack9BucketWriteObjectListener70E7127BDEA0546B": Object {
+    "BucketS3FileListenerfooAllowEventRuletestingstack9BucketS3FileListenerfoo54124A37996C4799": Object {
       "Properties": Object {
         "Action": "lambda:InvokeFunction",
         "FunctionName": Object {
           "Fn::GetAtt": Array [
-            "S3ArchiveSyncHandlerF3A54A13",
+            "S3SyncedAccessPointSyncHandlerE3E29B2F",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
         "SourceArn": Object {
           "Fn::GetAtt": Array [
-            "BucketWriteObjectListener245DB826",
+            "BucketS3FileListenerfoo5F5E31EE",
             "Arn",
           ],
         },
@@ -140,26 +140,6 @@ Object {
       },
       "Type": "AWS::EFS::FileSystem",
       "UpdateReplacePolicy": "Delete",
-    },
-    "FilesystemEfsAccessPointE102BC46": Object {
-      "Properties": Object {
-        "FileSystemId": Object {
-          "Ref": "Filesystem653F8FD3",
-        },
-        "PosixUser": Object {
-          "Gid": "1001",
-          "Uid": "1001",
-        },
-        "RootDirectory": Object {
-          "CreationInfo": Object {
-            "OwnerGid": "1001",
-            "OwnerUid": "1001",
-            "Permissions": "0755",
-          },
-          "Path": "/demo",
-        },
-      },
-      "Type": "AWS::EFS::AccessPoint",
     },
     "FilesystemEfsMountTarget1FA5225C0": Object {
       "Properties": Object {
@@ -215,9 +195,9 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "FilesystemEfsSecurityGroupfromtestingstack9GithubSourceSyncGithubHandlerSecurityGroupD9FA71512049864F2F34": Object {
+    "FilesystemEfsSecurityGroupfromtestingstack9GithubSyncedAccessPointGithubHandlerSecurityGroup5027C02E2049062A79CA": Object {
       "Properties": Object {
-        "Description": "from testingstack9GithubSourceSyncGithubHandlerSecurityGroupD9FA7151:2049",
+        "Description": "from testingstack9GithubSyncedAccessPointGithubHandlerSecurityGroup5027C02E:2049",
         "FromPort": 2049,
         "GroupId": Object {
           "Fn::GetAtt": Array [
@@ -228,7 +208,7 @@ Object {
         "IpProtocol": "tcp",
         "SourceSecurityGroupId": Object {
           "Fn::GetAtt": Array [
-            "GithubSourceSyncGithubHandlerSecurityGroup8108C7C4",
+            "GithubSyncedAccessPointGithubHandlerSecurityGroup0CC606E3",
             "GroupId",
           ],
         },
@@ -236,9 +216,9 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "FilesystemEfsSecurityGroupfromtestingstack9S3ArchiveSyncHandlerSecurityGroup385DEE8020491800EF40": Object {
+    "FilesystemEfsSecurityGroupfromtestingstack9S3SyncedAccessPointSyncHandlerSecurityGroupD6B134432049AE0F1509": Object {
       "Properties": Object {
-        "Description": "from testingstack9S3ArchiveSyncHandlerSecurityGroup385DEE80:2049",
+        "Description": "from testingstack9S3SyncedAccessPointSyncHandlerSecurityGroupD6B13443:2049",
         "FromPort": 2049,
         "GroupId": Object {
           "Fn::GetAtt": Array [
@@ -249,7 +229,7 @@ Object {
         "IpProtocol": "tcp",
         "SourceSecurityGroupId": Object {
           "Fn::GetAtt": Array [
-            "S3ArchiveSyncHandlerSecurityGroup8367F278",
+            "S3SyncedAccessPointSyncHandlerSecurityGroup3A598069",
             "GroupId",
           ],
         },
@@ -257,17 +237,37 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "GithubSourceSyncGithubHandler61A0C06C": Object {
+    "GithubSyncedAccessPoint7D9E7A52": Object {
+      "Properties": Object {
+        "FileSystemId": Object {
+          "Ref": "Filesystem653F8FD3",
+        },
+        "PosixUser": Object {
+          "Gid": "1001",
+          "Uid": "1001",
+        },
+        "RootDirectory": Object {
+          "CreationInfo": Object {
+            "OwnerGid": "1001",
+            "OwnerUid": "1001",
+            "Permissions": "0755",
+          },
+          "Path": "/demo-github",
+        },
+      },
+      "Type": "AWS::EFS::AccessPoint",
+    },
+    "GithubSyncedAccessPointGithubHandler9DBEA6D6": Object {
       "DependsOn": Array [
         "FilesystemEfsMountTarget1FA5225C0",
         "FilesystemEfsMountTarget29F807637",
-        "GithubSourceSyncGithubHandlerServiceRoleDefaultPolicy2BA47B56",
-        "GithubSourceSyncGithubHandlerServiceRole97C665BD",
+        "GithubSyncedAccessPointGithubHandlerServiceRoleDefaultPolicy32079933",
+        "GithubSyncedAccessPointGithubHandlerServiceRoleBBF897E8",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters2657f0b13846999aa09b4b32a97551d227bbddbb93f6bc1d714d6558ef64e00bS3Bucket6ECA475E",
+            "Ref": "AssetParameters02b0568b89e58d86f90069ce65d4494bb7aeb3fc0ff689a8e217e08312b57a0dS3Bucket1ABD42F0",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -280,7 +280,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters2657f0b13846999aa09b4b32a97551d227bbddbb93f6bc1d714d6558ef64e00bS3VersionKeyE9341449",
+                          "Ref": "AssetParameters02b0568b89e58d86f90069ce65d4494bb7aeb3fc0ff689a8e217e08312b57a0dS3VersionKeyD0BD9E40",
                         },
                       ],
                     },
@@ -293,7 +293,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters2657f0b13846999aa09b4b32a97551d227bbddbb93f6bc1d714d6558ef64e00bS3VersionKeyE9341449",
+                          "Ref": "AssetParameters02b0568b89e58d86f90069ce65d4494bb7aeb3fc0ff689a8e217e08312b57a0dS3VersionKeyD0BD9E40",
                         },
                       ],
                     },
@@ -307,6 +307,7 @@ Object {
           "Variables": Object {
             "MOUNT_TARGET": "/mnt/efsmount",
             "REPOSITORY_URI": "https://github.com/pahud/cdk-efs-assets.git",
+            "SYNC_PATH": "/cdk-efs-assets",
           },
         },
         "FileSystemConfigs": Array [
@@ -321,7 +322,7 @@ Object {
                   },
                   ":elasticfilesystem:us-east-1:11111111111:access-point/",
                   Object {
-                    "Ref": "FilesystemEfsAccessPointE102BC46",
+                    "Ref": "GithubSyncedAccessPoint7D9E7A52",
                   },
                 ],
               ],
@@ -336,17 +337,17 @@ Object {
         "MemorySize": 512,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "GithubSourceSyncGithubHandlerServiceRole97C665BD",
+            "GithubSyncedAccessPointGithubHandlerServiceRoleBBF897E8",
             "Arn",
           ],
         },
         "Runtime": "python3.8",
-        "Timeout": 60,
+        "Timeout": 180,
         "VpcConfig": Object {
           "SecurityGroupIds": Array [
             Object {
               "Fn::GetAtt": Array [
-                "GithubSourceSyncGithubHandlerSecurityGroup8108C7C4",
+                "GithubSyncedAccessPointGithubHandlerSecurityGroup0CC606E3",
                 "GroupId",
               ],
             },
@@ -359,13 +360,13 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "GithubSourceSyncGithubHandlerSecurityGroup8108C7C4": Object {
+    "GithubSyncedAccessPointGithubHandlerSecurityGroup0CC606E3": Object {
       "DependsOn": Array [
         "FilesystemEfsMountTarget1FA5225C0",
         "FilesystemEfsMountTarget29F807637",
       ],
       "Properties": Object {
-        "GroupDescription": "Automatic security group for Lambda Function testingstack9GithubSourceSyncGithubHandler6914F5A9",
+        "GroupDescription": "Automatic security group for Lambda Function testingstack9GithubSyncedAccessPointGithubHandler0E0F33CF",
         "SecurityGroupEgress": Array [
           Object {
             "CidrIp": "0.0.0.0/0",
@@ -377,7 +378,7 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "GithubSourceSyncGithubHandlerServiceRole97C665BD": Object {
+    "GithubSyncedAccessPointGithubHandlerServiceRoleBBF897E8": Object {
       "DependsOn": Array [
         "FilesystemEfsMountTarget1FA5225C0",
         "FilesystemEfsMountTarget29F807637",
@@ -424,7 +425,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "GithubSourceSyncGithubHandlerServiceRoleDefaultPolicy2BA47B56": Object {
+    "GithubSyncedAccessPointGithubHandlerServiceRoleDefaultPolicy32079933": Object {
       "DependsOn": Array [
         "FilesystemEfsMountTarget1FA5225C0",
         "FilesystemEfsMountTarget29F807637",
@@ -446,7 +447,7 @@ Object {
                         },
                         ":elasticfilesystem:us-east-1:11111111111:access-point/",
                         Object {
-                          "Ref": "FilesystemEfsAccessPointE102BC46",
+                          "Ref": "GithubSyncedAccessPoint7D9E7A52",
                         },
                       ],
                     ],
@@ -478,19 +479,19 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "GithubSourceSyncGithubHandlerServiceRoleDefaultPolicy2BA47B56",
+        "PolicyName": "GithubSyncedAccessPointGithubHandlerServiceRoleDefaultPolicy32079933",
         "Roles": Array [
           Object {
-            "Ref": "GithubSourceSyncGithubHandlerServiceRole97C665BD",
+            "Ref": "GithubSyncedAccessPointGithubHandlerServiceRoleBBF897E8",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "GithubSourceSyncMyProviderframeworkonEvent2E1D7F65": Object {
+    "GithubSyncedAccessPointProviderframeworkonEventE33595E1": Object {
       "DependsOn": Array [
-        "GithubSourceSyncMyProviderframeworkonEventServiceRoleDefaultPolicy8878BBC2",
-        "GithubSourceSyncMyProviderframeworkonEventServiceRole647A463D",
+        "GithubSyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy950375A0",
+        "GithubSyncedAccessPointProviderframeworkonEventServiceRole91268913",
       ],
       "Properties": Object {
         "Code": Object {
@@ -531,12 +532,12 @@ Object {
             ],
           },
         },
-        "Description": "AWS CDK resource provider framework - onEvent (testing-stack9/GithubSourceSync/MyProvider)",
+        "Description": "AWS CDK resource provider framework - onEvent (testing-stack9/GithubSyncedAccessPoint/Provider)",
         "Environment": Object {
           "Variables": Object {
             "USER_ON_EVENT_FUNCTION_ARN": Object {
               "Fn::GetAtt": Array [
-                "GithubSourceSyncGithubHandler61A0C06C",
+                "GithubSyncedAccessPointGithubHandler9DBEA6D6",
                 "Arn",
               ],
             },
@@ -545,7 +546,7 @@ Object {
         "Handler": "framework.onEvent",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "GithubSourceSyncMyProviderframeworkonEventServiceRole647A463D",
+            "GithubSyncedAccessPointProviderframeworkonEventServiceRole91268913",
             "Arn",
           ],
         },
@@ -554,7 +555,7 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "GithubSourceSyncMyProviderframeworkonEventServiceRole647A463D": Object {
+    "GithubSyncedAccessPointProviderframeworkonEventServiceRole91268913": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -585,7 +586,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "GithubSourceSyncMyProviderframeworkonEventServiceRoleDefaultPolicy8878BBC2": Object {
+    "GithubSyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy950375A0": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
@@ -594,7 +595,7 @@ Object {
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::GetAtt": Array [
-                  "GithubSourceSyncGithubHandler61A0C06C",
+                  "GithubSyncedAccessPointGithubHandler9DBEA6D6",
                   "Arn",
                 ],
               },
@@ -602,21 +603,21 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "GithubSourceSyncMyProviderframeworkonEventServiceRoleDefaultPolicy8878BBC2",
+        "PolicyName": "GithubSyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy950375A0",
         "Roles": Array [
           Object {
-            "Ref": "GithubSourceSyncMyProviderframeworkonEventServiceRole647A463D",
+            "Ref": "GithubSyncedAccessPointProviderframeworkonEventServiceRole91268913",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "GithubSourceSyncSyncTrigger013FD605": Object {
+    "GithubSyncedAccessPointSyncTrigger55B097A4": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
-            "GithubSourceSyncMyProviderframeworkonEvent2E1D7F65",
+            "GithubSyncedAccessPointProviderframeworkonEventE33595E1",
             "Arn",
           ],
         },
@@ -624,17 +625,35 @@ Object {
       "Type": "AWS::CloudFormation::CustomResource",
       "UpdateReplacePolicy": "Delete",
     },
-    "S3ArchiveSyncHandlerF3A54A13": Object {
+    "S3SyncedAccessPointFF91B6A5": Object {
+      "Properties": Object {
+        "FileSystemId": Object {
+          "Ref": "Filesystem653F8FD3",
+        },
+        "PosixUser": Object {
+          "Gid": "1001",
+          "Uid": "1001",
+        },
+        "RootDirectory": Object {
+          "CreationInfo": Object {
+            "OwnerGid": "1001",
+            "OwnerUid": "1001",
+            "Permissions": "0755",
+          },
+          "Path": "/demo-s3-archive",
+        },
+      },
+      "Type": "AWS::EFS::AccessPoint",
+    },
+    "S3SyncedAccessPointProviderframeworkonEvent4D8BAF30": Object {
       "DependsOn": Array [
-        "FilesystemEfsMountTarget1FA5225C0",
-        "FilesystemEfsMountTarget29F807637",
-        "S3ArchiveSyncHandlerServiceRoleDefaultPolicyCE950A3A",
-        "S3ArchiveSyncHandlerServiceRoleC03D120E",
+        "S3SyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy8624C7E3",
+        "S3SyncedAccessPointProviderframeworkonEventServiceRole22ADA620",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersd1cf057bcb7366084553003eddea9367322d0dca23a8a71032810e2b84b8882aS3Bucket84C7183C",
+            "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3BucketEAC9DD43",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -647,7 +666,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersd1cf057bcb7366084553003eddea9367322d0dca23a8a71032810e2b84b8882aS3VersionKeyF976BFFD",
+                          "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3VersionKeyDD9AE9E7",
                         },
                       ],
                     },
@@ -660,7 +679,133 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersd1cf057bcb7366084553003eddea9367322d0dca23a8a71032810e2b84b8882aS3VersionKeyF976BFFD",
+                          "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3VersionKeyDD9AE9E7",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            ],
+          },
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (testing-stack9/S3SyncedAccessPoint/Provider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "S3SyncedAccessPointSyncHandlerE3E29B2F",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "S3SyncedAccessPointProviderframeworkonEventServiceRole22ADA620",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs10.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "S3SyncedAccessPointProviderframeworkonEventServiceRole22ADA620": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "S3SyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy8624C7E3": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "S3SyncedAccessPointSyncHandlerE3E29B2F",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "S3SyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy8624C7E3",
+        "Roles": Array [
+          Object {
+            "Ref": "S3SyncedAccessPointProviderframeworkonEventServiceRole22ADA620",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "S3SyncedAccessPointSyncHandlerE3E29B2F": Object {
+      "DependsOn": Array [
+        "FilesystemEfsMountTarget1FA5225C0",
+        "FilesystemEfsMountTarget29F807637",
+        "S3SyncedAccessPointSyncHandlerServiceRoleDefaultPolicy3959962C",
+        "S3SyncedAccessPointSyncHandlerServiceRole4BAEA2D1",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaS3Bucket4AFEBB71",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                Object {
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaS3VersionKey0205EC90",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                Object {
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaS3VersionKey0205EC90",
                         },
                       ],
                     },
@@ -676,6 +821,7 @@ Object {
               "Ref": "Bucket83908E77",
             },
             "MOUNT_TARGET": "/mnt/efsmount",
+            "SYNC_PATH": "/foo",
             "ZIPPED_KEY": "folder/foo.zip",
           },
         },
@@ -691,7 +837,7 @@ Object {
                   },
                   ":elasticfilesystem:us-east-1:11111111111:access-point/",
                   Object {
-                    "Ref": "FilesystemEfsAccessPointE102BC46",
+                    "Ref": "S3SyncedAccessPointFF91B6A5",
                   },
                 ],
               ],
@@ -703,7 +849,7 @@ Object {
         "MemorySize": 512,
         "Role": Object {
           "Fn::GetAtt": Array [
-            "S3ArchiveSyncHandlerServiceRoleC03D120E",
+            "S3SyncedAccessPointSyncHandlerServiceRole4BAEA2D1",
             "Arn",
           ],
         },
@@ -713,7 +859,7 @@ Object {
           "SecurityGroupIds": Array [
             Object {
               "Fn::GetAtt": Array [
-                "S3ArchiveSyncHandlerSecurityGroup8367F278",
+                "S3SyncedAccessPointSyncHandlerSecurityGroup3A598069",
                 "GroupId",
               ],
             },
@@ -726,13 +872,13 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "S3ArchiveSyncHandlerSecurityGroup8367F278": Object {
+    "S3SyncedAccessPointSyncHandlerSecurityGroup3A598069": Object {
       "DependsOn": Array [
         "FilesystemEfsMountTarget1FA5225C0",
         "FilesystemEfsMountTarget29F807637",
       ],
       "Properties": Object {
-        "GroupDescription": "Automatic security group for Lambda Function testingstack9S3ArchiveSyncHandler824962B9",
+        "GroupDescription": "Automatic security group for Lambda Function testingstack9S3SyncedAccessPointSyncHandler84223C97",
         "SecurityGroupEgress": Array [
           Object {
             "CidrIp": "0.0.0.0/0",
@@ -744,7 +890,7 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "S3ArchiveSyncHandlerServiceRoleC03D120E": Object {
+    "S3SyncedAccessPointSyncHandlerServiceRole4BAEA2D1": Object {
       "DependsOn": Array [
         "FilesystemEfsMountTarget1FA5225C0",
         "FilesystemEfsMountTarget29F807637",
@@ -791,7 +937,7 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "S3ArchiveSyncHandlerServiceRoleDefaultPolicyCE950A3A": Object {
+    "S3SyncedAccessPointSyncHandlerServiceRoleDefaultPolicy3959962C": Object {
       "DependsOn": Array [
         "FilesystemEfsMountTarget1FA5225C0",
         "FilesystemEfsMountTarget29F807637",
@@ -813,7 +959,7 @@ Object {
                         },
                         ":elasticfilesystem:us-east-1:11111111111:access-point/",
                         Object {
-                          "Ref": "FilesystemEfsAccessPointE102BC46",
+                          "Ref": "S3SyncedAccessPointFF91B6A5",
                         },
                       ],
                     ],
@@ -853,7 +999,7 @@ Object {
                     Object {
                       "Ref": "Bucket83908E77",
                     },
-                    "/*",
+                    "/folder/foo.zip",
                   ],
                 ],
               },
@@ -861,145 +1007,21 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "S3ArchiveSyncHandlerServiceRoleDefaultPolicyCE950A3A",
+        "PolicyName": "S3SyncedAccessPointSyncHandlerServiceRoleDefaultPolicy3959962C",
         "Roles": Array [
           Object {
-            "Ref": "S3ArchiveSyncHandlerServiceRoleC03D120E",
+            "Ref": "S3SyncedAccessPointSyncHandlerServiceRole4BAEA2D1",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "S3ArchiveSyncMyProviderframeworkonEventF1262608": Object {
-      "DependsOn": Array [
-        "S3ArchiveSyncMyProviderframeworkonEventServiceRoleDefaultPolicyA8891CA4",
-        "S3ArchiveSyncMyProviderframeworkonEventServiceRole9CDD083C",
-      ],
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3BucketEAC9DD43",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3VersionKeyDD9AE9E7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3VersionKeyDD9AE9E7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Description": "AWS CDK resource provider framework - onEvent (testing-stack9/S3ArchiveSync/MyProvider)",
-        "Environment": Object {
-          "Variables": Object {
-            "USER_ON_EVENT_FUNCTION_ARN": Object {
-              "Fn::GetAtt": Array [
-                "S3ArchiveSyncHandlerF3A54A13",
-                "Arn",
-              ],
-            },
-          },
-        },
-        "Handler": "framework.onEvent",
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "S3ArchiveSyncMyProviderframeworkonEventServiceRole9CDD083C",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs10.x",
-        "Timeout": 900,
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "S3ArchiveSyncMyProviderframeworkonEventServiceRole9CDD083C": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "S3ArchiveSyncMyProviderframeworkonEventServiceRoleDefaultPolicyA8891CA4": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "lambda:InvokeFunction",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "S3ArchiveSyncHandlerF3A54A13",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "S3ArchiveSyncMyProviderframeworkonEventServiceRoleDefaultPolicyA8891CA4",
-        "Roles": Array [
-          Object {
-            "Ref": "S3ArchiveSyncMyProviderframeworkonEventServiceRole9CDD083C",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "S3ArchiveSyncSyncTrigger87470372": Object {
+    "S3SyncedAccessPointSyncTrigger1D95BB73": Object {
       "DeletionPolicy": "Delete",
       "Properties": Object {
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
-            "S3ArchiveSyncMyProviderframeworkonEventF1262608",
+            "S3SyncedAccessPointProviderframeworkonEvent4D8BAF30",
             "Arn",
           ],
         },

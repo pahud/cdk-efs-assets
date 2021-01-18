@@ -8,6 +8,7 @@ logger.setLevel(logging.INFO)
 
 repo = os.environ.get('REPOSITORY_URI')
 mount_target = os.environ.get('MOUNT_TARGET', '/mnt/efsmount')
+sync_path = os.environ.get('SYNC_PATH')
 
 def on_event(event, context):
   print(event)
@@ -45,6 +46,13 @@ def on_delete(event):
 
 
 def sync(repo, target_path):
-  reponame = repo.split('/')[-1].split('.')[0]
-  subprocess.check_call([ 'rm', '-rf', '{}/{}'.format(mount_target, reponame) ])
-  subprocess.check_call([ 'git', 'clone', repo, '{}/{}'.format(mount_target, reponame) ])
+  full_path = '{}{}'.format(mount_target, sync_path)
+
+  if sync_path == '/':
+    # delete all contents from root directory, but not root directory itself
+    os.chdir(full_path)
+    subprocess.check_call('rm -rf {}*'.format(full_path), shell=True)
+  else:
+    subprocess.check_call([ 'rm', '-rf', full_path ])
+
+  subprocess.check_call([ 'git', 'clone', repo, full_path ])

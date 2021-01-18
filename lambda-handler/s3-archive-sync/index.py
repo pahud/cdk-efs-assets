@@ -13,6 +13,7 @@ logger.setLevel(logging.INFO)
 bucket = os.environ['BUCKET_NAME']
 zipped_key = os.environ['ZIPPED_KEY']
 mount_target = os.environ['MOUNT_TARGET']
+sync_path = os.environ['SYNC_PATH']
 
 s3 = boto3.client('s3')
 
@@ -53,9 +54,18 @@ def on_delete(event):
   pass
 
 def sync():
-  # Empty out mount target directory before extracting
-  subprocess.check_call([ 'rm', '-rf', '{}/*'.format(mount_target) ])
+  full_path = '{}{}'.format(mount_target, sync_path)
+
+  if sync_path == '/':
+    # delete all contents from root directory, but not root directory itself
+    os.chdir(full_path)
+    subprocess.check_call('rm -rf {}*'.format(full_path), shell=True)
+  else:
+    subprocess.check_call([ 'rm', '-rf', full_path ])
+
+    # directory must exist to unzip into
+    os.makedirs(full_path)
 
   s3_buffer = BytesIO(s3.get_object(Bucket=bucket, Key=zipped_key)['Body'].read())
   with zipfile.ZipFile(s3_buffer) as z:
-    z.extractall('{}'.format(mount_target))
+    z.extractall(full_path)

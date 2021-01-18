@@ -1,3 +1,1 @@
-export * from './common-props';
-export * from './github-source-sync';
-export * from './s3-archive-sync';
+export * from './synced-access-point';
