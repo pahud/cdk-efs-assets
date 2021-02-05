@@ -23,7 +23,7 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/custom-resources',
   ],
   dependabot: false,
-  defaultReleaseBranch: ['master'],
+  defaultReleaseBranch: 'master',
   keywords: [
     'aws',
     'cdk',
