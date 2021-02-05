@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.8](https://github.com/pahud/cdk-efs-assets/compare/v0.2.7...v0.2.8) (2021-02-05)
+
+
+### Bug Fixes
+
+* defaultReleaseBranch ([3a81983](https://github.com/pahud/cdk-efs-assets/commit/3a81983a447c7b31553f20bc1ca0b70af208e5a1))
+* defaultReleaseBranch ([9172182](https://github.com/pahud/cdk-efs-assets/commit/9172182bcaa3a70f49cf9cad82d73da35f19c16a))
+
 ### [0.2.7](https://github.com/pahud/cdk-efs-assets/compare/v0.2.6...v0.2.7) (2021-02-03)
 
 ### [0.2.6](https://github.com/pahud/cdk-efs-assets/compare/v0.2.5...v0.2.6) (2021-02-02)
