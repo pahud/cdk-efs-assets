@@ -77,5 +77,3 @@ def sync(repo, target_path):
     subprocess.check_call([ 'rm', '-rf', full_path ])
 
   subprocess.check_call([ 'git', 'clone', repo, full_path ])
-
-
