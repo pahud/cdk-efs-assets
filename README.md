@@ -101,11 +101,9 @@ const efsAccessPoint = new SyncedAccessPoint(stack, 'GithubAccessPoint', {
 
 ### Github private repository support
 
-To clone github private repository, you need generate your github **PAT(Personal Access Token)** and store the token
-in **AWS Secrets Manager** secret.
+To clone a github private repository, you need to generate your github **PAT(Personal Access Token)** and store the token in **AWS Secrets Manager** secret.
 
-For example, if your PAT is stored in the AWS Secret manager with the secret ID `github` and the key is `oauth_token`, you 
-can specify the `secret` property as below. Under the covers the lambda function will format the full github repository uri with your **PAT** and successfully git clone the private repository to the efs filesystem.
+For example, if your PAT is stored in the AWS Secret manager with the secret ID `github` and the key `oauth_token`, you can specify the `secret` property as the sample below. Under the covers the lambda function will format the full github repository uri with your **PAT** and successfully git clone the private repository to the efs filesystem.
 
 Store your PAT into the AWS Secrets Manager with AWS CLI:
 
