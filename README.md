@@ -99,6 +99,34 @@ const efsAccessPoint = new SyncedAccessPoint(stack, 'GithubAccessPoint', {
 });
 ```
 
+### Github private repository support
+
+To clone a github private repository, you need to generate your github **PAT(Personal Access Token)** and store the token in **AWS Secrets Manager** secret.
+
+For example, if your PAT is stored in the AWS Secret manager with the secret ID `github` and the key `oauth_token`, you can specify the `secret` property as the sample below. Under the covers the lambda function will format the full github repository uri with your **PAT** and successfully git clone the private repository to the efs filesystem.
+
+Store your PAT into the AWS Secrets Manager with AWS CLI:
+
+```sh
+aws secretsmanager create-secret \
+--name github \
+--secret-string '{"oauth_token":"MYOAUTHTOKEN"}'
+```
+
+Configure the `secret` property to allow lambda to retrieve the **PAT** from the secret:
+
+
+```ts
+SyncSource.github({
+    vpc,
+    repository: 'https://github.com/username/repo.git',
+    secret: {
+      id: 'github',
+      key: 'oauth_token',
+    },
+})
+```
+
 ## How to use SyncedAccessPoint initialized with files provisioned from zip file stored in S3
 
 This will sync assets from a zip file stored in an S3 bucket to a directory (by default, the output directory is named after the zip file name) in the EFS AccessPoint:

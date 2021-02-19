@@ -17,7 +17,7 @@ export class IntegTesting {
       account: process.env.CDK_DEFAULT_ACCOUNT ?? '11111111111',
     };
 
-    const stack = new Stack(app, 'testing-stack9', { env });
+    const stack = new Stack(app, 'testing-stack', { env });
 
     const vpc = ec2.Vpc.fromLookup(stack, 'Vpc', { isDefault: true });
 
@@ -30,6 +30,7 @@ export class IntegTesting {
       bucketName: 'a-bucket',
     });
 
+    // checkout the public github repo to efs filesystem
     new SyncedAccessPoint(stack, 'GithubSyncedAccessPoint', {
       fileSystem: fs,
       path: '/demo-github',
@@ -45,6 +46,29 @@ export class IntegTesting {
       syncSource: SyncSource.github({
         vpc: vpc,
         repository: 'https://github.com/pahud/cdk-efs-assets.git',
+      }),
+    });
+
+    // checkout the private github repo to efs filesystem
+    new SyncedAccessPoint(stack, 'GithubSyncedAccessPointPrivate', {
+      fileSystem: fs,
+      path: '/demo-github',
+      createAcl: {
+        ownerGid: '1001',
+        ownerUid: '1001',
+        permissions: '0755',
+      },
+      posixUser: {
+        uid: '1001',
+        gid: '1001',
+      },
+      syncSource: SyncSource.github({
+        vpc: vpc,
+        repository: 'https://github.com/pahud/private-repo.git',
+        secret: {
+          id: 'github',
+          key: 'oauth_token',
+        },
       }),
     });
 

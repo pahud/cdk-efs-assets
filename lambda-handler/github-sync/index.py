@@ -2,6 +2,9 @@ import json
 import logging
 import os
 import subprocess
+import boto3
+import json
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -9,6 +12,24 @@ logger.setLevel(logging.INFO)
 repo = os.environ.get('REPOSITORY_URI')
 mount_target = os.environ.get('MOUNT_TARGET', '/mnt/efsmount')
 sync_path = os.environ.get('SYNC_PATH')
+github_secret_id = os.environ.get('GITHUB_SECRET_ID')
+github_secret_key = os.environ.get('GITHUB_SECRET_KEY')
+
+def get_secret_value(id, key):
+  session = boto3.session.Session()
+  client = session.client(
+    service_name='secretsmanager'
+  )
+  try:
+    json_secret_value = json.loads(client.get_secret_value(SecretId=id).get('SecretString'))
+  except ClientError as e:
+    print(e.response['Error']['Code'])
+    return None
+  return json_secret_value.get(key)
+
+if github_secret_id and github_secret_key and repo.startswith('https://'):
+  github_oauth_token = get_secret_value(github_secret_id, github_secret_key)
+  repo = 'https://{}@{}'.format(github_oauth_token, repo[8:])
 
 def on_event(event, context):
   print(event)
