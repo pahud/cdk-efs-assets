@@ -119,16 +119,13 @@ Configure the `secret` property to allow lambda to retrieve the **PAT** from the
 ```ts
 SyncSource.github({
     vpc,
-    repository: 'https://{token}@github.com/username/repo.git',
+    repository: 'https://github.com/username/repo.git',
     secret: {
       id: 'github',
       key: 'oauth_token',
     },
 })
 ```
-
-Please note you must alwsys specify `{token}` as a placeholder and this will be replaced with your **PAT** stored in AWS Secrets Manager.
-
 
 ## How to use SyncedAccessPoint initialized with files provisioned from zip file stored in S3
 

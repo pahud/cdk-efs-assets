@@ -27,9 +27,9 @@ def get_secret_value(id, key):
     return None
   return json_secret_value.get(key)
 
-if github_secret_id and github_secret_key:
+if github_secret_id and github_secret_key and repo.startswith('https://'):
   github_oauth_token = get_secret_value(github_secret_id, github_secret_key)
-  repo = repo.format(token=github_oauth_token)
+  repo = 'https://{}@{}'.format(github_oauth_token, repo[8:])
 
 def on_event(event, context):
   print(event)
