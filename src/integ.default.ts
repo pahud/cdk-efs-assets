@@ -64,7 +64,7 @@ export class IntegTesting {
       },
       syncSource: SyncSource.github({
         vpc: vpc,
-        repository: 'https://{token}@github.com/pahud/private-repo.git',
+        repository: 'https://github.com/pahud/private-repo.git',
         secret: {
           id: 'github',
           key: 'oauth_token',

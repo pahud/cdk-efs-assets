@@ -580,7 +580,7 @@ Object {
             "GITHUB_SECRET_ID": "github",
             "GITHUB_SECRET_KEY": "oauth_token",
             "MOUNT_TARGET": "/mnt/efsmount",
-            "REPOSITORY_URI": "https://{token}@github.com/pahud/private-repo.git",
+            "REPOSITORY_URI": "https://github.com/pahud/private-repo.git",
             "SYNC_PATH": "/private-repo",
           },
         },
