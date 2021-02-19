@@ -12,6 +12,7 @@ Name|Description
 
 Name|Description
 ----|-----------
+[GithubSecret](#cdk-efs-assets-githubsecret)|*No description*
 [GithubSourceProps](#cdk-efs-assets-githubsourceprops)|*No description*
 [S3ArchiveSourceProps](#cdk-efs-assets-s3archivesourceprops)|*No description*
 [SyncSourceProps](#cdk-efs-assets-syncsourceprops)|*No description*
@@ -52,6 +53,7 @@ static github(props: GithubSourceProps): SyncSource
   * **timeout** (<code>[Duration](#aws-cdk-core-duration)</code>)  Timeout duration for sync Lambda function. __*Optional*__
   * **vpcSubnets** (<code>[SubnetSelection](#aws-cdk-aws-ec2-subnetselection)</code>)  Where to place the network interfaces within the VPC. __*Optional*__
   * **repository** (<code>string</code>)  The github repository HTTP URI. 
+  * **secret** (<code>[GithubSecret](#cdk-efs-assets-githubsecret)</code>)  The github secret for the private repository. __*Optional*__
 
 __Returns__:
 * <code>[SyncSource](#cdk-efs-assets-syncsource)</code>
@@ -106,6 +108,20 @@ new SyncedAccessPoint(scope: Construct, id: string, props: SyncedAccessPointProp
 
 
 
+## struct GithubSecret  <a id="cdk-efs-assets-githubsecret"></a>
+
+
+
+
+
+
+Name | Type | Description 
+-----|------|-------------
+**id** | <code>string</code> | The secret ID from AWS Secrets Manager.
+**key** | <code>string</code> | The key of the secret.
+
+
+
 ## struct GithubSourceProps  <a id="cdk-efs-assets-githubsourceprops"></a>
 
 
@@ -117,6 +133,7 @@ Name | Type | Description
 -----|------|-------------
 **repository** | <code>string</code> | The github repository HTTP URI.
 **vpc** | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | The VPC of the Amazon EFS Filesystem.
+**secret**? | <code>[GithubSecret](#cdk-efs-assets-githubsecret)</code> | The github secret for the private repository.<br/>__*Optional*__
 **syncDirectoryPath**? | <code>string</code> | The (absolute) directory path inside the EFS AccessPoint to sync files to.<br/>__*Optional*__
 **timeout**? | <code>[Duration](#aws-cdk-core-duration)</code> | Timeout duration for sync Lambda function.<br/>__*Optional*__
 **vpcSubnets**? | <code>[SubnetSelection](#aws-cdk-aws-ec2-subnetselection)</code> | Where to place the network interfaces within the VPC.<br/>__*Optional*__
