@@ -1,6 +1,6 @@
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as efs from '@aws-cdk/aws-efs';
-import { Bucket } from '@aws-cdk/aws-s3';
+// import { Bucket } from '@aws-cdk/aws-s3';
 import { App, Stack, RemovalPolicy } from '@aws-cdk/core';
 import { SyncedAccessPoint, SyncSource } from './synced-access-point';
 
@@ -26,9 +26,9 @@ export class IntegTesting {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    const bucket = new Bucket(stack, 'Bucket', {
-      bucketName: 'a-bucket',
-    });
+    // const bucket = new Bucket(stack, 'Bucket', {
+    //   bucketName: 'a-bucket',
+    // });
 
     // checkout the public github repo to efs filesystem
     new SyncedAccessPoint(stack, 'GithubSyncedAccessPoint', {
@@ -50,49 +50,49 @@ export class IntegTesting {
       }),
     });
 
-    // checkout the private github repo to efs filesystem
-    new SyncedAccessPoint(stack, 'GithubSyncedAccessPointPrivate', {
-      vpc,
-      fileSystem: fs,
-      path: '/demo-github',
-      createAcl: {
-        ownerGid: '1001',
-        ownerUid: '1001',
-        permissions: '0755',
-      },
-      posixUser: {
-        uid: '1001',
-        gid: '1001',
-      },
-      syncSource: SyncSource.github({
-        vpc,
-        repository: 'https://github.com/pahud/private-repo.git',
-        secret: {
-          id: 'github',
-          key: 'oauth_token',
-        },
-      }),
-    });
+    // // checkout the private github repo to efs filesystem
+    // new SyncedAccessPoint(stack, 'GithubSyncedAccessPointPrivate', {
+    //   vpc,
+    //   fileSystem: fs,
+    //   path: '/demo-github',
+    //   createAcl: {
+    //     ownerGid: '1001',
+    //     ownerUid: '1001',
+    //     permissions: '0755',
+    //   },
+    //   posixUser: {
+    //     uid: '1001',
+    //     gid: '1001',
+    //   },
+    //   syncSource: SyncSource.github({
+    //     vpc,
+    //     repository: 'https://github.com/pahud/private-repo.git',
+    //     secret: {
+    //       id: 'github',
+    //       key: 'oauth_token',
+    //     },
+    //   }),
+    // });
 
-    new SyncedAccessPoint(stack, 'S3SyncedAccessPoint', {
-      vpc,
-      fileSystem: fs,
-      path: '/demo-s3-archive',
-      createAcl: {
-        ownerGid: '1001',
-        ownerUid: '1001',
-        permissions: '0755',
-      },
-      posixUser: {
-        uid: '1001',
-        gid: '1001',
-      },
-      syncSource: SyncSource.s3Archive({
-        vpc,
-        bucket: bucket,
-        zipFilePath: 'folder/foo.zip',
-      }),
-    });
+    // new SyncedAccessPoint(stack, 'S3SyncedAccessPoint', {
+    //   vpc,
+    //   fileSystem: fs,
+    //   path: '/demo-s3-archive',
+    //   createAcl: {
+    //     ownerGid: '1001',
+    //     ownerUid: '1001',
+    //     permissions: '0755',
+    //   },
+    //   posixUser: {
+    //     uid: '1001',
+    //     gid: '1001',
+    //   },
+    //   syncSource: SyncSource.s3Archive({
+    //     vpc,
+    //     bucket: bucket,
+    //     zipFilePath: 'folder/foo.zip',
+    //   }),
+    // });
 
     this.stack = [stack];
   }

@@ -6,12 +6,12 @@ import * as efs from '@aws-cdk/aws-efs';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
+import { LogGroup, RetentionDays } from '@aws-cdk/aws-logs';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as secretsmanager from '@aws-cdk/aws-secretsmanager';
 import * as cdk from '@aws-cdk/core';
 // import * as cr from '@aws-cdk/custom-resources';
-import { RunTask } from 'cdk-fargate-run-task';
-import { LogGroup, RetentionDays } from '@aws-cdk/aws-logs';
+import { PlatformVersion, RunTask } from 'cdk-fargate-run-task';
 // import { Runtime } from '@aws-cdk/aws-lambda';
 
 
@@ -79,6 +79,14 @@ export interface S3ArchiveSourceProps extends SyncSourceProps {
   readonly syncOnUpdate?: boolean;
 }
 
+export interface FargateTaskConfig {
+  readonly task: ecs.TaskDefinition;
+  /**
+   * The security group of the fargate task
+   */
+  readonly securityGroup: ec2.ISecurityGroup;
+}
+
 export abstract class SyncSource {
   public static github(props: GithubSourceProps): SyncSource {
     return new GithubSyncSource(props);
@@ -92,7 +100,7 @@ export abstract class SyncSource {
   abstract _createHandler(accessPoint: efs.AccessPoint): lambda.Function;
 
   /** @internal */
-  abstract _createFargateTask(id: string, accessPoint: efs.AccessPoint): ecs.TaskDefinition;
+  abstract _createFargateTask(id: string, accessPoint: efs.AccessPoint): FargateTaskConfig;
 }
 
 class GithubSyncSource extends SyncSource {
@@ -171,13 +179,13 @@ class GithubSyncSource extends SyncSource {
     return handler;
   }
 
-  _createFargateTask(id: string, accessPoint: efs.AccessPoint): ecs.TaskDefinition {
+  _createFargateTask(id: string, accessPoint: efs.AccessPoint): FargateTaskConfig {
     const stack = cdk.Stack.of(accessPoint);
     // const region = stack.region;
 
     // const vpcSubnets = this.props.vpcSubnets ?? { subnetType: ec2.SubnetType.PRIVATE };
     // const timeout = this.props.timeout ?? cdk.Duration.minutes(3);
-    const task = new ecs.FargateTaskDefinition(stack, id, { 
+    const task = new ecs.FargateTaskDefinition(stack, id, {
       cpu: 256,
       memoryLimitMiB: 512,
     });
@@ -198,7 +206,7 @@ class GithubSyncSource extends SyncSource {
       REPOSITORY_URI: this.props.repository,
       MOUNT_TARGET: mountTarget,
       SYNC_PATH: syncDirectoryPath,
-    }
+    };
 
     if (this.props.secret) {
       environment.GITHUB_SECRET_ID = this.props.secret.id;
@@ -217,7 +225,7 @@ class GithubSyncSource extends SyncSource {
       image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../docker.d')),
       command: [
         'sh', '-c',
-        'git clone ${REPOSITORY_URI} ${MOUNT_TARGET}${SYNC_PATH}',
+        'git clone ${REPOSITORY_URI} ${MOUNT_TARGET}${SYNC_PATH}; ls -al ${MOUNT_TARGET}${SYNC_PATH}',
       ],
       environment,
       logging: new ecs.AwsLogDriver({
@@ -250,6 +258,14 @@ class GithubSyncSource extends SyncSource {
       ],
     }));
 
+    // create a default security group for the fargate task
+    const sg = new ec2.SecurityGroup(stack, `FargateSecurityGroup${id}`, { vpc: this.props.vpc });
+
+    // allow VPC CIDR ingress to efs filesystem
+    // accessPoint.fileSystem.connections.allowFrom(ec2.Peer.ipv4(this.props.vpc.vpcCidrBlock), ec2.Port.tcp(2049));
+    // allow fargate ingress to the efs filesystem
+    accessPoint.fileSystem.connections.allowFrom(sg, ec2.Port.tcp(2049));
+
     if (this.props.secret?.id) {
       // format the arn e.g. 'arn:aws:secretsmanager:eu-west-1:111111111111:secret:MySecret';
       const secretPartialArn = stack.formatArn({
@@ -265,7 +281,10 @@ class GithubSyncSource extends SyncSource {
       secret.grantRead(task.executionRole!);
     }
 
-    return task;
+    return {
+      task,
+      securityGroup: sg,
+    };
   };
 }
 
@@ -340,13 +359,16 @@ class S3ArchiveSyncSource extends SyncSource {
     return handler;
   }
 
-  _createFargateTask(id: string, accessPoint: efs.AccessPoint): ecs.TaskDefinition {
+  _createFargateTask(id: string, accessPoint: efs.AccessPoint): FargateTaskConfig {
     const stack = cdk.Stack.of(accessPoint);
     // const region = stack.region;
 
     // const vpcSubnets = this.props.vpcSubnets ?? { subnetType: ec2.SubnetType.PRIVATE };
     // const timeout = this.props.timeout ?? cdk.Duration.minutes(3);
     const task = new ecs.FargateTaskDefinition(stack, id, { cpu: 256, memoryLimitMiB: 512 });
+
+    // create a default security group for the fargate task
+    const sg = new ec2.SecurityGroup(stack, `FargateSecurityGroup${id}`, { vpc: this.props.vpc });
 
     // let syncDirectoryPath;
     // if (this.props.syncDirectoryPath === undefined) {
@@ -401,7 +423,10 @@ class S3ArchiveSyncSource extends SyncSource {
     //   secret.grantRead(task.executionRole);
     // }
 
-    return task;
+    return {
+      task,
+      securityGroup: sg,
+    };
   };
 }
 
@@ -424,15 +449,16 @@ export class SyncedAccessPoint extends efs.AccessPoint implements efs.IAccessPoi
     //   onEventHandler: handler,
     // });
 
-    const task = props.syncSource._createFargateTask(`${id}Task`, this );
+    const taskConfig = props.syncSource._createFargateTask(`${id}Task`, this );
 
-    const cluster = new ecs.Cluster(this, 'Cluster', { vpc: props.vpc  });
+    const cluster = new ecs.Cluster(this, 'Cluster', { vpc: props.vpc });
 
     const runTask = new RunTask(this, 'SyncTrigger', {
-      task,
-      // vpc: props.vpc,
+      task: taskConfig.task,
+      securityGroup: taskConfig.securityGroup,
       cluster,
-    })
+      fargatePlatformVersion: PlatformVersion.V1_4_0,
+    });
 
     runTask.node.addDependency(props.fileSystem.mountTargetsAvailable);
 
