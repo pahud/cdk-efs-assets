@@ -25,6 +25,7 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/custom-resources',
   ],
   deps: ['cdk-fargate-run-task'],
+  peerDeps: ['cdk-fargate-run-task'],
   dependabot: false,
   defaultReleaseBranch: 'master',
   keywords: [

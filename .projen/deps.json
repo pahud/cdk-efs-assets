@@ -141,6 +141,10 @@
       "type": "peer"
     },
     {
+      "name": "cdk-fargate-run-task",
+      "type": "peer"
+    },
+    {
       "name": "constructs",
       "version": "^3.2.27",
       "type": "peer"

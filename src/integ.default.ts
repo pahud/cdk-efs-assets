@@ -32,6 +32,7 @@ export class IntegTesting {
 
     // checkout the public github repo to efs filesystem
     new SyncedAccessPoint(stack, 'GithubSyncedAccessPoint', {
+      vpc,
       fileSystem: fs,
       path: '/demo-github',
       createAcl: {
@@ -44,13 +45,14 @@ export class IntegTesting {
         gid: '1001',
       },
       syncSource: SyncSource.github({
-        vpc: vpc,
+        vpc,
         repository: 'https://github.com/pahud/cdk-efs-assets.git',
       }),
     });
 
     // checkout the private github repo to efs filesystem
     new SyncedAccessPoint(stack, 'GithubSyncedAccessPointPrivate', {
+      vpc,
       fileSystem: fs,
       path: '/demo-github',
       createAcl: {
@@ -63,7 +65,7 @@ export class IntegTesting {
         gid: '1001',
       },
       syncSource: SyncSource.github({
-        vpc: vpc,
+        vpc,
         repository: 'https://github.com/pahud/private-repo.git',
         secret: {
           id: 'github',
@@ -73,6 +75,7 @@ export class IntegTesting {
     });
 
     new SyncedAccessPoint(stack, 'S3SyncedAccessPoint', {
+      vpc,
       fileSystem: fs,
       path: '/demo-s3-archive',
       createAcl: {
@@ -85,7 +88,7 @@ export class IntegTesting {
         gid: '1001',
       },
       syncSource: SyncSource.s3Archive({
-        vpc: vpc,
+        vpc,
         bucket: bucket,
         zipFilePath: 'folder/foo.zip',
       }),
