@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { URL } from 'url';
 import * as ec2 from '@aws-cdk/aws-ec2';
+import * as ecs from '@aws-cdk/aws-ecs';
 import * as efs from '@aws-cdk/aws-efs';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
@@ -9,6 +10,9 @@ import * as s3 from '@aws-cdk/aws-s3';
 import * as secretsmanager from '@aws-cdk/aws-secretsmanager';
 import * as cdk from '@aws-cdk/core';
 import * as cr from '@aws-cdk/custom-resources';
+import { RunTask } from 'cdk-fargate-run-task';
+import { LogGroup, RetentionDays } from '@aws-cdk/aws-logs';
+
 
 export interface SyncSourceProps {
   /**
@@ -85,6 +89,9 @@ export abstract class SyncSource {
 
   /** @internal */
   abstract _createHandler(accessPoint: efs.AccessPoint): lambda.Function;
+
+  /** @internal */
+  abstract _createFargateTask(accessPoint: efs.AccessPoint): lambda.Function;
 }
 
 class GithubSyncSource extends SyncSource {
@@ -144,6 +151,92 @@ class GithubSyncSource extends SyncSource {
         provisionedConcurrentExecutions: 1,
       },
     });
+
+    if (this.props.secret?.id) {
+      // format the arn e.g. 'arn:aws:secretsmanager:eu-west-1:111111111111:secret:MySecret';
+      const secretPartialArn = stack.formatArn({
+        service: 'secretsmanager',
+        resource: 'secret',
+        resourceName: this.props.secret?.id,
+        sep: ':',
+      });
+      const secret = secretsmanager.Secret.fromSecretAttributes(stack, 'GithubSecret', {
+        secretPartialArn,
+      });
+      // allow lambda to read the secret
+      secret.grantRead(handler);
+    }
+
+    return handler;
+  }
+
+  _createFargateTask(accessPoint: efs.AccessPoint) {
+    const stack = cdk.Stack.of(accessPoint);
+    const region = stack.region;
+
+    const vpcSubnets = this.props.vpcSubnets ?? { subnetType: ec2.SubnetType.PRIVATE };
+    // const timeout = this.props.timeout ?? cdk.Duration.minutes(3);
+    const task = new ecs.FargateTaskDefinition(stack, 'Task', { cpu: 256, memoryLimitMiB: 512 });
+
+    task.addContainer('SyncWorker', {
+      // image: ecs.ContainerImage.fromRegistry('public.ecr.aws/amazonlinux/amazonlinux:2'),
+      image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../docker.d')),
+      command: [
+        'sh', '-c',
+        'ping -c 3 google.com',
+      ],
+      logging: new ecs.AwsLogDriver({
+        streamPrefix: 'Ping',
+        logGroup: new LogGroup(stack, 'LogGroup', {
+          retention: RetentionDays.ONE_DAY,
+          removalPolicy: cdk.RemovalPolicy.DESTROY,
+        }),
+      }),
+    });
+
+
+    let syncDirectoryPath;
+    if (this.props.syncDirectoryPath === undefined) {
+      // if property is unspecified, use repository name as output directory
+
+      const parsed = new URL(this.props.repository);
+      syncDirectoryPath = '/' + path.basename(parsed.pathname, '.git');
+    } else {
+      syncDirectoryPath = this.props.syncDirectoryPath;
+    }
+
+    const lambdaEnv: { [key: string]: string } = {
+      REPOSITORY_URI: this.props.repository,
+      MOUNT_TARGET: '/mnt/efsmount',
+      SYNC_PATH: syncDirectoryPath,
+    };
+
+    if (this.props.secret) {
+      lambdaEnv.GITHUB_SECRET_ID = this.props.secret.id;
+      lambdaEnv.GITHUB_SECRET_KEY = this.props.secret.key;
+    }
+
+    // const handler = new lambda.Function(accessPoint, 'GithubHandler', {
+    //   runtime: lambda.Runtime.PYTHON_3_8,
+    //   code: lambda.Code.fromAsset(path.join(__dirname, '../lambda-handler', 'github-sync')),
+    //   handler: 'index.on_event',
+    //   layers: [
+    //     lambda.LayerVersion.fromLayerVersionArn(
+    //       accessPoint,
+    //       'GitLayer',
+    //       `arn:aws:lambda:${region}:553035198032:layer:git-lambda2:7`,
+    //     ),
+    //   ],
+    //   filesystem: lambda.FileSystem.fromEfsAccessPoint(accessPoint, '/mnt/efsmount'),
+    //   vpcSubnets: vpcSubnets,
+    //   vpc: this.props.vpc,
+    //   memorySize: 512,
+    //   timeout: timeout,
+    //   environment: lambdaEnv,
+    //   currentVersionOptions: {
+    //     provisionedConcurrentExecutions: 1,
+    //   },
+    // });
 
     if (this.props.secret?.id) {
       // format the arn e.g. 'arn:aws:secretsmanager:eu-west-1:111111111111:secret:MySecret';
