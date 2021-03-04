@@ -1,10 +1,8 @@
 import * as ec2 from '@aws-cdk/aws-ec2';
 import * as efs from '@aws-cdk/aws-efs';
 import { Bucket } from '@aws-cdk/aws-s3';
-import { App, Stack, RemovalPolicy } from '@aws-cdk/core';
-import { SyncedAccessPoint, SyncSource } from './synced-access-point';
-
-const AWS_DEFAULT_REGION = 'us-east-1';
+import { App, Stack, RemovalPolicy, Construct } from '@aws-cdk/core';
+import { SyncedAccessPoint, GithubSyncSource, S3ArchiveSyncSource } from './synced-access-point';
 
 export class IntegTesting {
   readonly stack: Stack[];
@@ -13,25 +11,25 @@ export class IntegTesting {
     const app = new App();
 
     const env = {
-      region: process.env.CDK_DEFAULT_REGION ?? AWS_DEFAULT_REGION,
-      account: process.env.CDK_DEFAULT_ACCOUNT ?? '11111111111',
+      region: process.env.CDK_DEFAULT_REGION,
+      account: process.env.CDK_DEFAULT_ACCOUNT,
     };
 
     const stack = new Stack(app, 'testing-stack', { env });
 
-    const vpc = ec2.Vpc.fromLookup(stack, 'Vpc', { isDefault: true });
+    const vpc = getOrCreateVpc(stack);
 
     const fs = new efs.FileSystem(stack, 'Filesystem', {
       vpc,
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    const bucket = new Bucket(stack, 'Bucket', {
-      bucketName: 'a-bucket',
-    });
+    const bucketName = stack.node.tryGetContext('BUCKET_NAME') || 'mock';
+    const bucket = Bucket.fromBucketName(stack, 'ImportedBucket', bucketName);
 
     // checkout the public github repo to efs filesystem
     new SyncedAccessPoint(stack, 'GithubSyncedAccessPoint', {
+      vpc,
       fileSystem: fs,
       path: '/demo-github',
       createAcl: {
@@ -43,16 +41,17 @@ export class IntegTesting {
         uid: '1001',
         gid: '1001',
       },
-      syncSource: SyncSource.github({
-        vpc: vpc,
+      syncSource: new GithubSyncSource({
+        vpc,
         repository: 'https://github.com/pahud/cdk-efs-assets.git',
       }),
     });
 
     // checkout the private github repo to efs filesystem
     new SyncedAccessPoint(stack, 'GithubSyncedAccessPointPrivate', {
+      vpc,
       fileSystem: fs,
-      path: '/demo-github',
+      path: '/demo-github-private',
       createAcl: {
         ownerGid: '1001',
         ownerUid: '1001',
@@ -62,8 +61,8 @@ export class IntegTesting {
         uid: '1001',
         gid: '1001',
       },
-      syncSource: SyncSource.github({
-        vpc: vpc,
+      syncSource: new GithubSyncSource({
+        vpc,
         repository: 'https://github.com/pahud/private-repo.git',
         secret: {
           id: 'github',
@@ -73,6 +72,7 @@ export class IntegTesting {
     });
 
     new SyncedAccessPoint(stack, 'S3SyncedAccessPoint', {
+      vpc,
       fileSystem: fs,
       path: '/demo-s3-archive',
       createAcl: {
@@ -84,9 +84,9 @@ export class IntegTesting {
         uid: '1001',
         gid: '1001',
       },
-      syncSource: SyncSource.s3Archive({
-        vpc: vpc,
-        bucket: bucket,
+      syncSource: new S3ArchiveSyncSource({
+        vpc,
+        bucket,
         zipFilePath: 'folder/foo.zip',
       }),
     });
@@ -97,3 +97,13 @@ export class IntegTesting {
 
 // run the integ testing
 new IntegTesting();
+
+
+function getOrCreateVpc(scope: Construct): ec2.IVpc {
+  // use an existing vpc or create a new one
+  return scope.node.tryGetContext('use_default_vpc') === '1' ?
+    ec2.Vpc.fromLookup(scope, 'Vpc', { isDefault: true }) :
+    scope.node.tryGetContext('use_vpc_id') ?
+      ec2.Vpc.fromLookup(scope, 'Vpc', { vpcId: scope.node.tryGetContext('use_vpc_id') }) :
+      new ec2.Vpc(scope, 'Vpc', { maxAzs: 3, natGateways: 1 });
+}

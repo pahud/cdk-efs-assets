@@ -6,6 +6,7 @@
 *.seed
 *.tgz
 *.tsbuildinfo
+*.zip
 .cache
 .eslintcache
 .jsii

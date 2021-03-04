@@ -91,6 +91,11 @@
       "type": "peer"
     },
     {
+      "name": "@aws-cdk/aws-ecs",
+      "version": "^1.83.0",
+      "type": "peer"
+    },
+    {
       "name": "@aws-cdk/aws-efs",
       "version": "^1.83.0",
       "type": "peer"
@@ -107,6 +112,11 @@
     },
     {
       "name": "@aws-cdk/aws-lambda",
+      "version": "^1.83.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-logs",
       "version": "^1.83.0",
       "type": "peer"
     },
@@ -128,6 +138,10 @@
     {
       "name": "@aws-cdk/custom-resources",
       "version": "^1.83.0",
+      "type": "peer"
+    },
+    {
+      "name": "cdk-fargate-run-task",
       "type": "peer"
     },
     {
@@ -141,6 +155,11 @@
       "type": "runtime"
     },
     {
+      "name": "@aws-cdk/aws-ecs",
+      "version": "^1.83.0",
+      "type": "runtime"
+    },
+    {
       "name": "@aws-cdk/aws-efs",
       "version": "^1.83.0",
       "type": "runtime"
@@ -157,6 +176,11 @@
     },
     {
       "name": "@aws-cdk/aws-lambda",
+      "version": "^1.83.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-logs",
       "version": "^1.83.0",
       "type": "runtime"
     },
@@ -178,6 +202,10 @@
     {
       "name": "@aws-cdk/custom-resources",
       "version": "^1.83.0",
+      "type": "runtime"
+    },
+    {
+      "name": "cdk-fargate-run-task",
       "type": "runtime"
     }
   ],

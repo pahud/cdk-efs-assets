@@ -14,14 +14,18 @@ const project = new AwsCdkConstructLibrary({
   cdkDependencies: [
     '@aws-cdk/core',
     '@aws-cdk/aws-ec2',
+    '@aws-cdk/aws-ecs',
     '@aws-cdk/aws-efs',
     '@aws-cdk/aws-iam',
     '@aws-cdk/aws-lambda',
+    '@aws-cdk/aws-logs',
     '@aws-cdk/aws-s3',
     '@aws-cdk/aws-events-targets',
     '@aws-cdk/aws-secretsmanager',
     '@aws-cdk/custom-resources',
   ],
+  deps: ['cdk-fargate-run-task'],
+  peerDeps: ['cdk-fargate-run-task'],
   dependabot: false,
   defaultReleaseBranch: 'master',
   keywords: [
@@ -83,7 +87,7 @@ workflow.addJobs({
 });
 
 
-const common_exclude = ['cdk.out', 'cdk.context.json', 'images', 'yarn-error.log'];
+const common_exclude = ['cdk.out', 'cdk.context.json', 'images', 'yarn-error.log', '*.zip'];
 project.npmignore.exclude(...common_exclude);
 project.gitignore.exclude(...common_exclude);
 
