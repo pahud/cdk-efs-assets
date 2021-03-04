@@ -35,19 +35,45 @@ const taskDefinition = new ecs.FargateTaskDefinition(this, 'TaskDefinition', {
 });
 ```
 
+## Sync Engine
+
+This library supports both `AWS Fargate` and `AWS Lambda` as the sync engine. As AWS Lambda currently has know issue with Amazon EFS([#100](https://github.com/pahud/cdk-efs-assets/issues/100)), the default sync engine is `AWS Fargate`. You can opt in AWS Lambda with the `engine` construct property of `SyncedAccessPoint`.
+
+
 ## SyncSource
 
-Use the `SyncSource` static functions to create a `SyncSource` instance that can then be passed as a `SyncedAccessPoint` constructor property to define the source of the sync. For example:
+
+Use `GithubSyncSource` and `S3ArchiveSyncSource` construct classes to define your `syncSource` from Github
+or Amazon S3 bucket. For example:
+
+To define a public github repository as the `syncSource`:
 
 ```ts
 new SyncedAccessPoint(stack, 'EfsAccessPoint', {
   ...
-  syncSource: SyncSource.github({
+  syncSource: new GithubSyncSource({
     vpc,
     repository: 'https://github.com/pahud/cdk-efs-assets.git',
-  })
+  }),
 });
 ```
+
+To define a private github repository as the `syncSource`:
+
+```ts
+new SyncedAccessPoint(stack, 'EfsAccessPoint', {
+  ...
+  syncSource: new GithubSyncSource({
+    vpc,
+    repository: 'https://github.com/pahud/private-repo.git',
+    secret: {
+      id: 'github',
+      key: 'oauth_token',
+    },
+  }),
+});
+```
+
 
 ### syncDirectoryPath
 
@@ -75,13 +101,14 @@ const stack = new Stack(app, 'testing-stack', { env });
 
 const vpc = ec2.Vpc.fromLookup(stack, 'Vpc', { isDefault: true })
 
-const fs = new efs.FileSystem(stack, 'Filesystem', {
+const fileSystem = new efs.FileSystem(stack, 'Filesystem', {
   vpc,
   removalPolicy: RemovalPolicy.DESTROY,
 })
 
 const efsAccessPoint = new SyncedAccessPoint(stack, 'GithubAccessPoint', {
-  fileSystem: fs,
+  vpc,
+  fileSystem,
   path: '/demo-github',
   createAcl: {
     ownerGid: '1001',
@@ -117,7 +144,7 @@ Configure the `secret` property to allow lambda to retrieve the **PAT** from the
 
 
 ```ts
-SyncSource.github({
+new GithubSyncSource({
     vpc,
     repository: 'https://github.com/username/repo.git',
     secret: {
@@ -145,7 +172,7 @@ const stack = new Stack(app, 'testing-stack', { env });
 
 const vpc = ec2.Vpc.fromLookup(stack, 'Vpc', { isDefault: true })
 
-const fs = new efs.FileSystem(stack, 'Filesystem', {
+const fileSystem = new efs.FileSystem(stack, 'Filesystem', {
   vpc,
   removalPolicy: RemovalPolicy.DESTROY,
 })
@@ -153,7 +180,8 @@ const fs = new efs.FileSystem(stack, 'Filesystem', {
 const bucket = Bucket.fromBucketName(this, 'Bucket', 'demo-bucket');
 
 const efsAccessPoint = new SyncedAccessPoint(stack, 'EfsAccessPoint', {
-  fileSystem: fs,
+  vpc,
+  fileSystem,
   path: '/demo-s3',
   createAcl: {
     ownerGid: '1001',
@@ -164,9 +192,9 @@ const efsAccessPoint = new SyncedAccessPoint(stack, 'EfsAccessPoint', {
     uid: '1001',
     gid: '1001',
   },
-  syncSource: SyncSource.s3Archive({
-    vpc: vpc,
-    bucket: bucket,
+  syncSource: new S3ArchiveSyncSource({
+    vpc,
+    bucket,
     zipFilePath: 'folder/foo.zip',
   }),
 });
@@ -175,6 +203,8 @@ const efsAccessPoint = new SyncedAccessPoint(stack, 'EfsAccessPoint', {
 ### syncOnUpdate
 
 If the `syncOnUpdate` property is set to `true` (defaults to `true`), then the specified zip file path will be monitored, and if a new object is uploaded to the path, then it will resync the data to EFS. Note that to use this functionality, you must have a CloudTrail Trail in your account that captures the desired S3 write data event.
+
+This feature is only available with the `LAMBDA` sync engine.
 
 *WARNING*: The contents of the extraction directory in the access point will be destroyed before extracting the zip file.
 

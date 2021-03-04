@@ -6,13 +6,12 @@ import * as efs from '@aws-cdk/aws-efs';
 import { LambdaFunction } from '@aws-cdk/aws-events-targets';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
 import * as lambda from '@aws-cdk/aws-lambda';
-import { LogGroup, RetentionDays } from '@aws-cdk/aws-logs';
 import * as s3 from '@aws-cdk/aws-s3';
 import * as secretsmanager from '@aws-cdk/aws-secretsmanager';
 import * as cdk from '@aws-cdk/core';
-// import * as cr from '@aws-cdk/custom-resources';
+import * as cr from '@aws-cdk/custom-resources';
 import { PlatformVersion, RunTask } from 'cdk-fargate-run-task';
-// import { Runtime } from '@aws-cdk/aws-lambda';
+import { EfsFargateTask } from './efs-fargate-task';
 
 
 export interface SyncSourceProps {
@@ -70,11 +69,13 @@ export interface S3ArchiveSourceProps extends SyncSourceProps {
   readonly zipFilePath: string;
 
   /**
-   * If this is set to true, then whenever a new object is uploaded to the specified path, an EFS sync will be triggered.
-   * Currently, this functionality depends on at least one CloudTrail Trail existing in your account that captures the S3
-   * event.
+   * If this is set to true, then whenever a new object is uploaded to the specified path,
+   * an EFS sync will be triggered. Currently, this functionality depends on at least one CloudTrail Trail
+   * existing in your account that captures the S3 event.
    *
-   * (optional, default: true)
+   * The option is only available with the `LAMBDA` sync engine.
+   *
+   * @default true
    */
   readonly syncOnUpdate?: boolean;
 }
@@ -103,7 +104,7 @@ export abstract class SyncSource {
   abstract _createFargateTask(id: string, accessPoint: efs.AccessPoint): FargateTaskConfig;
 }
 
-class GithubSyncSource extends SyncSource {
+export class GithubSyncSource extends SyncSource {
   private readonly props: GithubSourceProps;
 
   constructor(props: GithubSourceProps) {
@@ -111,6 +112,10 @@ class GithubSyncSource extends SyncSource {
     this.props = props;
   }
 
+  /**
+   * @internal
+   * @param accessPoint The EFS Access Point
+   */
   _createHandler(accessPoint: efs.AccessPoint): lambda.Function {
     const stack = cdk.Stack.of(accessPoint);
     const region = stack.region;
@@ -179,20 +184,19 @@ class GithubSyncSource extends SyncSource {
     return handler;
   }
 
+  /**
+   * @internal
+   * @param id The task ID.
+   * @param accessPoint The EFS access point.
+   */
   _createFargateTask(id: string, accessPoint: efs.AccessPoint): FargateTaskConfig {
     const stack = cdk.Stack.of(accessPoint);
-
-    const task = new ecs.FargateTaskDefinition(stack, id, {
-      cpu: 256,
-      memoryLimitMiB: 512,
-    });
 
     const mountTarget = '/mnt/efsmount';
 
     let syncDirectoryPath;
     if (this.props.syncDirectoryPath === undefined) {
       // if property is unspecified, use repository name as output directory
-
       const parsed = new URL(this.props.repository);
       syncDirectoryPath = '/' + path.basename(parsed.pathname, '.git');
     } else {
@@ -210,13 +214,6 @@ class GithubSyncSource extends SyncSource {
       environment.GITHUB_SECRET_KEY = this.props.secret.key;
     }
 
-    task.addVolume({
-      name: 'efs-data',
-      efsVolumeConfiguration: {
-        fileSystemId: accessPoint.fileSystem.fileSystemId,
-      },
-    });
-
     let secret: secretsmanager.ISecret | undefined;
 
     if (this.props.secret?.id) {
@@ -230,63 +227,33 @@ class GithubSyncSource extends SyncSource {
       secret = secretsmanager.Secret.fromSecretAttributes(stack, 'GithubSecret', {
         secretPartialArn,
       });
-      // allow task to read the secret
-      secret.grantRead(task.taskRole);
     }
 
-    const syncWorker = task.addContainer('SyncWorker', {
-      // image: ecs.ContainerImage.fromRegistry('public.ecr.aws/amazonlinux/amazonlinux:2'),
-      image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../docker.d')),
-      command: ['/root/githubsync.sh'],
-      environment,
-      secrets: secret ? {
-        OAUTH_TOKEN: ecs.Secret.fromSecretsManager(secret, 'oauth_token'),
-      } : undefined,
-      logging: new ecs.AwsLogDriver({
-        streamPrefix: 'SyncWorker',
-        logGroup: new LogGroup(stack, `LogGroup${id}`, {
-          retention: RetentionDays.ONE_DAY,
-          removalPolicy: cdk.RemovalPolicy.DESTROY,
-        }),
-      }),
+    const fargateSyncTask = new EfsFargateTask(stack, id, {
+      vpc: this.props.vpc,
+      accessPoint,
+      efsMountTarget: mountTarget,
+      syncContainer: {
+        image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../docker.d')),
+        command: ['/root/githubsync.sh'],
+        environment,
+        secrets: secret ? {
+          OAUTH_TOKEN: ecs.Secret.fromSecretsManager(secret, 'oauth_token'),
+        } : undefined,
+      },
     });
 
-    syncWorker.addMountPoints({
-      containerPath: mountTarget,
-      sourceVolume: 'efs-data',
-      readOnly: false,
-    });
-
-    task.addToExecutionRolePolicy(new PolicyStatement({
-      actions: [
-        'elasticfilesystem:ClientMount',
-        'elasticfilesystem:ClientWrite',
-      ],
-      resources: [
-        stack.formatArn({
-          service: 'elasticfilesystem',
-          resource: 'file-system',
-          sep: '/',
-          resourceName: accessPoint.fileSystem.fileSystemId,
-        }),
-      ],
-    }));
-
-    // create a default security group for the fargate task
-    const sg = new ec2.SecurityGroup(stack, `FargateSecurityGroup${id}`, { vpc: this.props.vpc });
-
-    // allow VPC CIDR ingress to efs filesystem
-    // allow fargate ingress to the efs filesystem
-    accessPoint.fileSystem.connections.allowFrom(sg, ec2.Port.tcp(2049));
+    // allow task to read the secret
+    secret?.grantRead(fargateSyncTask.task.taskRole);
 
     return {
-      task,
-      securityGroup: sg,
+      task: fargateSyncTask.task,
+      securityGroup: fargateSyncTask.securityGroup,
     };
   };
 }
 
-class S3ArchiveSyncSource extends SyncSource {
+export class S3ArchiveSyncSource extends SyncSource {
   private readonly props: S3ArchiveSourceProps;
 
   constructor(props: S3ArchiveSourceProps) {
@@ -294,6 +261,10 @@ class S3ArchiveSyncSource extends SyncSource {
     this.props = props;
   }
 
+  /**
+   * @internal
+   * @param accessPoint The EFS access point.
+   */
   _createHandler(accessPoint: efs.AccessPoint): lambda.Function {
     const vpcSubnets = this.props.vpcSubnets ?? { subnetType: ec2.SubnetType.PRIVATE };
     const syncOnUpdate = this.props.syncOnUpdate ?? true;
@@ -357,13 +328,13 @@ class S3ArchiveSyncSource extends SyncSource {
     return handler;
   }
 
+  /**
+   * @internal
+   * @param id The Fargate task ID.
+   * @param accessPoint The EFS access point.
+   */
   _createFargateTask(id: string, accessPoint: efs.AccessPoint): FargateTaskConfig {
     const stack = cdk.Stack.of(accessPoint);
-
-    const task = new ecs.FargateTaskDefinition(stack, id, {
-      cpu: 256,
-      memoryLimitMiB: 512,
-    });
 
     const mountTarget = '/mnt/efsmount';
 
@@ -379,49 +350,19 @@ class S3ArchiveSyncSource extends SyncSource {
       SYNC_PATH: syncDirectoryPath,
     };
 
-    task.addVolume({
-      name: 'efs-data',
-      efsVolumeConfiguration: {
-        fileSystemId: accessPoint.fileSystem.fileSystemId,
+    const fargateSyncTask = new EfsFargateTask(stack, id, {
+      vpc: this.props.vpc,
+      accessPoint,
+      efsMountTarget: mountTarget,
+      syncContainer: {
+        image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../docker.d')),
+        command: ['/root/s3sync.sh'],
+        environment,
       },
     });
 
-    const syncWorker = task.addContainer('SyncWorker', {
-      image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../docker.d')),
-      command: ['/root/s3sync.sh'],
-      environment,
-      logging: new ecs.AwsLogDriver({
-        streamPrefix: 'SyncWorker',
-        logGroup: new LogGroup(stack, `LogGroup${id}`, {
-          retention: RetentionDays.ONE_DAY,
-          removalPolicy: cdk.RemovalPolicy.DESTROY,
-        }),
-      }),
-    });
-
-    syncWorker.addMountPoints({
-      containerPath: mountTarget,
-      sourceVolume: 'efs-data',
-      readOnly: false,
-    });
-
-    task.addToExecutionRolePolicy(new PolicyStatement({
-      actions: [
-        'elasticfilesystem:ClientMount',
-        'elasticfilesystem:ClientWrite',
-      ],
-      resources: [
-        stack.formatArn({
-          service: 'elasticfilesystem',
-          resource: 'file-system',
-          sep: '/',
-          resourceName: accessPoint.fileSystem.fileSystemId,
-        }),
-      ],
-    }));
-
     // allow ecs task to get the s3 object
-    task.addToTaskRolePolicy(new PolicyStatement({
+    fargateSyncTask.task.addToTaskRolePolicy(new PolicyStatement({
       actions: ['s3:GetObject*'],
       resources: [
         stack.formatArn({
@@ -435,19 +376,16 @@ class S3ArchiveSyncSource extends SyncSource {
       ],
     }));
 
-
-    // create a default security group for the fargate task
-    const sg = new ec2.SecurityGroup(stack, `FargateSecurityGroup${id}`, { vpc: this.props.vpc });
-
-    // allow VPC CIDR ingress to efs filesystem
-    // allow fargate ingress to the efs filesystem
-    accessPoint.fileSystem.connections.allowFrom(sg, ec2.Port.tcp(2049));
-
     return {
-      task,
-      securityGroup: sg,
+      task: fargateSyncTask.task,
+      securityGroup: fargateSyncTask.securityGroup,
     };
   };
+}
+
+export enum SyncEngine {
+  FARGATE,
+  LAMBDA,
 }
 
 export interface SyncedAccessPointProps extends efs.AccessPointProps {
@@ -456,24 +394,41 @@ export interface SyncedAccessPointProps extends efs.AccessPointProps {
    * The VPC to run the sync job
    */
   readonly vpc: ec2.IVpc;
+  /**
+   * Trigger the sync with AWS Lambda or AWS Fargate.
+   */
+  readonly engine?: SyncEngine;
 }
 
 export class SyncedAccessPoint extends efs.AccessPoint implements efs.IAccessPoint {
   constructor(scope: cdk.Construct, id: string, props: SyncedAccessPointProps) {
     super(scope, id, props);
 
-    const taskConfig = props.syncSource._createFargateTask(`${id}Task`, this );
+    if (props.engine === SyncEngine.LAMBDA) {
+      const handler = props.syncSource._createHandler(this);
 
-    const cluster = new ecs.Cluster(this, 'Cluster', { vpc: props.vpc });
+      // create a custom resource to trigger the sync
+      const myProvider = new cr.Provider(this, 'Provider', {
+        onEventHandler: handler,
+      });
 
-    const runTask = new RunTask(this, 'SyncTrigger', {
-      task: taskConfig.task,
-      securityGroup: taskConfig.securityGroup,
-      cluster,
-      fargatePlatformVersion: PlatformVersion.V1_4_0,
-    });
+      new cdk.CustomResource(this, 'SyncTrigger', { serviceToken: myProvider.serviceToken });
 
-    runTask.node.addDependency(props.fileSystem.mountTargetsAvailable);
+      // ensure the mount targets are available as dependency for the sync function
+      handler.node.addDependency(props.fileSystem.mountTargetsAvailable);
+    } else {
+      const taskConfig = props.syncSource._createFargateTask(`${id}FargateTask`, this);
 
+      const cluster = new ecs.Cluster(this, 'Cluster', { vpc: props.vpc });
+
+      const runTask = new RunTask(this, 'SyncTrigger', {
+        task: taskConfig.task,
+        securityGroup: taskConfig.securityGroup,
+        cluster,
+        fargatePlatformVersion: PlatformVersion.V1_4_0,
+      });
+
+      runTask.node.addDependency(props.fileSystem.mountTargetsAvailable);
+    }
   }
 }

@@ -2,7 +2,7 @@ import * as ec2 from '@aws-cdk/aws-ec2';
 import * as efs from '@aws-cdk/aws-efs';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { App, Stack, RemovalPolicy, Construct } from '@aws-cdk/core';
-import { SyncedAccessPoint, SyncSource } from './synced-access-point';
+import { SyncedAccessPoint, GithubSyncSource, S3ArchiveSyncSource } from './synced-access-point';
 
 export class IntegTesting {
   readonly stack: Stack[];
@@ -41,7 +41,7 @@ export class IntegTesting {
         uid: '1001',
         gid: '1001',
       },
-      syncSource: SyncSource.github({
+      syncSource: new GithubSyncSource({
         vpc,
         repository: 'https://github.com/pahud/cdk-efs-assets.git',
       }),
@@ -61,7 +61,7 @@ export class IntegTesting {
         uid: '1001',
         gid: '1001',
       },
-      syncSource: SyncSource.github({
+      syncSource: new GithubSyncSource({
         vpc,
         repository: 'https://github.com/pahud/private-repo.git',
         secret: {
@@ -84,7 +84,7 @@ export class IntegTesting {
         uid: '1001',
         gid: '1001',
       },
-      syncSource: SyncSource.s3Archive({
+      syncSource: new S3ArchiveSyncSource({
         vpc,
         bucket,
         zipFilePath: 'folder/foo.zip',
