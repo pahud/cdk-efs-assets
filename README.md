@@ -119,7 +119,7 @@ const efsAccessPoint = new SyncedAccessPoint(stack, 'GithubAccessPoint', {
     uid: '1001',
     gid: '1001',
   },
-  syncSource: SyncSource.github({
+  syncSource: new GithubSyncSource({
     vpc,
     repository: 'https://github.com/pahud/cdk-efs-assets.git',
   })
