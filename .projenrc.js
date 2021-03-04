@@ -87,7 +87,7 @@ workflow.addJobs({
 });
 
 
-const common_exclude = ['cdk.out', 'cdk.context.json', 'images', 'yarn-error.log'];
+const common_exclude = ['cdk.out', 'cdk.context.json', 'images', 'yarn-error.log', '*.zip'];
 project.npmignore.exclude(...common_exclude);
 project.gitignore.exclude(...common_exclude);
 

@@ -12,6 +12,7 @@ Name|Description
 
 Name|Description
 ----|-----------
+[FargateTaskConfig](#cdk-efs-assets-fargatetaskconfig)|*No description*
 [GithubSecret](#cdk-efs-assets-githubsecret)|*No description*
 [GithubSourceProps](#cdk-efs-assets-githubsourceprops)|*No description*
 [S3ArchiveSourceProps](#cdk-efs-assets-s3archivesourceprops)|*No description*
@@ -104,7 +105,22 @@ new SyncedAccessPoint(scope: Construct, id: string, props: SyncedAccessPointProp
   * **posixUser** (<code>[PosixUser](#aws-cdk-aws-efs-posixuser)</code>)  The full POSIX identity, including the user ID, group ID, and any secondary group IDs, on the access point that is used for all file system operations performed by NFS clients using the access point. __*Default*__: user identity not enforced
   * **fileSystem** (<code>[IFileSystem](#aws-cdk-aws-efs-ifilesystem)</code>)  The efs filesystem. 
   * **syncSource** (<code>[SyncSource](#cdk-efs-assets-syncsource)</code>)  *No description* 
+  * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  The VPC to run the sync job. 
 
+
+
+
+## struct FargateTaskConfig  <a id="cdk-efs-assets-fargatetaskconfig"></a>
+
+
+
+
+
+
+Name | Type | Description 
+-----|------|-------------
+**securityGroup** | <code>[ISecurityGroup](#aws-cdk-aws-ec2-isecuritygroup)</code> | The security group of the fargate task.
+**task** | <code>[TaskDefinition](#aws-cdk-aws-ecs-taskdefinition)</code> | <span></span>
 
 
 
@@ -186,6 +202,7 @@ Name | Type | Description
 -----|------|-------------
 **fileSystem**🔹 | <code>[IFileSystem](#aws-cdk-aws-efs-ifilesystem)</code> | The efs filesystem.
 **syncSource** | <code>[SyncSource](#cdk-efs-assets-syncsource)</code> | <span></span>
+**vpc** | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | The VPC to run the sync job.
 **createAcl**?🔹 | <code>[Acl](#aws-cdk-aws-efs-acl)</code> | Specifies the POSIX IDs and permissions to apply when creating the access point's root directory.<br/>__*Default*__: None. The directory specified by `path` must exist.
 **path**?🔹 | <code>string</code> | Specifies the path on the EFS file system to expose as the root directory to NFS clients using the access point to access the EFS file system.<br/>__*Default*__: '/'
 **posixUser**?🔹 | <code>[PosixUser](#aws-cdk-aws-efs-posixuser)</code> | The full POSIX identity, including the user ID, group ID, and any secondary group IDs, on the access point that is used for all file system operations performed by NFS clients using the access point.<br/>__*Default*__: user identity not enforced

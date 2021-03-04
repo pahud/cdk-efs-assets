@@ -181,10 +181,7 @@ class GithubSyncSource extends SyncSource {
 
   _createFargateTask(id: string, accessPoint: efs.AccessPoint): FargateTaskConfig {
     const stack = cdk.Stack.of(accessPoint);
-    // const region = stack.region;
 
-    // const vpcSubnets = this.props.vpcSubnets ?? { subnetType: ec2.SubnetType.PRIVATE };
-    // const timeout = this.props.timeout ?? cdk.Duration.minutes(3);
     const task = new ecs.FargateTaskDefinition(stack, id, {
       cpu: 256,
       memoryLimitMiB: 512,
@@ -220,14 +217,31 @@ class GithubSyncSource extends SyncSource {
       },
     });
 
+    let secret: secretsmanager.ISecret | undefined;
+
+    if (this.props.secret?.id) {
+      // format the arn e.g. 'arn:aws:secretsmanager:eu-west-1:111111111111:secret:MySecret';
+      const secretPartialArn = stack.formatArn({
+        service: 'secretsmanager',
+        resource: 'secret',
+        resourceName: this.props.secret?.id,
+        sep: ':',
+      });
+      secret = secretsmanager.Secret.fromSecretAttributes(stack, 'GithubSecret', {
+        secretPartialArn,
+      });
+      // allow task to read the secret
+      secret.grantRead(task.taskRole);
+    }
+
     const syncWorker = task.addContainer('SyncWorker', {
       // image: ecs.ContainerImage.fromRegistry('public.ecr.aws/amazonlinux/amazonlinux:2'),
       image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../docker.d')),
-      command: [
-        'sh', '-c',
-        'git clone ${REPOSITORY_URI} ${MOUNT_TARGET}${SYNC_PATH}; ls -al ${MOUNT_TARGET}${SYNC_PATH}',
-      ],
+      command: ['/root/githubsync.sh'],
       environment,
+      secrets: secret ? {
+        OAUTH_TOKEN: ecs.Secret.fromSecretsManager(secret, 'oauth_token'),
+      } : undefined,
       logging: new ecs.AwsLogDriver({
         streamPrefix: 'SyncWorker',
         logGroup: new LogGroup(stack, `LogGroup${id}`, {
@@ -262,24 +276,8 @@ class GithubSyncSource extends SyncSource {
     const sg = new ec2.SecurityGroup(stack, `FargateSecurityGroup${id}`, { vpc: this.props.vpc });
 
     // allow VPC CIDR ingress to efs filesystem
-    // accessPoint.fileSystem.connections.allowFrom(ec2.Peer.ipv4(this.props.vpc.vpcCidrBlock), ec2.Port.tcp(2049));
     // allow fargate ingress to the efs filesystem
     accessPoint.fileSystem.connections.allowFrom(sg, ec2.Port.tcp(2049));
-
-    if (this.props.secret?.id) {
-      // format the arn e.g. 'arn:aws:secretsmanager:eu-west-1:111111111111:secret:MySecret';
-      const secretPartialArn = stack.formatArn({
-        service: 'secretsmanager',
-        resource: 'secret',
-        resourceName: this.props.secret?.id,
-        sep: ':',
-      });
-      const secret = secretsmanager.Secret.fromSecretAttributes(stack, 'GithubSecret', {
-        secretPartialArn,
-      });
-      // allow task to read the secret
-      secret.grantRead(task.executionRole!);
-    }
 
     return {
       task,
@@ -361,67 +359,89 @@ class S3ArchiveSyncSource extends SyncSource {
 
   _createFargateTask(id: string, accessPoint: efs.AccessPoint): FargateTaskConfig {
     const stack = cdk.Stack.of(accessPoint);
-    // const region = stack.region;
 
-    // const vpcSubnets = this.props.vpcSubnets ?? { subnetType: ec2.SubnetType.PRIVATE };
-    // const timeout = this.props.timeout ?? cdk.Duration.minutes(3);
-    const task = new ecs.FargateTaskDefinition(stack, id, { cpu: 256, memoryLimitMiB: 512 });
+    const task = new ecs.FargateTaskDefinition(stack, id, {
+      cpu: 256,
+      memoryLimitMiB: 512,
+    });
+
+    const mountTarget = '/mnt/efsmount';
+
+    const filename = path.basename(this.props.zipFilePath, '.zip');
+
+    const syncDirectoryPath = this.props.syncDirectoryPath === undefined ?
+      '/' + filename : this.props.syncDirectoryPath;
+
+    const environment: { [key: string]: string } = {
+      MOUNT_TARGET: '/mnt/efsmount',
+      BUCKET_NAME: this.props.bucket.bucketName,
+      ZIPPED_KEY: this.props.zipFilePath,
+      SYNC_PATH: syncDirectoryPath,
+    };
+
+    task.addVolume({
+      name: 'efs-data',
+      efsVolumeConfiguration: {
+        fileSystemId: accessPoint.fileSystem.fileSystemId,
+      },
+    });
+
+    const syncWorker = task.addContainer('SyncWorker', {
+      image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../docker.d')),
+      command: ['/root/s3sync.sh'],
+      environment,
+      logging: new ecs.AwsLogDriver({
+        streamPrefix: 'SyncWorker',
+        logGroup: new LogGroup(stack, `LogGroup${id}`, {
+          retention: RetentionDays.ONE_DAY,
+          removalPolicy: cdk.RemovalPolicy.DESTROY,
+        }),
+      }),
+    });
+
+    syncWorker.addMountPoints({
+      containerPath: mountTarget,
+      sourceVolume: 'efs-data',
+      readOnly: false,
+    });
+
+    task.addToExecutionRolePolicy(new PolicyStatement({
+      actions: [
+        'elasticfilesystem:ClientMount',
+        'elasticfilesystem:ClientWrite',
+      ],
+      resources: [
+        stack.formatArn({
+          service: 'elasticfilesystem',
+          resource: 'file-system',
+          sep: '/',
+          resourceName: accessPoint.fileSystem.fileSystemId,
+        }),
+      ],
+    }));
+
+    // allow ecs task to get the s3 object
+    task.addToTaskRolePolicy(new PolicyStatement({
+      actions: ['s3:GetObject*'],
+      resources: [
+        stack.formatArn({
+          service: 's3',
+          resource: this.props.bucket.bucketName,
+          region: '',
+          account: '',
+          sep: '/',
+          resourceName: this.props.zipFilePath,
+        }),
+      ],
+    }));
+
 
     // create a default security group for the fargate task
     const sg = new ec2.SecurityGroup(stack, `FargateSecurityGroup${id}`, { vpc: this.props.vpc });
 
-    // let syncDirectoryPath;
-    // if (this.props.syncDirectoryPath === undefined) {
-    //   // if property is unspecified, use repository name as output directory
-
-    //   const parsed = new URL(this.props.repository);
-    //   syncDirectoryPath = '/' + path.basename(parsed.pathname, '.git');
-    // } else {
-    //   syncDirectoryPath = this.props.syncDirectoryPath;
-    // }
-
-    // const environment: { [key: string]: string } = {
-    //   REPOSITORY_URI: this.props.repository,
-    //   MOUNT_TARGET: '/mnt/efsmount',
-    //   SYNC_PATH: syncDirectoryPath,
-    // }
-
-    // if (this.props.secret) {
-    //   environment.GITHUB_SECRET_ID = this.props.secret.id;
-    //   environment.GITHUB_SECRET_KEY = this.props.secret.key;
-    // }
-
-    // task.addContainer('SyncWorker', {
-    //   // image: ecs.ContainerImage.fromRegistry('public.ecr.aws/amazonlinux/amazonlinux:2'),
-    //   image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../docker.d')),
-    //   command: [
-    //     'sh', '-c',
-    //     'git clone ${REPOSITORY_URI} ${MOUNT_TARGET}${SYNC_PATH}',
-    //   ],
-    //   environment,
-    //   logging: new ecs.AwsLogDriver({
-    //     streamPrefix: 'Ping',
-    //     logGroup: new LogGroup(stack, 'LogGroup', {
-    //       retention: RetentionDays.ONE_DAY,
-    //       removalPolicy: cdk.RemovalPolicy.DESTROY,
-    //     }),
-    //   }),
-    // });
-
-    // if (this.props.secret?.id) {
-    //   // format the arn e.g. 'arn:aws:secretsmanager:eu-west-1:111111111111:secret:MySecret';
-    //   const secretPartialArn = stack.formatArn({
-    //     service: 'secretsmanager',
-    //     resource: 'secret',
-    //     resourceName: this.props.secret?.id,
-    //     sep: ':',
-    //   });
-    //   const secret = secretsmanager.Secret.fromSecretAttributes(stack, 'GithubSecret', {
-    //     secretPartialArn,
-    //   });
-    //   // allow task to read the secret
-    //   secret.grantRead(task.executionRole);
-    // }
+    // allow VPC CIDR ingress to efs filesystem
+    // allow fargate ingress to the efs filesystem
+    accessPoint.fileSystem.connections.allowFrom(sg, ec2.Port.tcp(2049));
 
     return {
       task,
@@ -442,13 +462,6 @@ export class SyncedAccessPoint extends efs.AccessPoint implements efs.IAccessPoi
   constructor(scope: cdk.Construct, id: string, props: SyncedAccessPointProps) {
     super(scope, id, props);
 
-    // const handler = props.syncSource._createHandler(this);
-
-    // // create a custom resource to trigger the sync
-    // const myProvider = new cr.Provider(this, 'Provider', {
-    //   onEventHandler: handler,
-    // });
-
     const taskConfig = props.syncSource._createFargateTask(`${id}Task`, this );
 
     const cluster = new ecs.Cluster(this, 'Cluster', { vpc: props.vpc });
@@ -462,9 +475,5 @@ export class SyncedAccessPoint extends efs.AccessPoint implements efs.IAccessPoi
 
     runTask.node.addDependency(props.fileSystem.mountTargetsAvailable);
 
-    // new cdk.CustomResource(this, 'SyncTrigger', { serviceToken: myProvider.serviceToken });
-
-    // ensure the mount targets are available as dependency for the sync function
-    // handler.node.addDependency(props.fileSystem.mountTargetsAvailable);
   }
 }

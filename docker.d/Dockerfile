@@ -7,3 +7,6 @@ RUN yum update -y; \
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
   unzip awscliv2.zip && \
   ./aws/install
+
+ADD githubsync.sh /root
+ADD s3sync.sh /root

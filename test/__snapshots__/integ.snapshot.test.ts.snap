@@ -3,130 +3,265 @@
 exports[`integ snapshot validation 1`] = `
 Object {
   "Parameters": Object {
-    "AssetParameters244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7ArtifactHash47396C06": Object {
-      "Description": "Artifact hash for asset \\"244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7\\"",
+    "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956ArtifactHashD15A2D11": Object {
+      "Description": "Artifact hash for asset \\"4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956\\"",
       "Type": "String",
     },
-    "AssetParameters244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7S3Bucket57E5170F": Object {
-      "Description": "S3 bucket for asset \\"244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7\\"",
+    "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956S3Bucket72B03BC9": Object {
+      "Description": "S3 bucket for asset \\"4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956\\"",
       "Type": "String",
     },
-    "AssetParameters244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7S3VersionKeyE0FD79FC": Object {
-      "Description": "S3 key for asset version \\"244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7\\"",
+    "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956S3VersionKey520B7554": Object {
+      "Description": "S3 key for asset version \\"4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956\\"",
       "Type": "String",
     },
-    "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaArtifactHashACDC927C": Object {
-      "Description": "Artifact hash for asset \\"9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0eca\\"",
+    "AssetParameters67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24ArtifactHashBA91B77F": Object {
+      "Description": "Artifact hash for asset \\"67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24\\"",
       "Type": "String",
     },
-    "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaS3Bucket4AFEBB71": Object {
-      "Description": "S3 bucket for asset \\"9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0eca\\"",
+    "AssetParameters67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24S3Bucket4D46ABB5": Object {
+      "Description": "S3 bucket for asset \\"67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24\\"",
       "Type": "String",
     },
-    "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaS3VersionKey0205EC90": Object {
-      "Description": "S3 key for asset version \\"9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0eca\\"",
-      "Type": "String",
-    },
-    "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cArtifactHash627DAAA7": Object {
-      "Description": "Artifact hash for asset \\"c691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49c\\"",
-      "Type": "String",
-    },
-    "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3BucketEAC9DD43": Object {
-      "Description": "S3 bucket for asset \\"c691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49c\\"",
-      "Type": "String",
-    },
-    "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3VersionKeyDD9AE9E7": Object {
-      "Description": "S3 key for asset version \\"c691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49c\\"",
+    "AssetParameters67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24S3VersionKeyB0F28861": Object {
+      "Description": "S3 key for asset version \\"67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24\\"",
       "Type": "String",
     },
   },
   "Resources": Object {
-    "Bucket83908E77": Object {
-      "DeletionPolicy": "Retain",
+    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
+      "DependsOn": Array [
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
+        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+      ],
       "Properties": Object {
-        "BucketName": "a-bucket",
-      },
-      "Type": "AWS::S3::Bucket",
-      "UpdateReplacePolicy": "Retain",
-    },
-    "BucketS3FileListenerfoo5F5E31EE": Object {
-      "Properties": Object {
-        "EventPattern": Object {
-          "detail": Object {
-            "eventName": Array [
-              "CompleteMultipartUpload",
-              "CopyObject",
-              "PutObject",
-            ],
-            "requestParameters": Object {
-              "bucketName": Array [
+        "Code": Object {
+          "S3Bucket": Object {
+            "Ref": "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956S3Bucket72B03BC9",
+          },
+          "S3Key": Object {
+            "Fn::Join": Array [
+              "",
+              Array [
                 Object {
-                  "Ref": "Bucket83908E77",
+                  "Fn::Select": Array [
+                    0,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956S3VersionKey520B7554",
+                        },
+                      ],
+                    },
+                  ],
                 },
-              ],
-              "key": Array [
-                "folder/foo.zip",
-              ],
-            },
-            "resources": Object {
-              "ARN": Array [
                 Object {
-                  "Fn::Join": Array [
-                    "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
-                          "Bucket83908E77",
-                          "Arn",
-                        ],
-                      },
-                      "/folder/foo.zip",
-                    ],
+                  "Fn::Select": Array [
+                    1,
+                    Object {
+                      "Fn::Split": Array [
+                        "||",
+                        Object {
+                          "Ref": "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956S3VersionKey520B7554",
+                        },
+                      ],
+                    },
                   ],
                 },
               ],
-            },
+            ],
           },
-          "detail-type": Array [
-            "AWS API Call via CloudTrail",
-          ],
-          "source": Array [
-            "aws.s3",
+        },
+        "Handler": "index.handler",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+            "Arn",
           ],
         },
-        "State": "ENABLED",
-        "Targets": Array [
-          Object {
-            "Arn": Object {
-              "Fn::GetAtt": Array [
-                "S3SyncedAccessPointSyncHandlerE3E29B2F",
-                "Arn",
-              ],
+        "Runtime": "nodejs12.x",
+        "Timeout": 120,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287LogRetentionCE72797A": Object {
+      "Properties": Object {
+        "LogGroupName": Object {
+          "Fn::Join": Array [
+            "",
+            Array [
+              "/aws/lambda/",
+              Object {
+                "Ref": "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+              },
+            ],
+          ],
+        },
+        "RetentionInDays": 7,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::LogRetention",
+    },
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
             },
-            "Id": "Target0",
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
           },
         ],
       },
-      "Type": "AWS::Events::Rule",
+      "Type": "AWS::IAM::Role",
     },
-    "BucketS3FileListenerfooAllowEventRuletestingstackBucketS3FileListenerfoo81E9F11C639B076D": Object {
+    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E": Object {
       "Properties": Object {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": Object {
-          "Fn::GetAtt": Array [
-            "S3SyncedAccessPointSyncHandlerE3E29B2F",
-            "Arn",
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "GithubSyncedAccessPointTaskTaskRole5E4974C8",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "GithubSyncedAccessPointTaskExecutionRole13A48554",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "GithubSyncedAccessPointPrivateTaskTaskRole48037F4F",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "GithubSyncedAccessPointPrivateTaskExecutionRole111828C2",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "S3SyncedAccessPointTaskTaskRole2F9E75A5",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": "iam:PassRole",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "S3SyncedAccessPointTaskExecutionRole383B6F08",
+                  "Arn",
+                ],
+              },
+            },
           ],
+          "Version": "2012-10-17",
         },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": Object {
-          "Fn::GetAtt": Array [
-            "BucketS3FileListenerfoo5F5E31EE",
-            "Arn",
-          ],
+        "PolicyName": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleDefaultPolicyD28E1A5E",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "FargateSecurityGroupGithubSyncedAccessPointPrivateTaskF6B4B2BE": Object {
+      "Properties": Object {
+        "GroupDescription": "testing-stack/FargateSecurityGroupGithubSyncedAccessPointPrivateTask",
+        "SecurityGroupEgress": Array [
+          Object {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
         },
       },
-      "Type": "AWS::Lambda::Permission",
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "FargateSecurityGroupGithubSyncedAccessPointTask79ECF76A": Object {
+      "Properties": Object {
+        "GroupDescription": "testing-stack/FargateSecurityGroupGithubSyncedAccessPointTask",
+        "SecurityGroupEgress": Array [
+          Object {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "FargateSecurityGroupS3SyncedAccessPointTaskC6453C2A": Object {
+      "Properties": Object {
+        "GroupDescription": "testing-stack/FargateSecurityGroupS3SyncedAccessPointTask",
+        "SecurityGroupEgress": Array [
+          Object {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
     },
     "Filesystem653F8FD3": Object {
       "DeletionPolicy": "Delete",
@@ -154,7 +289,9 @@ Object {
             ],
           },
         ],
-        "SubnetId": "p-12345",
+        "SubnetId": Object {
+          "Ref": "VpcPrivateSubnet1Subnet536B997A",
+        },
       },
       "Type": "AWS::EFS::MountTarget",
     },
@@ -171,7 +308,9 @@ Object {
             ],
           },
         ],
-        "SubnetId": "p-67890",
+        "SubnetId": Object {
+          "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+        },
       },
       "Type": "AWS::EFS::MountTarget",
     },
@@ -191,13 +330,15 @@ Object {
             "Value": "testing-stack/Filesystem",
           },
         ],
-        "VpcId": "vpc-12345",
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "FilesystemEfsSecurityGroupfromtestingstackGithubSyncedAccessPointGithubHandlerSecurityGroupBD467FC3204920D87CF4": Object {
+    "FilesystemEfsSecurityGroupfromtestingstackFargateSecurityGroupGithubSyncedAccessPointPrivateTask4D32A6342049C0669476": Object {
       "Properties": Object {
-        "Description": "from testingstackGithubSyncedAccessPointGithubHandlerSecurityGroupBD467FC3:2049",
+        "Description": "from testingstackFargateSecurityGroupGithubSyncedAccessPointPrivateTask4D32A634:2049",
         "FromPort": 2049,
         "GroupId": Object {
           "Fn::GetAtt": Array [
@@ -208,7 +349,7 @@ Object {
         "IpProtocol": "tcp",
         "SourceSecurityGroupId": Object {
           "Fn::GetAtt": Array [
-            "GithubSyncedAccessPointGithubHandlerSecurityGroup0CC606E3",
+            "FargateSecurityGroupGithubSyncedAccessPointPrivateTaskF6B4B2BE",
             "GroupId",
           ],
         },
@@ -216,9 +357,9 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "FilesystemEfsSecurityGroupfromtestingstackGithubSyncedAccessPointPrivateGithubHandlerSecurityGroup20FF28CF2049DBDA1793": Object {
+    "FilesystemEfsSecurityGroupfromtestingstackFargateSecurityGroupGithubSyncedAccessPointTask2FC6EA6F2049763EB5F3": Object {
       "Properties": Object {
-        "Description": "from testingstackGithubSyncedAccessPointPrivateGithubHandlerSecurityGroup20FF28CF:2049",
+        "Description": "from testingstackFargateSecurityGroupGithubSyncedAccessPointTask2FC6EA6F:2049",
         "FromPort": 2049,
         "GroupId": Object {
           "Fn::GetAtt": Array [
@@ -229,7 +370,7 @@ Object {
         "IpProtocol": "tcp",
         "SourceSecurityGroupId": Object {
           "Fn::GetAtt": Array [
-            "GithubSyncedAccessPointPrivateGithubHandlerSecurityGroupE156D5DC",
+            "FargateSecurityGroupGithubSyncedAccessPointTask79ECF76A",
             "GroupId",
           ],
         },
@@ -237,9 +378,9 @@ Object {
       },
       "Type": "AWS::EC2::SecurityGroupIngress",
     },
-    "FilesystemEfsSecurityGroupfromtestingstackS3SyncedAccessPointSyncHandlerSecurityGroupEDD5DF072049D279D909": Object {
+    "FilesystemEfsSecurityGroupfromtestingstackFargateSecurityGroupS3SyncedAccessPointTaskC7D1F81B20496CF98737": Object {
       "Properties": Object {
-        "Description": "from testingstackS3SyncedAccessPointSyncHandlerSecurityGroupEDD5DF07:2049",
+        "Description": "from testingstackFargateSecurityGroupS3SyncedAccessPointTaskC7D1F81B:2049",
         "FromPort": 2049,
         "GroupId": Object {
           "Fn::GetAtt": Array [
@@ -250,7 +391,7 @@ Object {
         "IpProtocol": "tcp",
         "SourceSecurityGroupId": Object {
           "Fn::GetAtt": Array [
-            "S3SyncedAccessPointSyncHandlerSecurityGroup3A598069",
+            "FargateSecurityGroupS3SyncedAccessPointTaskC6453C2A",
             "GroupId",
           ],
         },
@@ -278,236 +419,8 @@ Object {
       },
       "Type": "AWS::EFS::AccessPoint",
     },
-    "GithubSyncedAccessPointGithubHandler9DBEA6D6": Object {
-      "DependsOn": Array [
-        "FilesystemEfsMountTarget1FA5225C0",
-        "FilesystemEfsMountTarget29F807637",
-        "GithubSyncedAccessPointGithubHandlerServiceRoleDefaultPolicy32079933",
-        "GithubSyncedAccessPointGithubHandlerServiceRoleBBF897E8",
-      ],
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7S3Bucket57E5170F",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7S3VersionKeyE0FD79FC",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7S3VersionKeyE0FD79FC",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Environment": Object {
-          "Variables": Object {
-            "MOUNT_TARGET": "/mnt/efsmount",
-            "REPOSITORY_URI": "https://github.com/pahud/cdk-efs-assets.git",
-            "SYNC_PATH": "/cdk-efs-assets",
-          },
-        },
-        "FileSystemConfigs": Array [
-          Object {
-            "Arn": Object {
-              "Fn::Join": Array [
-                "",
-                Array [
-                  "arn:",
-                  Object {
-                    "Ref": "AWS::Partition",
-                  },
-                  ":elasticfilesystem:us-east-1:11111111111:access-point/",
-                  Object {
-                    "Ref": "GithubSyncedAccessPoint7D9E7A52",
-                  },
-                ],
-              ],
-            },
-            "LocalMountPath": "/mnt/efsmount",
-          },
-        ],
-        "Handler": "index.on_event",
-        "Layers": Array [
-          "arn:aws:lambda:us-east-1:553035198032:layer:git-lambda2:7",
-        ],
-        "MemorySize": 512,
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "GithubSyncedAccessPointGithubHandlerServiceRoleBBF897E8",
-            "Arn",
-          ],
-        },
-        "Runtime": "python3.8",
-        "Timeout": 180,
-        "VpcConfig": Object {
-          "SecurityGroupIds": Array [
-            Object {
-              "Fn::GetAtt": Array [
-                "GithubSyncedAccessPointGithubHandlerSecurityGroup0CC606E3",
-                "GroupId",
-              ],
-            },
-          ],
-          "SubnetIds": Array [
-            "p-12345",
-            "p-67890",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "GithubSyncedAccessPointGithubHandlerSecurityGroup0CC606E3": Object {
-      "DependsOn": Array [
-        "FilesystemEfsMountTarget1FA5225C0",
-        "FilesystemEfsMountTarget29F807637",
-      ],
-      "Properties": Object {
-        "GroupDescription": "Automatic security group for Lambda Function testingstackGithubSyncedAccessPointGithubHandler54CA85E4",
-        "SecurityGroupEgress": Array [
-          Object {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1",
-          },
-        ],
-        "VpcId": "vpc-12345",
-      },
-      "Type": "AWS::EC2::SecurityGroup",
-    },
-    "GithubSyncedAccessPointGithubHandlerServiceRoleBBF897E8": Object {
-      "DependsOn": Array [
-        "FilesystemEfsMountTarget1FA5225C0",
-        "FilesystemEfsMountTarget29F807637",
-      ],
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "GithubSyncedAccessPointGithubHandlerServiceRoleDefaultPolicy32079933": Object {
-      "DependsOn": Array [
-        "FilesystemEfsMountTarget1FA5225C0",
-        "FilesystemEfsMountTarget29F807637",
-      ],
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "elasticfilesystem:ClientMount",
-              "Condition": Object {
-                "StringEquals": Object {
-                  "elasticfilesystem:AccessPointArn": Object {
-                    "Fn::Join": Array [
-                      "",
-                      Array [
-                        "arn:",
-                        Object {
-                          "Ref": "AWS::Partition",
-                        },
-                        ":elasticfilesystem:us-east-1:11111111111:access-point/",
-                        Object {
-                          "Ref": "GithubSyncedAccessPoint7D9E7A52",
-                        },
-                      ],
-                    ],
-                  },
-                },
-              },
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-            Object {
-              "Action": "elasticfilesystem:ClientWrite",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
-                  "",
-                  Array [
-                    "arn:",
-                    Object {
-                      "Ref": "AWS::Partition",
-                    },
-                    ":elasticfilesystem:us-east-1:11111111111:file-system/",
-                    Object {
-                      "Ref": "Filesystem653F8FD3",
-                    },
-                  ],
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "GithubSyncedAccessPointGithubHandlerServiceRoleDefaultPolicy32079933",
-        "Roles": Array [
-          Object {
-            "Ref": "GithubSyncedAccessPointGithubHandlerServiceRoleBBF897E8",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
+    "GithubSyncedAccessPointClusterEF173EE3": Object {
+      "Type": "AWS::ECS::Cluster",
     },
     "GithubSyncedAccessPointPrivateC1B0BF58": Object {
       "Properties": Object {
@@ -524,182 +437,74 @@ Object {
             "OwnerUid": "1001",
             "Permissions": "0755",
           },
-          "Path": "/demo-github",
+          "Path": "/demo-github-private",
         },
       },
       "Type": "AWS::EFS::AccessPoint",
     },
-    "GithubSyncedAccessPointPrivateGithubHandler43842418": Object {
+    "GithubSyncedAccessPointPrivateClusterAE91288B": Object {
+      "Type": "AWS::ECS::Cluster",
+    },
+    "GithubSyncedAccessPointPrivateSyncTriggerEcsRunTaskC2FFC4EA": Object {
+      "DeletionPolicy": "Delete",
       "DependsOn": Array [
         "FilesystemEfsMountTarget1FA5225C0",
         "FilesystemEfsMountTarget29F807637",
-        "GithubSyncedAccessPointPrivateGithubHandlerServiceRoleDefaultPolicy57D31E5A",
-        "GithubSyncedAccessPointPrivateGithubHandlerServiceRole7AD8F6D0",
+        "GithubSyncedAccessPointPrivateSyncTriggerEcsRunTaskCustomResourcePolicy2E574E9C",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7S3Bucket57E5170F",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7S3VersionKeyE0FD79FC",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters244049519c8f416a95a332e3da26e0d8e1ddf79eb09250a886473aadde2001f7S3VersionKeyE0FD79FC",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Environment": Object {
-          "Variables": Object {
-            "GITHUB_SECRET_ID": "github",
-            "GITHUB_SECRET_KEY": "oauth_token",
-            "MOUNT_TARGET": "/mnt/efsmount",
-            "REPOSITORY_URI": "https://github.com/pahud/private-repo.git",
-            "SYNC_PATH": "/private-repo",
-          },
-        },
-        "FileSystemConfigs": Array [
-          Object {
-            "Arn": Object {
-              "Fn::Join": Array [
-                "",
-                Array [
-                  "arn:",
+        "Create": Object {
+          "action": "runTask",
+          "parameters": Object {
+            "cluster": Object {
+              "Ref": "GithubSyncedAccessPointPrivateClusterAE91288B",
+            },
+            "launchType": "FARGATE",
+            "networkConfiguration": Object {
+              "awsvpcConfiguration": Object {
+                "assignPublicIp": "DISABLED",
+                "securityGroups": Array [
                   Object {
-                    "Ref": "AWS::Partition",
-                  },
-                  ":elasticfilesystem:us-east-1:11111111111:access-point/",
-                  Object {
-                    "Ref": "GithubSyncedAccessPointPrivateC1B0BF58",
+                    "Fn::GetAtt": Array [
+                      "FargateSecurityGroupGithubSyncedAccessPointPrivateTaskF6B4B2BE",
+                      "GroupId",
+                    ],
                   },
                 ],
-              ],
+                "subnets": Array [
+                  Object {
+                    "Ref": "VpcPrivateSubnet1Subnet536B997A",
+                  },
+                  Object {
+                    "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+                  },
+                ],
+              },
             },
-            "LocalMountPath": "/mnt/efsmount",
+            "platformVersion": "1.4.0",
+            "taskDefinition": Object {
+              "Ref": "GithubSyncedAccessPointPrivateTask0ADA2724",
+            },
           },
-        ],
-        "Handler": "index.on_event",
-        "Layers": Array [
-          "arn:aws:lambda:us-east-1:553035198032:layer:git-lambda2:7",
-        ],
-        "MemorySize": 512,
-        "Role": Object {
+          "physicalResourceId": Object {
+            "id": Object {
+              "Ref": "GithubSyncedAccessPointPrivateTask0ADA2724",
+            },
+          },
+          "service": "ECS",
+        },
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": Object {
           "Fn::GetAtt": Array [
-            "GithubSyncedAccessPointPrivateGithubHandlerServiceRole7AD8F6D0",
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
             "Arn",
           ],
         },
-        "Runtime": "python3.8",
-        "Timeout": 180,
-        "VpcConfig": Object {
-          "SecurityGroupIds": Array [
-            Object {
-              "Fn::GetAtt": Array [
-                "GithubSyncedAccessPointPrivateGithubHandlerSecurityGroupE156D5DC",
-                "GroupId",
-              ],
-            },
-          ],
-          "SubnetIds": Array [
-            "p-12345",
-            "p-67890",
-          ],
-        },
       },
-      "Type": "AWS::Lambda::Function",
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
     },
-    "GithubSyncedAccessPointPrivateGithubHandlerSecurityGroupE156D5DC": Object {
-      "DependsOn": Array [
-        "FilesystemEfsMountTarget1FA5225C0",
-        "FilesystemEfsMountTarget29F807637",
-      ],
-      "Properties": Object {
-        "GroupDescription": "Automatic security group for Lambda Function testingstackGithubSyncedAccessPointPrivateGithubHandler9946284F",
-        "SecurityGroupEgress": Array [
-          Object {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1",
-          },
-        ],
-        "VpcId": "vpc-12345",
-      },
-      "Type": "AWS::EC2::SecurityGroup",
-    },
-    "GithubSyncedAccessPointPrivateGithubHandlerServiceRole7AD8F6D0": Object {
-      "DependsOn": Array [
-        "FilesystemEfsMountTarget1FA5225C0",
-        "FilesystemEfsMountTarget29F807637",
-      ],
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "GithubSyncedAccessPointPrivateGithubHandlerServiceRoleDefaultPolicy57D31E5A": Object {
+    "GithubSyncedAccessPointPrivateSyncTriggerEcsRunTaskCustomResourcePolicy2E574E9C": Object {
       "DependsOn": Array [
         "FilesystemEfsMountTarget1FA5225C0",
         "FilesystemEfsMountTarget29F807637",
@@ -708,31 +513,179 @@ Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "elasticfilesystem:ClientMount",
-              "Condition": Object {
-                "StringEquals": Object {
-                  "elasticfilesystem:AccessPointArn": Object {
-                    "Fn::Join": Array [
-                      "",
-                      Array [
-                        "arn:",
-                        Object {
-                          "Ref": "AWS::Partition",
-                        },
-                        ":elasticfilesystem:us-east-1:11111111111:access-point/",
-                        Object {
-                          "Ref": "GithubSyncedAccessPointPrivateC1B0BF58",
-                        },
-                      ],
-                    ],
+              "Action": "ecs:RunTask",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "GithubSyncedAccessPointPrivateTask0ADA2724",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "GithubSyncedAccessPointPrivateSyncTriggerEcsRunTaskCustomResourcePolicy2E574E9C",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "GithubSyncedAccessPointPrivateTask0ADA2724": Object {
+      "Properties": Object {
+        "ContainerDefinitions": Array [
+          Object {
+            "Command": Array [
+              "/root/githubsync.sh",
+            ],
+            "Environment": Array [
+              Object {
+                "Name": "REPOSITORY_URI",
+                "Value": "https://github.com/pahud/private-repo.git",
+              },
+              Object {
+                "Name": "MOUNT_TARGET",
+                "Value": "/mnt/efsmount",
+              },
+              Object {
+                "Name": "SYNC_PATH",
+                "Value": "/private-repo",
+              },
+              Object {
+                "Name": "GITHUB_SECRET_ID",
+                "Value": "github",
+              },
+              Object {
+                "Name": "GITHUB_SECRET_KEY",
+                "Value": "oauth_token",
+              },
+            ],
+            "Essential": true,
+            "Image": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Ref": "AWS::AccountId",
                   },
+                  ".dkr.ecr.",
+                  Object {
+                    "Ref": "AWS::Region",
+                  },
+                  ".",
+                  Object {
+                    "Ref": "AWS::URLSuffix",
+                  },
+                  "/aws-cdk/assets:5fe415ce859ed19c6eff39b5b9146d7743f0c3ff1f376cdd5f6109e1568ac710",
+                ],
+              ],
+            },
+            "LogConfiguration": Object {
+              "LogDriver": "awslogs",
+              "Options": Object {
+                "awslogs-group": Object {
+                  "Ref": "LogGroupGithubSyncedAccessPointPrivateTaskB8A3E024",
+                },
+                "awslogs-region": Object {
+                  "Ref": "AWS::Region",
+                },
+                "awslogs-stream-prefix": "SyncWorker",
+              },
+            },
+            "MountPoints": Array [
+              Object {
+                "ContainerPath": "/mnt/efsmount",
+                "ReadOnly": false,
+                "SourceVolume": "efs-data",
+              },
+            ],
+            "Name": "SyncWorker",
+            "Secrets": Array [
+              Object {
+                "Name": "OAUTH_TOKEN",
+                "ValueFrom": Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      "arn:",
+                      Object {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":secretsmanager:",
+                      Object {
+                        "Ref": "AWS::Region",
+                      },
+                      ":",
+                      Object {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":secret:github:oauth_token::",
+                    ],
+                  ],
                 },
               },
-              "Effect": "Allow",
-              "Resource": "*",
+            ],
+          },
+        ],
+        "Cpu": "256",
+        "ExecutionRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "GithubSyncedAccessPointPrivateTaskExecutionRole111828C2",
+            "Arn",
+          ],
+        },
+        "Family": "testingstackGithubSyncedAccessPointPrivateTask392756D6",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": Array [
+          "FARGATE",
+        ],
+        "TaskRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "GithubSyncedAccessPointPrivateTaskTaskRole48037F4F",
+            "Arn",
+          ],
+        },
+        "Volumes": Array [
+          Object {
+            "EfsVolumeConfiguration": Object {
+              "FileSystemId": Object {
+                "Ref": "Filesystem653F8FD3",
+              },
             },
+            "Name": "efs-data",
+          },
+        ],
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "GithubSyncedAccessPointPrivateTaskExecutionRole111828C2": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
             Object {
-              "Action": "elasticfilesystem:ClientWrite",
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "GithubSyncedAccessPointPrivateTaskExecutionRoleDefaultPolicyEC8D5406": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+              ],
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::Join": Array [
@@ -742,11 +695,34 @@ Object {
                     Object {
                       "Ref": "AWS::Partition",
                     },
-                    ":elasticfilesystem:us-east-1:11111111111:file-system/",
+                    ":ecr:",
                     Object {
-                      "Ref": "Filesystem653F8FD3",
+                      "Ref": "AWS::Region",
                     },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":repository/aws-cdk/assets",
                   ],
+                ],
+              },
+            },
+            Object {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "LogGroupGithubSyncedAccessPointPrivateTaskB8A3E024",
+                  "Arn",
                 ],
               },
             },
@@ -764,7 +740,45 @@ Object {
                     Object {
                       "Ref": "AWS::Partition",
                     },
-                    ":secretsmanager:us-east-1:11111111111:secret:github-??????",
+                    ":secretsmanager:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":secret:github-??????",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "elasticfilesystem:ClientMount",
+                "elasticfilesystem:ClientWrite",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":elasticfilesystem:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":file-system/",
+                    Object {
+                      "Ref": "Filesystem653F8FD3",
+                    },
                   ],
                 ],
               },
@@ -772,24 +786,415 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "GithubSyncedAccessPointPrivateGithubHandlerServiceRoleDefaultPolicy57D31E5A",
+        "PolicyName": "GithubSyncedAccessPointPrivateTaskExecutionRoleDefaultPolicyEC8D5406",
         "Roles": Array [
           Object {
-            "Ref": "GithubSyncedAccessPointPrivateGithubHandlerServiceRole7AD8F6D0",
+            "Ref": "GithubSyncedAccessPointPrivateTaskExecutionRole111828C2",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "GithubSyncedAccessPointPrivateProviderframeworkonEvent1CFEE1A7": Object {
+    "GithubSyncedAccessPointPrivateTaskTaskRole48037F4F": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "GithubSyncedAccessPointPrivateTaskTaskRoleDefaultPolicy0AD6FFA4": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "secretsmanager:GetSecretValue",
+                "secretsmanager:DescribeSecret",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":secretsmanager:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":secret:github-??????",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "GithubSyncedAccessPointPrivateTaskTaskRoleDefaultPolicy0AD6FFA4",
+        "Roles": Array [
+          Object {
+            "Ref": "GithubSyncedAccessPointPrivateTaskTaskRole48037F4F",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "GithubSyncedAccessPointSyncTriggerEcsRunTask547FB319": Object {
+      "DeletionPolicy": "Delete",
       "DependsOn": Array [
-        "GithubSyncedAccessPointPrivateProviderframeworkonEventServiceRoleDefaultPolicy5F8E1594",
-        "GithubSyncedAccessPointPrivateProviderframeworkonEventServiceRole9900CE3F",
+        "FilesystemEfsMountTarget1FA5225C0",
+        "FilesystemEfsMountTarget29F807637",
+        "GithubSyncedAccessPointSyncTriggerEcsRunTaskCustomResourcePolicy10FECB9C",
+      ],
+      "Properties": Object {
+        "Create": Object {
+          "action": "runTask",
+          "parameters": Object {
+            "cluster": Object {
+              "Ref": "GithubSyncedAccessPointClusterEF173EE3",
+            },
+            "launchType": "FARGATE",
+            "networkConfiguration": Object {
+              "awsvpcConfiguration": Object {
+                "assignPublicIp": "DISABLED",
+                "securityGroups": Array [
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "FargateSecurityGroupGithubSyncedAccessPointTask79ECF76A",
+                      "GroupId",
+                    ],
+                  },
+                ],
+                "subnets": Array [
+                  Object {
+                    "Ref": "VpcPrivateSubnet1Subnet536B997A",
+                  },
+                  Object {
+                    "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+                  },
+                ],
+              },
+            },
+            "platformVersion": "1.4.0",
+            "taskDefinition": Object {
+              "Ref": "GithubSyncedAccessPointTask940232B1",
+            },
+          },
+          "physicalResourceId": Object {
+            "id": Object {
+              "Ref": "GithubSyncedAccessPointTask940232B1",
+            },
+          },
+          "service": "ECS",
+        },
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "GithubSyncedAccessPointSyncTriggerEcsRunTaskCustomResourcePolicy10FECB9C": Object {
+      "DependsOn": Array [
+        "FilesystemEfsMountTarget1FA5225C0",
+        "FilesystemEfsMountTarget29F807637",
+      ],
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ecs:RunTask",
+              "Effect": "Allow",
+              "Resource": Object {
+                "Ref": "GithubSyncedAccessPointTask940232B1",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "GithubSyncedAccessPointSyncTriggerEcsRunTaskCustomResourcePolicy10FECB9C",
+        "Roles": Array [
+          Object {
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "GithubSyncedAccessPointTask940232B1": Object {
+      "Properties": Object {
+        "ContainerDefinitions": Array [
+          Object {
+            "Command": Array [
+              "/root/githubsync.sh",
+            ],
+            "Environment": Array [
+              Object {
+                "Name": "REPOSITORY_URI",
+                "Value": "https://github.com/pahud/cdk-efs-assets.git",
+              },
+              Object {
+                "Name": "MOUNT_TARGET",
+                "Value": "/mnt/efsmount",
+              },
+              Object {
+                "Name": "SYNC_PATH",
+                "Value": "/cdk-efs-assets",
+              },
+            ],
+            "Essential": true,
+            "Image": Object {
+              "Fn::Join": Array [
+                "",
+                Array [
+                  Object {
+                    "Ref": "AWS::AccountId",
+                  },
+                  ".dkr.ecr.",
+                  Object {
+                    "Ref": "AWS::Region",
+                  },
+                  ".",
+                  Object {
+                    "Ref": "AWS::URLSuffix",
+                  },
+                  "/aws-cdk/assets:5fe415ce859ed19c6eff39b5b9146d7743f0c3ff1f376cdd5f6109e1568ac710",
+                ],
+              ],
+            },
+            "LogConfiguration": Object {
+              "LogDriver": "awslogs",
+              "Options": Object {
+                "awslogs-group": Object {
+                  "Ref": "LogGroupGithubSyncedAccessPointTaskEDF28D95",
+                },
+                "awslogs-region": Object {
+                  "Ref": "AWS::Region",
+                },
+                "awslogs-stream-prefix": "SyncWorker",
+              },
+            },
+            "MountPoints": Array [
+              Object {
+                "ContainerPath": "/mnt/efsmount",
+                "ReadOnly": false,
+                "SourceVolume": "efs-data",
+              },
+            ],
+            "Name": "SyncWorker",
+          },
+        ],
+        "Cpu": "256",
+        "ExecutionRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "GithubSyncedAccessPointTaskExecutionRole13A48554",
+            "Arn",
+          ],
+        },
+        "Family": "testingstackGithubSyncedAccessPointTask342F540E",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": Array [
+          "FARGATE",
+        ],
+        "TaskRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "GithubSyncedAccessPointTaskTaskRole5E4974C8",
+            "Arn",
+          ],
+        },
+        "Volumes": Array [
+          Object {
+            "EfsVolumeConfiguration": Object {
+              "FileSystemId": Object {
+                "Ref": "Filesystem653F8FD3",
+              },
+            },
+            "Name": "efs-data",
+          },
+        ],
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "GithubSyncedAccessPointTaskExecutionRole13A48554": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "GithubSyncedAccessPointTaskExecutionRoleDefaultPolicyE3EA5DE8": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":ecr:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":repository/aws-cdk/assets",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "LogGroupGithubSyncedAccessPointTaskEDF28D95",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "elasticfilesystem:ClientMount",
+                "elasticfilesystem:ClientWrite",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":elasticfilesystem:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":file-system/",
+                    Object {
+                      "Ref": "Filesystem653F8FD3",
+                    },
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "GithubSyncedAccessPointTaskExecutionRoleDefaultPolicyE3EA5DE8",
+        "Roles": Array [
+          Object {
+            "Ref": "GithubSyncedAccessPointTaskExecutionRole13A48554",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "GithubSyncedAccessPointTaskTaskRole5E4974C8": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "LogGroupGithubSyncedAccessPointPrivateTaskB8A3E024": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "RetentionInDays": 1,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "LogGroupGithubSyncedAccessPointTaskEDF28D95": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "RetentionInDays": 1,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "LogGroupS3SyncedAccessPointTaskA3E69ADB": Object {
+      "DeletionPolicy": "Delete",
+      "Properties": Object {
+        "RetentionInDays": 1,
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": Object {
+      "DependsOn": Array [
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+        "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3BucketEAC9DD43",
+            "Ref": "AssetParameters67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24S3Bucket4D46ABB5",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -802,7 +1207,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3VersionKeyDD9AE9E7",
+                          "Ref": "AssetParameters67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24S3VersionKeyB0F28861",
                         },
                       ],
                     },
@@ -815,7 +1220,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3VersionKeyDD9AE9E7",
+                          "Ref": "AssetParameters67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24S3VersionKeyB0F28861",
                         },
                       ],
                     },
@@ -825,30 +1230,18 @@ Object {
             ],
           },
         },
-        "Description": "AWS CDK resource provider framework - onEvent (testing-stack/GithubSyncedAccessPointPrivate/Provider)",
-        "Environment": Object {
-          "Variables": Object {
-            "USER_ON_EVENT_FUNCTION_ARN": Object {
-              "Fn::GetAtt": Array [
-                "GithubSyncedAccessPointPrivateGithubHandler43842418",
-                "Arn",
-              ],
-            },
-          },
-        },
-        "Handler": "framework.onEvent",
+        "Handler": "index.handler",
         "Role": Object {
           "Fn::GetAtt": Array [
-            "GithubSyncedAccessPointPrivateProviderframeworkonEventServiceRole9900CE3F",
+            "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
             "Arn",
           ],
         },
-        "Runtime": "nodejs10.x",
-        "Timeout": 900,
+        "Runtime": "nodejs12.x",
       },
       "Type": "AWS::Lambda::Function",
     },
-    "GithubSyncedAccessPointPrivateProviderframeworkonEventServiceRole9900CE3F": Object {
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -879,181 +1272,32 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "GithubSyncedAccessPointPrivateProviderframeworkonEventServiceRoleDefaultPolicy5F8E1594": Object {
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "lambda:InvokeFunction",
+              "Action": Array [
+                "logs:PutRetentionPolicy",
+                "logs:DeleteRetentionPolicy",
+              ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GithubSyncedAccessPointPrivateGithubHandler43842418",
-                  "Arn",
-                ],
-              },
+              "Resource": "*",
             },
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "GithubSyncedAccessPointPrivateProviderframeworkonEventServiceRoleDefaultPolicy5F8E1594",
+        "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
         "Roles": Array [
           Object {
-            "Ref": "GithubSyncedAccessPointPrivateProviderframeworkonEventServiceRole9900CE3F",
+            "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "GithubSyncedAccessPointPrivateSyncTriggerE4E808E0": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "GithubSyncedAccessPointPrivateProviderframeworkonEvent1CFEE1A7",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::CustomResource",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "GithubSyncedAccessPointProviderframeworkonEventE33595E1": Object {
-      "DependsOn": Array [
-        "GithubSyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy950375A0",
-        "GithubSyncedAccessPointProviderframeworkonEventServiceRole91268913",
-      ],
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3BucketEAC9DD43",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3VersionKeyDD9AE9E7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3VersionKeyDD9AE9E7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Description": "AWS CDK resource provider framework - onEvent (testing-stack/GithubSyncedAccessPoint/Provider)",
-        "Environment": Object {
-          "Variables": Object {
-            "USER_ON_EVENT_FUNCTION_ARN": Object {
-              "Fn::GetAtt": Array [
-                "GithubSyncedAccessPointGithubHandler9DBEA6D6",
-                "Arn",
-              ],
-            },
-          },
-        },
-        "Handler": "framework.onEvent",
-        "Role": Object {
-          "Fn::GetAtt": Array [
-            "GithubSyncedAccessPointProviderframeworkonEventServiceRole91268913",
-            "Arn",
-          ],
-        },
-        "Runtime": "nodejs10.x",
-        "Timeout": 900,
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "GithubSyncedAccessPointProviderframeworkonEventServiceRole91268913": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "GithubSyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy950375A0": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "lambda:InvokeFunction",
-              "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "GithubSyncedAccessPointGithubHandler9DBEA6D6",
-                  "Arn",
-                ],
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "GithubSyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy950375A0",
-        "Roles": Array [
-          Object {
-            "Ref": "GithubSyncedAccessPointProviderframeworkonEventServiceRole91268913",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
-    },
-    "GithubSyncedAccessPointSyncTrigger55B097A4": Object {
-      "DeletionPolicy": "Delete",
-      "Properties": Object {
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "GithubSyncedAccessPointProviderframeworkonEventE33595E1",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::CloudFormation::CustomResource",
-      "UpdateReplacePolicy": "Delete",
+    "S3SyncedAccessPointClusterDB88111B": Object {
+      "Type": "AWS::ECS::Cluster",
     },
     "S3SyncedAccessPointFF91B6A5": Object {
       "Properties": Object {
@@ -1075,256 +1319,192 @@ Object {
       },
       "Type": "AWS::EFS::AccessPoint",
     },
-    "S3SyncedAccessPointProviderframeworkonEvent4D8BAF30": Object {
+    "S3SyncedAccessPointSyncTriggerEcsRunTaskB8480867": Object {
+      "DeletionPolicy": "Delete",
       "DependsOn": Array [
-        "S3SyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy8624C7E3",
-        "S3SyncedAccessPointProviderframeworkonEventServiceRole22ADA620",
+        "FilesystemEfsMountTarget1FA5225C0",
+        "FilesystemEfsMountTarget29F807637",
+        "S3SyncedAccessPointSyncTriggerEcsRunTaskCustomResourcePolicyE7643430",
       ],
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3BucketEAC9DD43",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3VersionKeyDD9AE9E7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParametersc691172cdeefa2c91b5a2907f9d81118e47597634943344795f1a844192dd49cS3VersionKeyDD9AE9E7",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Description": "AWS CDK resource provider framework - onEvent (testing-stack/S3SyncedAccessPoint/Provider)",
-        "Environment": Object {
-          "Variables": Object {
-            "USER_ON_EVENT_FUNCTION_ARN": Object {
-              "Fn::GetAtt": Array [
-                "S3SyncedAccessPointSyncHandlerE3E29B2F",
-                "Arn",
-              ],
+        "Create": Object {
+          "action": "runTask",
+          "parameters": Object {
+            "cluster": Object {
+              "Ref": "S3SyncedAccessPointClusterDB88111B",
+            },
+            "launchType": "FARGATE",
+            "networkConfiguration": Object {
+              "awsvpcConfiguration": Object {
+                "assignPublicIp": "DISABLED",
+                "securityGroups": Array [
+                  Object {
+                    "Fn::GetAtt": Array [
+                      "FargateSecurityGroupS3SyncedAccessPointTaskC6453C2A",
+                      "GroupId",
+                    ],
+                  },
+                ],
+                "subnets": Array [
+                  Object {
+                    "Ref": "VpcPrivateSubnet1Subnet536B997A",
+                  },
+                  Object {
+                    "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+                  },
+                ],
+              },
+            },
+            "platformVersion": "1.4.0",
+            "taskDefinition": Object {
+              "Ref": "S3SyncedAccessPointTask304D2573",
             },
           },
+          "physicalResourceId": Object {
+            "id": Object {
+              "Ref": "S3SyncedAccessPointTask304D2573",
+            },
+          },
+          "service": "ECS",
         },
-        "Handler": "framework.onEvent",
-        "Role": Object {
+        "InstallLatestAwsSdk": true,
+        "ServiceToken": Object {
           "Fn::GetAtt": Array [
-            "S3SyncedAccessPointProviderframeworkonEventServiceRole22ADA620",
+            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
             "Arn",
           ],
         },
-        "Runtime": "nodejs10.x",
-        "Timeout": 900,
       },
-      "Type": "AWS::Lambda::Function",
+      "Type": "Custom::AWS",
+      "UpdateReplacePolicy": "Delete",
     },
-    "S3SyncedAccessPointProviderframeworkonEventServiceRole22ADA620": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": Object {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "S3SyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy8624C7E3": Object {
+    "S3SyncedAccessPointSyncTriggerEcsRunTaskCustomResourcePolicyE7643430": Object {
+      "DependsOn": Array [
+        "FilesystemEfsMountTarget1FA5225C0",
+        "FilesystemEfsMountTarget29F807637",
+      ],
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "lambda:InvokeFunction",
+              "Action": "ecs:RunTask",
               "Effect": "Allow",
               "Resource": Object {
-                "Fn::GetAtt": Array [
-                  "S3SyncedAccessPointSyncHandlerE3E29B2F",
-                  "Arn",
-                ],
+                "Ref": "S3SyncedAccessPointTask304D2573",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "S3SyncedAccessPointProviderframeworkonEventServiceRoleDefaultPolicy8624C7E3",
+        "PolicyName": "S3SyncedAccessPointSyncTriggerEcsRunTaskCustomResourcePolicyE7643430",
         "Roles": Array [
           Object {
-            "Ref": "S3SyncedAccessPointProviderframeworkonEventServiceRole22ADA620",
+            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "S3SyncedAccessPointSyncHandlerE3E29B2F": Object {
-      "DependsOn": Array [
-        "FilesystemEfsMountTarget1FA5225C0",
-        "FilesystemEfsMountTarget29F807637",
-        "S3SyncedAccessPointSyncHandlerServiceRoleDefaultPolicy3959962C",
-        "S3SyncedAccessPointSyncHandlerServiceRole4BAEA2D1",
-      ],
+    "S3SyncedAccessPointTask304D2573": Object {
       "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
-            "Ref": "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaS3Bucket4AFEBB71",
-          },
-          "S3Key": Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                Object {
-                  "Fn::Select": Array [
-                    0,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaS3VersionKey0205EC90",
-                        },
-                      ],
-                    },
-                  ],
-                },
-                Object {
-                  "Fn::Select": Array [
-                    1,
-                    Object {
-                      "Fn::Split": Array [
-                        "||",
-                        Object {
-                          "Ref": "AssetParameters9a2dabe044bdaf33f54251df90cf58966a2d0e65c0cf653998d8614618fe0ecaS3VersionKey0205EC90",
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            ],
-          },
-        },
-        "Environment": Object {
-          "Variables": Object {
-            "BUCKET_NAME": Object {
-              "Ref": "Bucket83908E77",
-            },
-            "MOUNT_TARGET": "/mnt/efsmount",
-            "SYNC_PATH": "/foo",
-            "ZIPPED_KEY": "folder/foo.zip",
-          },
-        },
-        "FileSystemConfigs": Array [
+        "ContainerDefinitions": Array [
           Object {
-            "Arn": Object {
+            "Command": Array [
+              "/root/s3sync.sh",
+            ],
+            "Environment": Array [
+              Object {
+                "Name": "MOUNT_TARGET",
+                "Value": "/mnt/efsmount",
+              },
+              Object {
+                "Name": "BUCKET_NAME",
+                "Value": "mock",
+              },
+              Object {
+                "Name": "ZIPPED_KEY",
+                "Value": "folder/foo.zip",
+              },
+              Object {
+                "Name": "SYNC_PATH",
+                "Value": "/foo",
+              },
+            ],
+            "Essential": true,
+            "Image": Object {
               "Fn::Join": Array [
                 "",
                 Array [
-                  "arn:",
                   Object {
-                    "Ref": "AWS::Partition",
+                    "Ref": "AWS::AccountId",
                   },
-                  ":elasticfilesystem:us-east-1:11111111111:access-point/",
+                  ".dkr.ecr.",
                   Object {
-                    "Ref": "S3SyncedAccessPointFF91B6A5",
+                    "Ref": "AWS::Region",
                   },
+                  ".",
+                  Object {
+                    "Ref": "AWS::URLSuffix",
+                  },
+                  "/aws-cdk/assets:5fe415ce859ed19c6eff39b5b9146d7743f0c3ff1f376cdd5f6109e1568ac710",
                 ],
               ],
             },
-            "LocalMountPath": "/mnt/efsmount",
+            "LogConfiguration": Object {
+              "LogDriver": "awslogs",
+              "Options": Object {
+                "awslogs-group": Object {
+                  "Ref": "LogGroupS3SyncedAccessPointTaskA3E69ADB",
+                },
+                "awslogs-region": Object {
+                  "Ref": "AWS::Region",
+                },
+                "awslogs-stream-prefix": "SyncWorker",
+              },
+            },
+            "MountPoints": Array [
+              Object {
+                "ContainerPath": "/mnt/efsmount",
+                "ReadOnly": false,
+                "SourceVolume": "efs-data",
+              },
+            ],
+            "Name": "SyncWorker",
           },
         ],
-        "Handler": "index.on_event",
-        "MemorySize": 512,
-        "Role": Object {
+        "Cpu": "256",
+        "ExecutionRoleArn": Object {
           "Fn::GetAtt": Array [
-            "S3SyncedAccessPointSyncHandlerServiceRole4BAEA2D1",
+            "S3SyncedAccessPointTaskExecutionRole383B6F08",
             "Arn",
           ],
         },
-        "Runtime": "python3.8",
-        "Timeout": 180,
-        "VpcConfig": Object {
-          "SecurityGroupIds": Array [
-            Object {
-              "Fn::GetAtt": Array [
-                "S3SyncedAccessPointSyncHandlerSecurityGroup3A598069",
-                "GroupId",
-              ],
-            },
-          ],
-          "SubnetIds": Array [
-            "p-12345",
-            "p-67890",
+        "Family": "testingstackS3SyncedAccessPointTask66627B69",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": Array [
+          "FARGATE",
+        ],
+        "TaskRoleArn": Object {
+          "Fn::GetAtt": Array [
+            "S3SyncedAccessPointTaskTaskRole2F9E75A5",
+            "Arn",
           ],
         },
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "S3SyncedAccessPointSyncHandlerSecurityGroup3A598069": Object {
-      "DependsOn": Array [
-        "FilesystemEfsMountTarget1FA5225C0",
-        "FilesystemEfsMountTarget29F807637",
-      ],
-      "Properties": Object {
-        "GroupDescription": "Automatic security group for Lambda Function testingstackS3SyncedAccessPointSyncHandlerC640E63E",
-        "SecurityGroupEgress": Array [
+        "Volumes": Array [
           Object {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1",
+            "EfsVolumeConfiguration": Object {
+              "FileSystemId": Object {
+                "Ref": "Filesystem653F8FD3",
+              },
+            },
+            "Name": "efs-data",
           },
         ],
-        "VpcId": "vpc-12345",
       },
-      "Type": "AWS::EC2::SecurityGroup",
+      "Type": "AWS::ECS::TaskDefinition",
     },
-    "S3SyncedAccessPointSyncHandlerServiceRole4BAEA2D1": Object {
-      "DependsOn": Array [
-        "FilesystemEfsMountTarget1FA5225C0",
-        "FilesystemEfsMountTarget29F807637",
-      ],
+    "S3SyncedAccessPointTaskExecutionRole383B6F08": Object {
       "Properties": Object {
         "AssumeRolePolicyDocument": Object {
           "Statement": Array [
@@ -1332,75 +1512,25 @@ Object {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
               "Principal": Object {
-                "Service": "lambda.amazonaws.com",
+                "Service": "ecs-tasks.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-          Object {
-            "Fn::Join": Array [
-              "",
-              Array [
-                "arn:",
-                Object {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole",
-              ],
-            ],
-          },
-        ],
       },
       "Type": "AWS::IAM::Role",
     },
-    "S3SyncedAccessPointSyncHandlerServiceRoleDefaultPolicy3959962C": Object {
-      "DependsOn": Array [
-        "FilesystemEfsMountTarget1FA5225C0",
-        "FilesystemEfsMountTarget29F807637",
-      ],
+    "S3SyncedAccessPointTaskExecutionRoleDefaultPolicyD655E908": Object {
       "Properties": Object {
         "PolicyDocument": Object {
           "Statement": Array [
             Object {
-              "Action": "elasticfilesystem:ClientMount",
-              "Condition": Object {
-                "StringEquals": Object {
-                  "elasticfilesystem:AccessPointArn": Object {
-                    "Fn::Join": Array [
-                      "",
-                      Array [
-                        "arn:",
-                        Object {
-                          "Ref": "AWS::Partition",
-                        },
-                        ":elasticfilesystem:us-east-1:11111111111:access-point/",
-                        Object {
-                          "Ref": "S3SyncedAccessPointFF91B6A5",
-                        },
-                      ],
-                    ],
-                  },
-                },
-              },
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-            Object {
-              "Action": "elasticfilesystem:ClientWrite",
+              "Action": Array [
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+              ],
               "Effect": "Allow",
               "Resource": Object {
                 "Fn::Join": Array [
@@ -1410,7 +1540,60 @@ Object {
                     Object {
                       "Ref": "AWS::Partition",
                     },
-                    ":elasticfilesystem:us-east-1:11111111111:file-system/",
+                    ":ecr:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":repository/aws-cdk/assets",
+                  ],
+                ],
+              },
+            },
+            Object {
+              "Action": "ecr:GetAuthorizationToken",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+            Object {
+              "Action": Array [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::GetAtt": Array [
+                  "LogGroupS3SyncedAccessPointTaskA3E69ADB",
+                  "Arn",
+                ],
+              },
+            },
+            Object {
+              "Action": Array [
+                "elasticfilesystem:ClientMount",
+                "elasticfilesystem:ClientWrite",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:",
+                    Object {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":elasticfilesystem:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":file-system/",
                     Object {
                       "Ref": "Filesystem653F8FD3",
                     },
@@ -1418,6 +1601,39 @@ Object {
                 ],
               },
             },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "S3SyncedAccessPointTaskExecutionRoleDefaultPolicyD655E908",
+        "Roles": Array [
+          Object {
+            "Ref": "S3SyncedAccessPointTaskExecutionRole383B6F08",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "S3SyncedAccessPointTaskTaskRole2F9E75A5": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "S3SyncedAccessPointTaskTaskRoleDefaultPolicy14AD9D62": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
             Object {
               "Action": "s3:GetObject*",
               "Effect": "Allow",
@@ -1425,11 +1641,11 @@ Object {
                 "Fn::Join": Array [
                   "",
                   Array [
-                    "arn:aws:s3:::",
+                    "arn:",
                     Object {
-                      "Ref": "Bucket83908E77",
+                      "Ref": "AWS::Partition",
                     },
-                    "/folder/foo.zip",
+                    ":s3:::mock/folder/foo.zip",
                   ],
                 ],
               },
@@ -1437,27 +1653,365 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "S3SyncedAccessPointSyncHandlerServiceRoleDefaultPolicy3959962C",
+        "PolicyName": "S3SyncedAccessPointTaskTaskRoleDefaultPolicy14AD9D62",
         "Roles": Array [
           Object {
-            "Ref": "S3SyncedAccessPointSyncHandlerServiceRole4BAEA2D1",
+            "Ref": "S3SyncedAccessPointTaskTaskRole2F9E75A5",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "S3SyncedAccessPointSyncTrigger1D95BB73": Object {
-      "DeletionPolicy": "Delete",
+    "Vpc8378EB38": Object {
       "Properties": Object {
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
-            "S3SyncedAccessPointProviderframeworkonEvent4D8BAF30",
-            "Arn",
-          ],
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "VpcIGWD7BA715C": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "VpcPrivateSubnet1DefaultRouteBE02A9ED": Object {
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": Object {
+          "Ref": "VpcPublicSubnet1NATGateway4D7517AA",
+        },
+        "RouteTableId": Object {
+          "Ref": "VpcPrivateSubnet1RouteTableB2C5B500",
         },
       },
-      "Type": "AWS::CloudFormation::CustomResource",
-      "UpdateReplacePolicy": "Delete",
+      "Type": "AWS::EC2::Route",
+    },
+    "VpcPrivateSubnet1RouteTableAssociation70C59FA6": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "VpcPrivateSubnet1RouteTableB2C5B500",
+        },
+        "SubnetId": Object {
+          "Ref": "VpcPrivateSubnet1Subnet536B997A",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPrivateSubnet1RouteTableB2C5B500": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPrivateSubnet1Subnet536B997A": Object {
+      "Properties": Object {
+        "AvailabilityZone": Object {
+          "Fn::Select": Array [
+            0,
+            Object {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.128.0/18",
+        "MapPublicIpOnLaunch": false,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc/PrivateSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcPrivateSubnet2DefaultRoute060D2087": Object {
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": Object {
+          "Ref": "VpcPublicSubnet1NATGateway4D7517AA",
+        },
+        "RouteTableId": Object {
+          "Ref": "VpcPrivateSubnet2RouteTableA678073B",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "VpcPrivateSubnet2RouteTableA678073B": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPrivateSubnet2RouteTableAssociationA89CAD56": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "VpcPrivateSubnet2RouteTableA678073B",
+        },
+        "SubnetId": Object {
+          "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPrivateSubnet2Subnet3788AAA1": Object {
+      "Properties": Object {
+        "AvailabilityZone": Object {
+          "Fn::Select": Array [
+            1,
+            Object {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.192.0/18",
+        "MapPublicIpOnLaunch": false,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc/PrivateSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcPublicSubnet1DefaultRoute3DA9E72A": Object {
+      "DependsOn": Array [
+        "VpcVPCGWBF912B6E",
+      ],
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": Object {
+          "Ref": "VpcIGWD7BA715C",
+        },
+        "RouteTableId": Object {
+          "Ref": "VpcPublicSubnet1RouteTable6C95E38E",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "VpcPublicSubnet1EIPD7E02669": Object {
+      "Properties": Object {
+        "Domain": "vpc",
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "VpcPublicSubnet1NATGateway4D7517AA": Object {
+      "Properties": Object {
+        "AllocationId": Object {
+          "Fn::GetAtt": Array [
+            "VpcPublicSubnet1EIPD7E02669",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": Object {
+          "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
+        },
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc/PublicSubnet1",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "VpcPublicSubnet1RouteTable6C95E38E": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPublicSubnet1RouteTableAssociation97140677": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "VpcPublicSubnet1RouteTable6C95E38E",
+        },
+        "SubnetId": Object {
+          "Ref": "VpcPublicSubnet1Subnet5C2D37C4",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPublicSubnet1Subnet5C2D37C4": Object {
+      "Properties": Object {
+        "AvailabilityZone": Object {
+          "Fn::Select": Array [
+            0,
+            Object {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.0.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcPublicSubnet2DefaultRoute97F91067": Object {
+      "DependsOn": Array [
+        "VpcVPCGWBF912B6E",
+      ],
+      "Properties": Object {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": Object {
+          "Ref": "VpcIGWD7BA715C",
+        },
+        "RouteTableId": Object {
+          "Ref": "VpcPublicSubnet2RouteTable94F7E489",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "VpcPublicSubnet2RouteTable94F7E489": Object {
+      "Properties": Object {
+        "Tags": Array [
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "VpcPublicSubnet2RouteTableAssociationDD5762D8": Object {
+      "Properties": Object {
+        "RouteTableId": Object {
+          "Ref": "VpcPublicSubnet2RouteTable94F7E489",
+        },
+        "SubnetId": Object {
+          "Ref": "VpcPublicSubnet2Subnet691E08A3",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "VpcPublicSubnet2Subnet691E08A3": Object {
+      "Properties": Object {
+        "AvailabilityZone": Object {
+          "Fn::Select": Array [
+            1,
+            Object {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.64.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": Array [
+          Object {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          Object {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          Object {
+            "Key": "Name",
+            "Value": "testing-stack/Vpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "VpcVPCGWBF912B6E": Object {
+      "Properties": Object {
+        "InternetGatewayId": Object {
+          "Ref": "VpcIGWD7BA715C",
+        },
+        "VpcId": Object {
+          "Ref": "Vpc8378EB38",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
     },
   },
 }
