@@ -144,10 +144,11 @@ export class NyanCatDemo {
     });
     const nginx = staticSiteTask.addContainer('nginx', {
       image: ecs.ContainerImage.fromRegistry('public.ecr.aws/nginx/nginx:latest'),
+      logging: new ecs.AwsLogDriver({ streamPrefix: 'nginx' })
     });
     nginx.addPortMappings({ containerPort: 80 });
     nginx.addMountPoints({
-      containerPath: '/usr/share/nginx/html',
+      containerPath: '/usr/share/nginx/html/efs',
       sourceVolume: 'efs-storage',
       readOnly: true,
     });
@@ -162,10 +163,10 @@ export class NyanCatDemo {
 }
 
 // run the integ testing
-new IntegTesting();
+// new IntegTesting();
 
 // run Nyan Cat demo
-// new NyanCatDemo();
+new NyanCatDemo();
 
 
 function getOrCreateVpc(scope: Construct): ec2.IVpc {
