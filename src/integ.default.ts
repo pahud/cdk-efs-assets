@@ -2,6 +2,7 @@ import * as ec2 from '@aws-cdk/aws-ec2';
 import * as efs from '@aws-cdk/aws-efs';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { App, Stack, RemovalPolicy, Construct } from '@aws-cdk/core';
+import { StatefulFargateNginx } from './stateful-fargate';
 import { SyncedAccessPoint, GithubSyncSource, S3ArchiveSyncSource } from './synced-access-point';
 
 export class IntegTesting {
@@ -95,8 +96,35 @@ export class IntegTesting {
   }
 }
 
+
+export class NyanCatDemo {
+  readonly stack: Stack[];
+  constructor() {
+    const app = new App();
+
+    const env = {
+      region: process.env.CDK_DEFAULT_REGION,
+      account: process.env.CDK_DEFAULT_ACCOUNT,
+    };
+
+    const stack = new Stack(app, 'testing-stack', { env });
+
+    const vpc = getOrCreateVpc(stack);
+
+    new StatefulFargateNginx(stack, 'NyanCat', {
+      vpc,
+      github: 'https://github.com/cristurm/nyan-cat.git',
+    });
+
+    this.stack = [stack];
+  }
+}
+
 // run the integ testing
 new IntegTesting();
+
+// run Nyan Cat demo
+// new NyanCatDemo();
 
 
 function getOrCreateVpc(scope: Construct): ec2.IVpc {

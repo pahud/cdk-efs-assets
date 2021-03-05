@@ -273,6 +273,26 @@
     "@aws-cdk/core" "1.91.0"
     constructs "^3.2.0"
 
+"@aws-cdk/aws-ecs-patterns@^1.83.0":
+  version "1.91.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-ecs-patterns/-/aws-ecs-patterns-1.91.0.tgz#4b5bc641e8e170a520b85949ac14df9532c0b55e"
+  integrity sha512-rtL/3+p+Xmg5DR1wrEyNugPJtku6JCWMNA8G3f7cTRt557aDf3wBaVk0DG7RRpICVAM2vvz42N0sz019iPx/cg==
+  dependencies:
+    "@aws-cdk/aws-applicationautoscaling" "1.91.0"
+    "@aws-cdk/aws-certificatemanager" "1.91.0"
+    "@aws-cdk/aws-ec2" "1.91.0"
+    "@aws-cdk/aws-ecs" "1.91.0"
+    "@aws-cdk/aws-elasticloadbalancingv2" "1.91.0"
+    "@aws-cdk/aws-events" "1.91.0"
+    "@aws-cdk/aws-events-targets" "1.91.0"
+    "@aws-cdk/aws-iam" "1.91.0"
+    "@aws-cdk/aws-route53" "1.91.0"
+    "@aws-cdk/aws-route53-targets" "1.91.0"
+    "@aws-cdk/aws-servicediscovery" "1.91.0"
+    "@aws-cdk/aws-sqs" "1.91.0"
+    "@aws-cdk/core" "1.91.0"
+    constructs "^3.2.0"
+
 "@aws-cdk/aws-ecs@1.91.0", "@aws-cdk/aws-ecs@^1.73.0", "@aws-cdk/aws-ecs@^1.83.0":
   version "1.91.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-ecs/-/aws-ecs-1.91.0.tgz#58ba41e11414d096b80af74caae74af92e39f0ef"
@@ -343,7 +363,7 @@
     "@aws-cdk/region-info" "1.91.0"
     constructs "^3.2.0"
 
-"@aws-cdk/aws-events-targets@^1.73.0", "@aws-cdk/aws-events-targets@^1.83.0":
+"@aws-cdk/aws-events-targets@1.91.0", "@aws-cdk/aws-events-targets@^1.73.0", "@aws-cdk/aws-events-targets@^1.83.0":
   version "1.91.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-events-targets/-/aws-events-targets-1.91.0.tgz#f652b827010a65e5b00a3b791e488121629a1a1c"
   integrity sha512-7xemhcA4dPCz0ap0SFE1OsfBom/YN8mvdmqh/4MVwpgZdiP83/TgKrezBj52mtsS7yKl8by8uANTSU9hUrC70Q==

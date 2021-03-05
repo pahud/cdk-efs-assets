@@ -54,6 +54,7 @@
   "peerDependencies": {
     "@aws-cdk/aws-ec2": "^1.83.0",
     "@aws-cdk/aws-ecs": "^1.83.0",
+    "@aws-cdk/aws-ecs-patterns": "^1.83.0",
     "@aws-cdk/aws-efs": "^1.83.0",
     "@aws-cdk/aws-events-targets": "^1.83.0",
     "@aws-cdk/aws-iam": "^1.83.0",
@@ -69,6 +70,7 @@
   "dependencies": {
     "@aws-cdk/aws-ec2": "^1.83.0",
     "@aws-cdk/aws-ecs": "^1.83.0",
+    "@aws-cdk/aws-ecs-patterns": "^1.83.0",
     "@aws-cdk/aws-efs": "^1.83.0",
     "@aws-cdk/aws-events-targets": "^1.83.0",
     "@aws-cdk/aws-iam": "^1.83.0",

@@ -42,6 +42,10 @@ export class EfsFargateTask extends cdk.Construct {
       name: 'efs-data',
       efsVolumeConfiguration: {
         fileSystemId: props.accessPoint.fileSystem.fileSystemId,
+        authorizationConfig: {
+          accessPointId: props.accessPoint.accessPointId,
+        },
+        transitEncryption: 'ENABLED',
       },
     });
 

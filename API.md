@@ -4,9 +4,11 @@
 
 Name|Description
 ----|-----------
+[EfsFargateSite](#cdk-efs-assets-efsfargatesite)|*No description*
 [EfsFargateTask](#cdk-efs-assets-efsfargatetask)|Represents the AWS Fargate task with EFS and secret manager support.
 [GithubSyncSource](#cdk-efs-assets-githubsyncsource)|*No description*
 [S3ArchiveSyncSource](#cdk-efs-assets-s3archivesyncsource)|*No description*
+[StatefulFargateNginx](#cdk-efs-assets-statefulfargatenginx)|*No description*
 [SyncSource](#cdk-efs-assets-syncsource)|*No description*
 [SyncedAccessPoint](#cdk-efs-assets-syncedaccesspoint)|*No description*
 
@@ -15,11 +17,13 @@ Name|Description
 
 Name|Description
 ----|-----------
+[EfsFargateSiteProps](#cdk-efs-assets-efsfargatesiteprops)|*No description*
 [EfsFargateTaskProps](#cdk-efs-assets-efsfargatetaskprops)|*No description*
 [FargateTaskConfig](#cdk-efs-assets-fargatetaskconfig)|*No description*
 [GithubSecret](#cdk-efs-assets-githubsecret)|*No description*
 [GithubSourceProps](#cdk-efs-assets-githubsourceprops)|*No description*
 [S3ArchiveSourceProps](#cdk-efs-assets-s3archivesourceprops)|*No description*
+[StatefulFargateNginxProps](#cdk-efs-assets-statefulfargatenginxprops)|*No description*
 [SyncSourceProps](#cdk-efs-assets-syncsourceprops)|*No description*
 [SyncedAccessPointProps](#cdk-efs-assets-syncedaccesspointprops)|*No description*
 
@@ -29,6 +33,41 @@ Name|Description
 Name|Description
 ----|-----------
 [SyncEngine](#cdk-efs-assets-syncengine)|*No description*
+
+
+
+## class EfsFargateSite  <a id="cdk-efs-assets-efsfargatesite"></a>
+
+
+
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
+__Extends__: [Construct](#aws-cdk-core-construct)
+
+### Initializer
+
+
+
+
+```ts
+new EfsFargateSite(scope: Construct, id: string, props: EfsFargateSiteProps)
+```
+
+* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
+* **id** (<code>string</code>)  *No description*
+* **props** (<code>[EfsFargateSiteProps](#cdk-efs-assets-efsfargatesiteprops)</code>)  *No description*
+  * **accessPoint** (<code>[AccessPoint](#aws-cdk-aws-efs-accesspoint)</code>)  *No description* 
+  * **task** (<code>[FargateTaskDefinition](#aws-cdk-aws-ecs-fargatetaskdefinition)</code>)  *No description* 
+  * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  *No description* 
+
+
+
+### Properties
+
+
+Name | Type | Description 
+-----|------|-------------
+**service** | <code>[ApplicationLoadBalancedFargateService](#aws-cdk-aws-ecs-patterns-applicationloadbalancedfargateservice)</code> | <span></span>
+**task** | <code>[FargateTaskDefinition](#aws-cdk-aws-ecs-fargatetaskdefinition)</code> | <span></span>
 
 
 
@@ -119,6 +158,47 @@ new S3ArchiveSyncSource(props: S3ArchiveSourceProps)
   * **zipFilePath** (<code>string</code>)  The path of the zip file to extract in the S3 bucket. 
   * **syncOnUpdate** (<code>boolean</code>)  If this is set to true, then whenever a new object is uploaded to the specified path, an EFS sync will be triggered. __*Default*__: true
 
+
+
+
+## class StatefulFargateNginx  <a id="cdk-efs-assets-statefulfargatenginx"></a>
+
+
+
+__Implements__: [IConstruct](#constructs-iconstruct), [IConstruct](#aws-cdk-core-iconstruct), [IConstruct](#constructs-iconstruct), [IDependable](#aws-cdk-core-idependable)
+__Extends__: [Construct](#aws-cdk-core-construct)
+
+### Initializer
+
+
+
+
+```ts
+new StatefulFargateNginx(scope: Construct, id: string, props: StatefulFargateNginxProps)
+```
+
+* **scope** (<code>[Construct](#aws-cdk-core-construct)</code>)  *No description*
+* **id** (<code>string</code>)  *No description*
+* **props** (<code>[StatefulFargateNginxProps](#cdk-efs-assets-statefulfargatenginxprops)</code>)  *No description*
+  * **efsFileSystem** (<code>[IFileSystem](#aws-cdk-aws-efs-ifilesystem)</code>)  The EFS FilesSystem as the stateful shared storage of the Fargate service. __*Default*__: create a new EFS FileSystem
+  * **github** (<code>string</code>)  The github repository to clone as the doc root of the nginx. __*Default*__: https://github.com/cristurm/nyan-cat.git
+  * **vpc** (<code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code>)  The VPC for the fargate service. __*Default*__: create a new VPC
+
+
+### Methods
+
+
+#### createSyncedAccessPoint() <a id="cdk-efs-assets-statefulfargatenginx-createsyncedaccesspoint"></a>
+
+
+
+```ts
+createSyncedAccessPoint(): SyncedAccessPoint
+```
+
+
+__Returns__:
+* <code>[SyncedAccessPoint](#cdk-efs-assets-syncedaccesspoint)</code>
 
 
 
@@ -213,6 +293,21 @@ new SyncedAccessPoint(scope: Construct, id: string, props: SyncedAccessPointProp
 
 
 
+## struct EfsFargateSiteProps  <a id="cdk-efs-assets-efsfargatesiteprops"></a>
+
+
+
+
+
+
+Name | Type | Description 
+-----|------|-------------
+**accessPoint** | <code>[AccessPoint](#aws-cdk-aws-efs-accesspoint)</code> | <span></span>
+**task** | <code>[FargateTaskDefinition](#aws-cdk-aws-ecs-fargatetaskdefinition)</code> | <span></span>
+**vpc** | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | <span></span>
+
+
+
 ## struct EfsFargateTaskProps  <a id="cdk-efs-assets-efsfargatetaskprops"></a>
 
 
@@ -292,6 +387,21 @@ Name | Type | Description
 **syncOnUpdate**? | <code>boolean</code> | If this is set to true, then whenever a new object is uploaded to the specified path, an EFS sync will be triggered.<br/>__*Default*__: true
 **timeout**? | <code>[Duration](#aws-cdk-core-duration)</code> | Timeout duration for sync Lambda function.<br/>__*Optional*__
 **vpcSubnets**? | <code>[SubnetSelection](#aws-cdk-aws-ec2-subnetselection)</code> | Where to place the network interfaces within the VPC.<br/>__*Optional*__
+
+
+
+## struct StatefulFargateNginxProps  <a id="cdk-efs-assets-statefulfargatenginxprops"></a>
+
+
+
+
+
+
+Name | Type | Description 
+-----|------|-------------
+**efsFileSystem**? | <code>[IFileSystem](#aws-cdk-aws-efs-ifilesystem)</code> | The EFS FilesSystem as the stateful shared storage of the Fargate service.<br/>__*Default*__: create a new EFS FileSystem
+**github**? | <code>string</code> | The github repository to clone as the doc root of the nginx.<br/>__*Default*__: https://github.com/cristurm/nyan-cat.git
+**vpc**? | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | The VPC for the fargate service.<br/>__*Default*__: create a new VPC
 
 
 
