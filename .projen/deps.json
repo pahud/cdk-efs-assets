@@ -69,7 +69,7 @@
     },
     {
       "name": "projen",
-      "version": "^0.16.35",
+      "version": "^0.16.31",
       "type": "build"
     },
     {
@@ -87,6 +87,11 @@
     },
     {
       "name": "@aws-cdk/aws-ec2",
+      "version": "^1.83.0",
+      "type": "peer"
+    },
+    {
+      "name": "@aws-cdk/aws-ecs-patterns",
       "version": "^1.83.0",
       "type": "peer"
     },
@@ -151,6 +156,11 @@
     },
     {
       "name": "@aws-cdk/aws-ec2",
+      "version": "^1.83.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-cdk/aws-ecs-patterns",
       "version": "^1.83.0",
       "type": "runtime"
     },

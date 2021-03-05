@@ -46,7 +46,7 @@
     "jsii-docgen": "^1.8.61",
     "jsii-pacmak": "^1.23.0",
     "json-schema": "^0.3.0",
-    "projen": "^0.16.35",
+    "projen": "^0.16.31",
     "standard-version": "^9",
     "ts-jest": "^26.5.2",
     "typescript": "^4.2.2"
@@ -54,6 +54,7 @@
   "peerDependencies": {
     "@aws-cdk/aws-ec2": "^1.83.0",
     "@aws-cdk/aws-ecs": "^1.83.0",
+    "@aws-cdk/aws-ecs-patterns": "^1.83.0",
     "@aws-cdk/aws-efs": "^1.83.0",
     "@aws-cdk/aws-events-targets": "^1.83.0",
     "@aws-cdk/aws-iam": "^1.83.0",
@@ -69,6 +70,7 @@
   "dependencies": {
     "@aws-cdk/aws-ec2": "^1.83.0",
     "@aws-cdk/aws-ecs": "^1.83.0",
+    "@aws-cdk/aws-ecs-patterns": "^1.83.0",
     "@aws-cdk/aws-efs": "^1.83.0",
     "@aws-cdk/aws-events-targets": "^1.83.0",
     "@aws-cdk/aws-iam": "^1.83.0",

@@ -20,6 +20,7 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/aws-lambda',
     '@aws-cdk/aws-logs',
     '@aws-cdk/aws-s3',
+    '@aws-cdk/aws-ecs-patterns',
     '@aws-cdk/aws-events-targets',
     '@aws-cdk/aws-secretsmanager',
     '@aws-cdk/custom-resources',
