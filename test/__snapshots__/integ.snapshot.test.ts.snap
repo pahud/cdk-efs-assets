@@ -882,8 +882,6 @@ Object {
         "ContainerDefinitions": Array [
           Object {
             "Command": Array [
-              "bash",
-              "-cex",
               "/root/githubsync.sh",
             ],
             "Environment": Array [
@@ -1247,8 +1245,6 @@ Object {
         "ContainerDefinitions": Array [
           Object {
             "Command": Array [
-              "bash",
-              "-cex",
               "/root/githubsync.sh",
             ],
             "Environment": Array [
