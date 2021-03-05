@@ -235,7 +235,7 @@ export class GithubSyncSource extends SyncSource {
       efsMountTarget: mountTarget,
       syncContainer: {
         image: ecs.ContainerImage.fromAsset(path.join(__dirname, '../docker.d')),
-        command: ['bash', '-cex', '/root/githubsync.sh'],
+        command: ['/root/githubsync.sh'],
         environment,
         secrets: secret ? {
           OAUTH_TOKEN: ecs.Secret.fromSecretsManager(secret, 'oauth_token'),
