@@ -7,6 +7,7 @@
 CDK construct library to populate Amazon EFS assets from Github or S3. If the source is S3, the construct also optionally supports updating the contents in EFS if a new zip file is uploaded to S3.
 
 ## Install
+
 TypeScript/JavaScript:
 
 ```bash
@@ -40,7 +41,7 @@ const taskDefinition = new ecs.FargateTaskDefinition(this, 'TaskDefinition', {
 This library supports both `AWS Fargate` and `AWS Lambda` as the sync engine. As AWS Lambda currently has know issue with Amazon EFS([#100](https://github.com/pahud/cdk-efs-assets/issues/100)), the default sync engine is `AWS Fargate`. You can opt in AWS Lambda with the `engine` construct property of `SyncedAccessPoint`.
 
 
-## SyncSource
+## Sync Source
 
 
 Use `GithubSyncSource` and `S3ArchiveSyncSource` construct classes to define your `syncSource` from Github
@@ -75,7 +76,7 @@ new SyncedAccessPoint(stack, 'EfsAccessPoint', {
 ```
 
 
-### syncDirectoryPath
+### `syncDirectoryPath`
 
 By default, the synced EFS assets are placed into a directory corresponding to the type of the sync source. For example, the default behavior of the GitHub source is to place the copied files into a directory named the same as the repository name (for a repository specified as 'https://github.com/pahud/cdk-efs-assets.git', the directory name would be 'cdk-efs-assets'), while the default behavior of the S3 archive source is to place the copied files into a directory named the same as the zip file (for a zip file name of 'assets.zip', the directory name would be 'assets').
 
@@ -208,3 +209,20 @@ This feature is only available with the `LAMBDA` sync engine.
 
 *WARNING*: The contents of the extraction directory in the access point will be destroyed before extracting the zip file.
 
+
+# `StatefulFargateNginx`
+
+This library comes with `StatefulFargateNginx` construct which allows you to build an Amazon EFS-backed stateful
+AWS Fargate service with its document root seeded from any github repository.
+
+See this [tweet](https://twitter.com/pahudnet/status/1367792169063354371) for the demo.
+
+Sample:
+
+```ts
+new StatefulFargateNginx(this, 'NyanCat', {
+  vpc,
+  github: 'https://github.com/cristurm/nyan-cat.git',
+});
+
+```

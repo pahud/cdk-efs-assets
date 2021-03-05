@@ -1,9 +1,8 @@
 import * as ec2 from '@aws-cdk/aws-ec2';
-import * as ecs from '@aws-cdk/aws-ecs';
 import * as efs from '@aws-cdk/aws-efs';
 import { Bucket } from '@aws-cdk/aws-s3';
 import { App, Stack, RemovalPolicy, Construct } from '@aws-cdk/core';
-import { EfsFargateSite } from './efs-fargate-site';
+import { StatefulFargateNginx } from './stateful-fargate';
 import { SyncedAccessPoint, GithubSyncSource, S3ArchiveSyncSource } from './synced-access-point';
 
 export class IntegTesting {
@@ -100,7 +99,6 @@ export class IntegTesting {
 
 export class NyanCatDemo {
   readonly stack: Stack[];
-
   constructor() {
     const app = new App();
 
@@ -113,49 +111,9 @@ export class NyanCatDemo {
 
     const vpc = getOrCreateVpc(stack);
 
-    const fs = new efs.FileSystem(stack, 'Filesystem', {
+    new StatefulFargateNginx(stack, 'NyanCat', {
       vpc,
-      removalPolicy: RemovalPolicy.DESTROY,
-    });
-
-    // checkout the public github repo to efs filesystem
-    const efsSyncedAccessPoint = new SyncedAccessPoint(stack, 'GithubSyncedAccessPoint', {
-      vpc,
-      fileSystem: fs,
-      path: '/demo-github',
-      createAcl: {
-        ownerGid: '1001',
-        ownerUid: '1001',
-        permissions: '0755',
-      },
-      posixUser: {
-        uid: '1001',
-        gid: '1001',
-      },
-      syncSource: new GithubSyncSource({
-        vpc,
-        repository: 'https://github.com/cristurm/nyan-cat.git',
-      }),
-    });
-
-    const staticSiteTask = new ecs.FargateTaskDefinition(stack, 'FargateStaticSiteTask', {
-      cpu: 256,
-      memoryLimitMiB: 512,
-    });
-    const nginx = staticSiteTask.addContainer('nginx', {
-      image: ecs.ContainerImage.fromRegistry('public.ecr.aws/nginx/nginx:latest'),
-      logging: new ecs.AwsLogDriver({ streamPrefix: 'nginx' })
-    });
-    nginx.addPortMappings({ containerPort: 80 });
-    nginx.addMountPoints({
-      containerPath: '/usr/share/nginx/html/efs',
-      sourceVolume: 'efs-storage',
-      readOnly: true,
-    });
-    new EfsFargateSite(stack, 'NyanCatDemoSite', {
-      vpc,
-      accessPoint: efsSyncedAccessPoint,
-      task: staticSiteTask,
+      github: 'https://github.com/cristurm/nyan-cat.git',
     });
 
     this.stack = [stack];
@@ -163,10 +121,10 @@ export class NyanCatDemo {
 }
 
 // run the integ testing
-// new IntegTesting();
+new IntegTesting();
 
 // run Nyan Cat demo
-new NyanCatDemo();
+// new NyanCatDemo();
 
 
 function getOrCreateVpc(scope: Construct): ec2.IVpc {

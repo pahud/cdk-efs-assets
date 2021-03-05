@@ -2,8 +2,8 @@ import * as ec2 from '@aws-cdk/aws-ec2';
 import * as ecs from '@aws-cdk/aws-ecs';
 import * as patterns from '@aws-cdk/aws-ecs-patterns';
 import * as efs from '@aws-cdk/aws-efs';
-import * as cdk from '@aws-cdk/core';
 import { PolicyStatement } from '@aws-cdk/aws-iam';
+import * as cdk from '@aws-cdk/core';
 
 
 export interface EfsFargateSiteProps {
@@ -26,9 +26,10 @@ export class EfsFargateSite extends cdk.Construct {
         fileSystemId: props.accessPoint.fileSystem.fileSystemId,
         authorizationConfig: {
           accessPointId: props.accessPoint.accessPointId,
-          iam: 'ENABLED',
+          // iam: 'ENABLED',
         },
         transitEncryption: 'ENABLED',
+        // rootDirectory: '/demo-github',
       },
     });
 
@@ -37,6 +38,8 @@ export class EfsFargateSite extends cdk.Construct {
       taskDefinition: this.task,
       platformVersion: ecs.FargatePlatformVersion.VERSION1_4,
     });
+
+    // this.service.node.addDependency(props.accessPoint.fileSystem.mountTargetsAvailable)
 
     this.task.addToExecutionRolePolicy(new PolicyStatement({
       actions: [

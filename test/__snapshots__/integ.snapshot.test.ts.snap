@@ -882,6 +882,8 @@ Object {
         "ContainerDefinitions": Array [
           Object {
             "Command": Array [
+              "bash",
+              "-cex",
               "/root/githubsync.sh",
             ],
             "Environment": Array [
@@ -962,9 +964,15 @@ Object {
         "Volumes": Array [
           Object {
             "EfsVolumeConfiguration": Object {
+              "AuthorizationConfig": Object {
+                "AccessPointId": Object {
+                  "Ref": "GithubSyncedAccessPoint7D9E7A52",
+                },
+              },
               "FileSystemId": Object {
                 "Ref": "Filesystem653F8FD3",
               },
+              "TransitEncryption": "ENABLED",
             },
             "Name": "efs-data",
           },
@@ -1239,6 +1247,8 @@ Object {
         "ContainerDefinitions": Array [
           Object {
             "Command": Array [
+              "bash",
+              "-cex",
               "/root/githubsync.sh",
             ],
             "Environment": Array [
@@ -1352,9 +1362,15 @@ Object {
         "Volumes": Array [
           Object {
             "EfsVolumeConfiguration": Object {
+              "AuthorizationConfig": Object {
+                "AccessPointId": Object {
+                  "Ref": "GithubSyncedAccessPointPrivateC1B0BF58",
+                },
+              },
               "FileSystemId": Object {
                 "Ref": "Filesystem653F8FD3",
               },
+              "TransitEncryption": "ENABLED",
             },
             "Name": "efs-data",
           },
@@ -1511,9 +1527,15 @@ Object {
         "Volumes": Array [
           Object {
             "EfsVolumeConfiguration": Object {
+              "AuthorizationConfig": Object {
+                "AccessPointId": Object {
+                  "Ref": "S3SyncedAccessPointFF91B6A5",
+                },
+              },
               "FileSystemId": Object {
                 "Ref": "Filesystem653F8FD3",
               },
+              "TransitEncryption": "ENABLED",
             },
             "Name": "efs-data",
           },
