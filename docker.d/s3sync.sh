@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xe
+set -e
 #
 # This script helps copy S3 object to local EFS mount and extract it into the mount target directory($MOUNT_TARGET).
 #

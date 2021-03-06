@@ -20,18 +20,6 @@ Object {
     },
   },
   "Parameters": Object {
-    "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956ArtifactHashD15A2D11": Object {
-      "Description": "Artifact hash for asset \\"4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956\\"",
-      "Type": "String",
-    },
-    "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956S3Bucket72B03BC9": Object {
-      "Description": "S3 bucket for asset \\"4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956\\"",
-      "Type": "String",
-    },
-    "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956S3VersionKey520B7554": Object {
-      "Description": "S3 key for asset version \\"4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956\\"",
-      "Type": "String",
-    },
     "AssetParameters67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24ArtifactHashBA91B77F": Object {
       "Description": "Artifact hash for asset \\"67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24\\"",
       "Type": "String",
@@ -44,6 +32,18 @@ Object {
       "Description": "S3 key for asset version \\"67b7823b74bc135986aa72f889d6a8da058d0c4a20cbc2dfc6f78995fdd2fc24\\"",
       "Type": "String",
     },
+    "AssetParametersa5a55f40f05c1031f30cc935c76b58b0b7dbc81e70845edf4ef615d6580ae04dArtifactHashBC261AD6": Object {
+      "Description": "Artifact hash for asset \\"a5a55f40f05c1031f30cc935c76b58b0b7dbc81e70845edf4ef615d6580ae04d\\"",
+      "Type": "String",
+    },
+    "AssetParametersa5a55f40f05c1031f30cc935c76b58b0b7dbc81e70845edf4ef615d6580ae04dS3BucketDDD15B67": Object {
+      "Description": "S3 bucket for asset \\"a5a55f40f05c1031f30cc935c76b58b0b7dbc81e70845edf4ef615d6580ae04d\\"",
+      "Type": "String",
+    },
+    "AssetParametersa5a55f40f05c1031f30cc935c76b58b0b7dbc81e70845edf4ef615d6580ae04dS3VersionKey76284988": Object {
+      "Description": "S3 key for asset version \\"a5a55f40f05c1031f30cc935c76b58b0b7dbc81e70845edf4ef615d6580ae04d\\"",
+      "Type": "String",
+    },
   },
   "Resources": Object {
     "AWS679f53fac002430cb0da5b7982bd22872D164C4C": Object {
@@ -54,7 +54,7 @@ Object {
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956S3Bucket72B03BC9",
+            "Ref": "AssetParametersa5a55f40f05c1031f30cc935c76b58b0b7dbc81e70845edf4ef615d6580ae04dS3BucketDDD15B67",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -67,7 +67,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956S3VersionKey520B7554",
+                          "Ref": "AssetParametersa5a55f40f05c1031f30cc935c76b58b0b7dbc81e70845edf4ef615d6580ae04dS3VersionKey76284988",
                         },
                       ],
                     },
@@ -80,7 +80,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters4a3609ad912843e581892f37ae9d6fb0fa1648b547693aaa562b0119452b8956S3VersionKey520B7554",
+                          "Ref": "AssetParametersa5a55f40f05c1031f30cc935c76b58b0b7dbc81e70845edf4ef615d6580ae04dS3VersionKey76284988",
                         },
                       ],
                     },
@@ -471,44 +471,39 @@ Object {
       ],
       "Properties": Object {
         "Create": Object {
-          "action": "runTask",
-          "parameters": Object {
-            "cluster": Object {
-              "Ref": "GithubSyncedAccessPointPrivateClusterAE91288B",
-            },
-            "launchType": "FARGATE",
-            "networkConfiguration": Object {
-              "awsvpcConfiguration": Object {
-                "assignPublicIp": "DISABLED",
-                "securityGroups": Array [
-                  Object {
-                    "Fn::GetAtt": Array [
-                      "FargateSecurityGroupGithubSyncedAccessPointPrivateFargateTask11E81711",
-                      "GroupId",
-                    ],
-                  },
-                ],
-                "subnets": Array [
-                  Object {
-                    "Ref": "VpcPrivateSubnet1Subnet536B997A",
-                  },
-                  Object {
-                    "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
-                  },
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"ECS\\",\\"action\\":\\"runTask\\",\\"parameters\\":{\\"cluster\\":\\"",
+              Object {
+                "Ref": "GithubSyncedAccessPointPrivateClusterAE91288B",
+              },
+              "\\",\\"taskDefinition\\":\\"",
+              Object {
+                "Ref": "TaskDefinitionGithubSyncedAccessPointPrivateFargateTaskF37D01F0",
+              },
+              "\\",\\"launchType\\":\\"FARGATE\\",\\"platformVersion\\":\\"1.4.0\\",\\"networkConfiguration\\":{\\"awsvpcConfiguration\\":{\\"assignPublicIp\\":\\"DISABLED\\",\\"subnets\\":[\\"",
+              Object {
+                "Ref": "VpcPrivateSubnet1Subnet536B997A",
+              },
+              "\\",\\"",
+              Object {
+                "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+              },
+              "\\"],\\"securityGroups\\":[\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "FargateSecurityGroupGithubSyncedAccessPointPrivateFargateTask11E81711",
+                  "GroupId",
                 ],
               },
-            },
-            "platformVersion": "1.4.0",
-            "taskDefinition": Object {
-              "Ref": "TaskDefinitionGithubSyncedAccessPointPrivateFargateTaskF37D01F0",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Ref": "TaskDefinitionGithubSyncedAccessPointPrivateFargateTaskF37D01F0",
-            },
-          },
-          "service": "ECS",
+              "\\"]}}},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "TaskDefinitionGithubSyncedAccessPointPrivateFargateTaskF37D01F0",
+              },
+              "\\"}}",
+            ],
+          ],
         },
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
@@ -557,44 +552,39 @@ Object {
       ],
       "Properties": Object {
         "Create": Object {
-          "action": "runTask",
-          "parameters": Object {
-            "cluster": Object {
-              "Ref": "GithubSyncedAccessPointClusterEF173EE3",
-            },
-            "launchType": "FARGATE",
-            "networkConfiguration": Object {
-              "awsvpcConfiguration": Object {
-                "assignPublicIp": "DISABLED",
-                "securityGroups": Array [
-                  Object {
-                    "Fn::GetAtt": Array [
-                      "FargateSecurityGroupGithubSyncedAccessPointFargateTaskC5DBBB17",
-                      "GroupId",
-                    ],
-                  },
-                ],
-                "subnets": Array [
-                  Object {
-                    "Ref": "VpcPrivateSubnet1Subnet536B997A",
-                  },
-                  Object {
-                    "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
-                  },
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"ECS\\",\\"action\\":\\"runTask\\",\\"parameters\\":{\\"cluster\\":\\"",
+              Object {
+                "Ref": "GithubSyncedAccessPointClusterEF173EE3",
+              },
+              "\\",\\"taskDefinition\\":\\"",
+              Object {
+                "Ref": "TaskDefinitionGithubSyncedAccessPointFargateTask545DD4A9",
+              },
+              "\\",\\"launchType\\":\\"FARGATE\\",\\"platformVersion\\":\\"1.4.0\\",\\"networkConfiguration\\":{\\"awsvpcConfiguration\\":{\\"assignPublicIp\\":\\"DISABLED\\",\\"subnets\\":[\\"",
+              Object {
+                "Ref": "VpcPrivateSubnet1Subnet536B997A",
+              },
+              "\\",\\"",
+              Object {
+                "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+              },
+              "\\"],\\"securityGroups\\":[\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "FargateSecurityGroupGithubSyncedAccessPointFargateTaskC5DBBB17",
+                  "GroupId",
                 ],
               },
-            },
-            "platformVersion": "1.4.0",
-            "taskDefinition": Object {
-              "Ref": "TaskDefinitionGithubSyncedAccessPointFargateTask545DD4A9",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Ref": "TaskDefinitionGithubSyncedAccessPointFargateTask545DD4A9",
-            },
-          },
-          "service": "ECS",
+              "\\"]}}},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "TaskDefinitionGithubSyncedAccessPointFargateTask545DD4A9",
+              },
+              "\\"}}",
+            ],
+          ],
         },
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
@@ -800,44 +790,39 @@ Object {
       ],
       "Properties": Object {
         "Create": Object {
-          "action": "runTask",
-          "parameters": Object {
-            "cluster": Object {
-              "Ref": "S3SyncedAccessPointClusterDB88111B",
-            },
-            "launchType": "FARGATE",
-            "networkConfiguration": Object {
-              "awsvpcConfiguration": Object {
-                "assignPublicIp": "DISABLED",
-                "securityGroups": Array [
-                  Object {
-                    "Fn::GetAtt": Array [
-                      "FargateSecurityGroupS3SyncedAccessPointFargateTask3FB122DD",
-                      "GroupId",
-                    ],
-                  },
-                ],
-                "subnets": Array [
-                  Object {
-                    "Ref": "VpcPrivateSubnet1Subnet536B997A",
-                  },
-                  Object {
-                    "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
-                  },
+          "Fn::Join": Array [
+            "",
+            Array [
+              "{\\"service\\":\\"ECS\\",\\"action\\":\\"runTask\\",\\"parameters\\":{\\"cluster\\":\\"",
+              Object {
+                "Ref": "S3SyncedAccessPointClusterDB88111B",
+              },
+              "\\",\\"taskDefinition\\":\\"",
+              Object {
+                "Ref": "TaskDefinitionS3SyncedAccessPointFargateTask48B4D7CA",
+              },
+              "\\",\\"launchType\\":\\"FARGATE\\",\\"platformVersion\\":\\"1.4.0\\",\\"networkConfiguration\\":{\\"awsvpcConfiguration\\":{\\"assignPublicIp\\":\\"DISABLED\\",\\"subnets\\":[\\"",
+              Object {
+                "Ref": "VpcPrivateSubnet1Subnet536B997A",
+              },
+              "\\",\\"",
+              Object {
+                "Ref": "VpcPrivateSubnet2Subnet3788AAA1",
+              },
+              "\\"],\\"securityGroups\\":[\\"",
+              Object {
+                "Fn::GetAtt": Array [
+                  "FargateSecurityGroupS3SyncedAccessPointFargateTask3FB122DD",
+                  "GroupId",
                 ],
               },
-            },
-            "platformVersion": "1.4.0",
-            "taskDefinition": Object {
-              "Ref": "TaskDefinitionS3SyncedAccessPointFargateTask48B4D7CA",
-            },
-          },
-          "physicalResourceId": Object {
-            "id": Object {
-              "Ref": "TaskDefinitionS3SyncedAccessPointFargateTask48B4D7CA",
-            },
-          },
-          "service": "ECS",
+              "\\"]}}},\\"physicalResourceId\\":{\\"id\\":\\"",
+              Object {
+                "Ref": "TaskDefinitionS3SyncedAccessPointFargateTask48B4D7CA",
+              },
+              "\\"}}",
+            ],
+          ],
         },
         "InstallLatestAwsSdk": true,
         "ServiceToken": Object {
@@ -914,7 +899,7 @@ Object {
                   Object {
                     "Ref": "AWS::URLSuffix",
                   },
-                  "/aws-cdk/assets:ca43608bce23700108378044059d22c20864946ef8cd20b8ec8139fcdfc268d1",
+                  "/aws-cdk/assets:e9fd20a021c400ce7347006530b40638e675886fca131acb801238651e98ac12",
                 ],
               ],
             },
@@ -1285,7 +1270,7 @@ Object {
                   Object {
                     "Ref": "AWS::URLSuffix",
                   },
-                  "/aws-cdk/assets:ca43608bce23700108378044059d22c20864946ef8cd20b8ec8139fcdfc268d1",
+                  "/aws-cdk/assets:e9fd20a021c400ce7347006530b40638e675886fca131acb801238651e98ac12",
                 ],
               ],
             },
@@ -1475,7 +1460,7 @@ Object {
                   Object {
                     "Ref": "AWS::URLSuffix",
                   },
-                  "/aws-cdk/assets:ca43608bce23700108378044059d22c20864946ef8cd20b8ec8139fcdfc268d1",
+                  "/aws-cdk/assets:e9fd20a021c400ce7347006530b40638e675886fca131acb801238651e98ac12",
                 ],
               ],
             },
