@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xe
+set -e
 #
 # This script helps git clone from github repo to local EFS mount target
 #
