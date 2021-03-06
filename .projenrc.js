@@ -28,7 +28,7 @@ const project = new AwsCdkConstructLibrary({
   deps: ['cdk-fargate-run-task'],
   peerDeps: ['cdk-fargate-run-task'],
   dependabot: false,
-  defaultReleaseBranch: 'master',
+  defaultReleaseBranch: 'main',
   keywords: [
     'aws',
     'cdk',
