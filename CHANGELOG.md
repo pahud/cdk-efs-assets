@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.28](https://github.com/pahud/cdk-efs-assets/compare/v0.3.27...v0.3.28) (2021-03-29)
+
 ### [0.3.27](https://github.com/pahud/cdk-efs-assets/compare/v0.3.26...v0.3.27) (2021-03-27)
 
 ### [0.3.26](https://github.com/pahud/cdk-efs-assets/compare/v0.3.25...v0.3.26) (2021-03-26)
