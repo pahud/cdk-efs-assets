@@ -430,13 +430,13 @@ Name | Type | Description
 
 Name | Type | Description 
 -----|------|-------------
-**fileSystem**🔹 | <code>[IFileSystem](#aws-cdk-aws-efs-ifilesystem)</code> | The efs filesystem.
+**fileSystem** | <code>[IFileSystem](#aws-cdk-aws-efs-ifilesystem)</code> | The efs filesystem.
 **syncSource** | <code>[SyncSource](#cdk-efs-assets-syncsource)</code> | <span></span>
 **vpc** | <code>[IVpc](#aws-cdk-aws-ec2-ivpc)</code> | The VPC to run the sync job.
-**createAcl**?🔹 | <code>[Acl](#aws-cdk-aws-efs-acl)</code> | Specifies the POSIX IDs and permissions to apply when creating the access point's root directory.<br/>__*Default*__: None. The directory specified by `path` must exist.
+**createAcl**? | <code>[Acl](#aws-cdk-aws-efs-acl)</code> | Specifies the POSIX IDs and permissions to apply when creating the access point's root directory.<br/>__*Default*__: None. The directory specified by `path` must exist.
 **engine**? | <code>[SyncEngine](#cdk-efs-assets-syncengine)</code> | Trigger the sync with AWS Lambda or AWS Fargate.<br/>__*Optional*__
-**path**?🔹 | <code>string</code> | Specifies the path on the EFS file system to expose as the root directory to NFS clients using the access point to access the EFS file system.<br/>__*Default*__: '/'
-**posixUser**?🔹 | <code>[PosixUser](#aws-cdk-aws-efs-posixuser)</code> | The full POSIX identity, including the user ID, group ID, and any secondary group IDs, on the access point that is used for all file system operations performed by NFS clients using the access point.<br/>__*Default*__: user identity not enforced
+**path**? | <code>string</code> | Specifies the path on the EFS file system to expose as the root directory to NFS clients using the access point to access the EFS file system.<br/>__*Default*__: '/'
+**posixUser**? | <code>[PosixUser](#aws-cdk-aws-efs-posixuser)</code> | The full POSIX identity, including the user ID, group ID, and any secondary group IDs, on the access point that is used for all file system operations performed by NFS clients using the access point.<br/>__*Default*__: user identity not enforced
 
 
 
