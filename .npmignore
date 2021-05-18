@@ -19,6 +19,7 @@ cdk.out
 dist
 images
 junit.xml
+tsconfig.tsbuildinfo
 yarn-error.log
 !.jsii
 !/lib
